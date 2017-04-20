@@ -1,0 +1,69 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require material_icons
+ */
+@import "materialize";
+
+.btn {
+  overflow: hidden;
+}
+.btn:hover:before {
+  opacity:1.0;
+}
+
+.btn:before {
+    content: '';
+    opacity: 0;
+    background-color: rgba(0,0,0,.2);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: opacity .2s;
+    z-index: -1;
+}
+
+
+.picker__frame {
+    max-height: 200px;
+    max-width: 500px;
+}
+
+.picker__date-display {
+  text-align: center;
+  background-color: #26a69a;
+  color: #fff;
+  padding-bottom: 15px;
+  font-weight: 100
+}
+
+
+
+.picker__month-display {
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.picker__day-display {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.picker__year-display {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+

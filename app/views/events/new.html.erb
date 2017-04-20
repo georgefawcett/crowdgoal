@@ -1,0 +1,252 @@
+
+
+
+
+<%= form_for :event do |f| %>
+<div class="row">
+
+
+
+
+
+
+      <div class="row">
+
+
+
+        <div class="input-field col s4">
+
+  <i class="material-icons prefix">art_track</i>
+
+
+
+ <%= f.select :sport_id, options_from_collection_for_select(Sport.all.order(:name), :id, :name), { prompt: true } %>
+
+<label for="sport">Category</label>
+  </div>
+</div>
+
+
+
+
+<div class="row">
+          <div class="input-field col s6">
+
+           <i class="material-icons prefix">art_track</i>
+
+           <%= f.text_field :title %>
+
+
+
+
+            <label for="event_title">Event title (keep it short!)</label>
+          </div>
+        </div>
+
+
+
+<div class="row">
+<div class="input-field col s2">
+<%= f.date_field :start_date %>
+<%= submit_tag("Submit") %>
+
+    <% end %>
+ <input type="date" id="date" class="datepicker">
+ <label for="first_name">Date</label>
+</div>
+</div>
+
+
+
+
+ <div class="row">
+
+
+        <div class="input-field col s2">
+
+    <select id="time">
+      <option value="" disabled selected>From</option>
+
+
+<option value="00:00:00">12:00 AM</option
+<option value="00:00:30">12:30 AM</option>
+<option value="00:01:00">1:00 AM</option>
+<option value="0:00">1:30 AM</option>
+<option value="0:00">2:00 AM</option>
+<option value="0:00">2:30 AM</option>
+<option value="0:00">3:00 AM</option>
+<option value="0:00">3:30 AM</option>
+<option value="0:00">4:00 AM</option>
+<option value="0:00">4:30 AM</option>
+<option value="0:00">5:00 AM</option>
+<option value="0:00">5:30 AM</option>
+<option value="0:00">6:00 AM</option>
+<option value="0:00">6:30 AM</option
+<option value="0:00">7:00 AM</option>
+<option value="0:00">7:30 AM</option>
+<option value="0:00">8:00 AM</option>
+<option value="0:00">8:30 AM</option>
+<option value="0:00">9:00 AM</option>
+<option value="0:00">9:30 AM</option>
+<option value="0:00">10:00 AM</option>
+<option value="0:00">10:30 AM</option>
+<option value="0:00">11:00 AM</option>
+<option value="0:00">11:30 AM</option>
+<option value="0:00">12:00 PM</option
+<option value="0:00">12:30 PM</option>
+<option value="0:00">1:00 PM</option>
+<option value="0:00">1:30 PM</option>
+<option value="0:00">2:00 PM</option>
+<option value="0:00">2:30 PM</option>
+<option value="0:00">3:00 PM</option>
+<option value="0:00">3:30 PM</option>
+<option value="0:00">4:00 PM</option>
+<option value="0:00">4:30 PM</option>
+<option value="0:00">5:00 PM</option>
+<option value="0:00">5:30 PM</option>
+<option value="0:00">6:00 PM</option>
+<option value="0:00">6:30 PM</option
+<option value="0:00">7:00 PM</option>
+<option value="0:00">7:30 PM</option>
+<option value="0:00">8:00 PM</option>
+<option value="0:00">8:30 PM</option>
+<option value="0:00">9:00 PM</option>
+<option value="0:00">9:30 PM</option>
+<option value="0:00">10:00 PM</option>
+<option value="0:00">10:30 PM</option>
+<option value="0:00">11:00 PM</option>
+<option value="0:00">11:30 PM</option>
+
+
+    </select>
+
+ <label for="input_text">Time</label>
+
+</div>
+<div class="input-field col s2">
+
+
+
+      <select>
+      <option value="" disabled selected>To</option>
+
+<option value="0:00">12:00 AM</option
+<option value="0:00">12:30 AM</option>
+<option value="0:00">1:00 AM</option>
+<option value="0:00">1:30 AM</option>
+<option value="0:00">2:00 AM</option>
+<option value="0:00">2:30 AM</option>
+<option value="0:00">3:00 AM</option>
+<option value="0:00">3:30 AM</option>
+<option value="0:00">4:00 AM</option>
+<option value="0:00">4:30 AM</option>
+<option value="0:00">5:00 AM</option>
+<option value="0:00">5:30 AM</option>
+<option value="0:00">6:00 AM</option>
+<option value="0:00">6:30 AM</option
+<option value="0:00">7:00 AM</option>
+<option value="0:00">7:30 AM</option>
+<option value="0:00">8:00 AM</option>
+<option value="0:00">8:30 AM</option>
+<option value="0:00">9:00 AM</option>
+<option value="0:00">9:30 AM</option>
+<option value="0:00">10:00 AM</option>
+<option value="0:00">10:30 AM</option>
+<option value="0:00">11:00 AM</option>
+<option value="0:00">11:30 AM</option>
+<option value="0:00">12:00 PM</option
+<option value="0:00">12:30 PM</option>
+<option value="0:00">1:00 PM</option>
+<option value="0:00">1:30 PM</option>
+<option value="0:00">2:00 PM</option>
+<option value="0:00">2:30 PM</option>
+<option value="0:00">3:00 PM</option>
+<option value="0:00">3:30 PM</option>
+<option value="0:00">4:00 PM</option>
+<option value="0:00">4:30 PM</option>
+<option value="0:00">5:00 PM</option>
+<option value="0:00">5:30 PM</option>
+<option value="0:00">6:00 PM</option>
+<option value="0:00">6:30 PM</option
+<option value="0:00">7:00 PM</option>
+<option value="0:00">7:30 PM</option>
+<option value="0:00">8:00 PM</option>
+<option value="0:00">8:30 PM</option>
+<option value="0:00">9:00 PM</option>
+<option value="0:00">9:30 PM</option>
+<option value="0:00">10:00 PM</option>
+<option value="0:00">10:30 PM</option>
+<option value="0:00">11:00 PM</option>
+<option value="0:00">11:30 PM</option>
+
+
+
+    </select>
+
+
+  </div>
+
+
+</div>
+
+
+
+</div>
+
+
+<div class="row">
+<div class="input-field col s4">
+        <textarea id="details" class="materialize-textarea"></textarea>
+          <label for="details">Description (any details you'd like to provide)</label>
+        </div>
+      </div>
+
+
+ <div class="row">
+
+
+
+        <div class="input-field col s4">
+<div class="file-field input-field">
+      <div class="btn">
+        <span>file</span>
+        <input type="file">
+      </div>
+      <div class="file-path-wrapper">
+
+        <input class="file-path validate" type="text">
+
+      </div>
+    </div>
+
+
+  </div>
+
+  </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          This is an inline input field:
+          <div class="input-field inline">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="wrong" data-success="right">Email</label>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+
+

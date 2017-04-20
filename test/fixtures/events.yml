@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  sport_id: 1
+  title: MyString
+  details: MyText
+  start_time: 2017-04-20 15:19:57
+  duration: 1.5
+  loc_name: MyString
+  loc_address: MyString
+  loc_x: 1.5
+  loc_y: 1.5
+  loc_area_id: 1
+  min_people: 1
+  max_people: 1
+  expiry: 2017-04-20 15:19:57
+
+two:
+  user_id: 1
+  sport_id: 1
+  title: MyString
+  details: MyText
+  start_time: 2017-04-20 15:19:57
+  duration: 1.5
+  loc_name: MyString
+  loc_address: MyString
+  loc_x: 1.5
+  loc_y: 1.5
+  loc_area_id: 1
+  min_people: 1
+  max_people: 1
+  expiry: 2017-04-20 15:19:57

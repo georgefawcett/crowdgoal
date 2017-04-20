@@ -6,6 +6,28 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+
+<script language="javascript">
+$(document).ready(function() {
+  $('select').material_select();
+
+    $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    min: new Date(1990,0,1),
+      max: new Date(2000,11,31),
+      closeOnSelect: true,
+      header: 'none'
+  });
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+
+$('.modal').modal();
+
+});
+</script>
+
+
   </head>
 
   <body>
