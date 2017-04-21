@@ -13,8 +13,14 @@
  *= require_tree .
  *= require_self
  *= require material_icons
+
+
  */
 @import "materialize";
+
+
+
+
 
 .btn {
   overflow: hidden;
@@ -67,3 +73,30 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
+#backgroundImage{z-index: 1;}
+
+#backgroundImage:before {
+   content: "";
+   position: absolute;
+   z-index: -1;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background-image: url(http://wallpapercave.com/wp/MOutIf0.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    opacity: 0.3;
+    filter:alpha(opacity=30);
+    height:100%;
+    width:100%;
+ }
+
+.main{
+   width: 60%;
+   margin:auto;
+   z-index:-1;
+   opacity: 1;
+   filter:alpha(opacity=100);
+}

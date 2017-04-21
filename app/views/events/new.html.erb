@@ -1,7 +1,11 @@
+<div class="col s12 m7" style="width: 100%;"">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
 
-
-
-
+        <span class="card-title" style="font-size: 160%">Create Event</span>
+        <hr />
+<br>
 <%= form_for :event do |f| %>
 <div class="row">
 
@@ -14,15 +18,15 @@
 
 
 
-        <div class="input-field col s4">
+        <div class="input-field col s6">
 
   <i class="material-icons prefix">art_track</i>
 
 
 
- <%= f.select :sport_id, options_from_collection_for_select(Sport.all.order(:name), :id, :name), { prompt: true } %>
+ <%= f.select :sport_id, options_from_collection_for_select(Sport.all.order(:name), :id, :name), { prompt: 'Choose a Sport' } %>
 
-<label for="sport">Category</label>
+
   </div>
 </div>
 
@@ -30,11 +34,11 @@
 
 
 <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s8">
 
-           <i class="material-icons prefix">art_track</i>
+           <i class="material-icons prefix">volume_up</i>
 
-           <%= f.text_field :title %>
+           <%= f.text_field :title, 'data-length': 100 %>
 
 
 
@@ -46,175 +50,107 @@
 
 
 <div class="row">
-<div class="input-field col s2">
-<%= f.date_field :start_date %>
-<%= submit_tag("Submit") %>
+<div class="input-field col s4">
 
-    <% end %>
- <input type="date" id="date" class="datepicker">
- <label for="first_name">Date</label>
+<i class="material-icons prefix">today</i>
+<%= f.text_field :start_date, class: 'datepicker' %>
+
+
+ <label for="event_start_date">Date</label>
 </div>
+
+<div class="input-field col s4">
+<i class="material-icons prefix">access_time</i>
+
+<%= f.select :start_time, options_for_select([
+['12:00 AM', '1']
+  ]), include_blank: true %>
+
+
+ <label for="start_time">Time</label>
 </div>
-
-
-
-
- <div class="row">
-
-
-        <div class="input-field col s2">
-
-    <select id="time">
-      <option value="" disabled selected>From</option>
-
-
-<option value="00:00:00">12:00 AM</option
-<option value="00:00:30">12:30 AM</option>
-<option value="00:01:00">1:00 AM</option>
-<option value="0:00">1:30 AM</option>
-<option value="0:00">2:00 AM</option>
-<option value="0:00">2:30 AM</option>
-<option value="0:00">3:00 AM</option>
-<option value="0:00">3:30 AM</option>
-<option value="0:00">4:00 AM</option>
-<option value="0:00">4:30 AM</option>
-<option value="0:00">5:00 AM</option>
-<option value="0:00">5:30 AM</option>
-<option value="0:00">6:00 AM</option>
-<option value="0:00">6:30 AM</option
-<option value="0:00">7:00 AM</option>
-<option value="0:00">7:30 AM</option>
-<option value="0:00">8:00 AM</option>
-<option value="0:00">8:30 AM</option>
-<option value="0:00">9:00 AM</option>
-<option value="0:00">9:30 AM</option>
-<option value="0:00">10:00 AM</option>
-<option value="0:00">10:30 AM</option>
-<option value="0:00">11:00 AM</option>
-<option value="0:00">11:30 AM</option>
-<option value="0:00">12:00 PM</option
-<option value="0:00">12:30 PM</option>
-<option value="0:00">1:00 PM</option>
-<option value="0:00">1:30 PM</option>
-<option value="0:00">2:00 PM</option>
-<option value="0:00">2:30 PM</option>
-<option value="0:00">3:00 PM</option>
-<option value="0:00">3:30 PM</option>
-<option value="0:00">4:00 PM</option>
-<option value="0:00">4:30 PM</option>
-<option value="0:00">5:00 PM</option>
-<option value="0:00">5:30 PM</option>
-<option value="0:00">6:00 PM</option>
-<option value="0:00">6:30 PM</option
-<option value="0:00">7:00 PM</option>
-<option value="0:00">7:30 PM</option>
-<option value="0:00">8:00 PM</option>
-<option value="0:00">8:30 PM</option>
-<option value="0:00">9:00 PM</option>
-<option value="0:00">9:30 PM</option>
-<option value="0:00">10:00 PM</option>
-<option value="0:00">10:30 PM</option>
-<option value="0:00">11:00 PM</option>
-<option value="0:00">11:30 PM</option>
-
-
-    </select>
-
- <label for="input_text">Time</label>
-
-</div>
-<div class="input-field col s2">
-
-
-
-      <select>
-      <option value="" disabled selected>To</option>
-
-<option value="0:00">12:00 AM</option
-<option value="0:00">12:30 AM</option>
-<option value="0:00">1:00 AM</option>
-<option value="0:00">1:30 AM</option>
-<option value="0:00">2:00 AM</option>
-<option value="0:00">2:30 AM</option>
-<option value="0:00">3:00 AM</option>
-<option value="0:00">3:30 AM</option>
-<option value="0:00">4:00 AM</option>
-<option value="0:00">4:30 AM</option>
-<option value="0:00">5:00 AM</option>
-<option value="0:00">5:30 AM</option>
-<option value="0:00">6:00 AM</option>
-<option value="0:00">6:30 AM</option
-<option value="0:00">7:00 AM</option>
-<option value="0:00">7:30 AM</option>
-<option value="0:00">8:00 AM</option>
-<option value="0:00">8:30 AM</option>
-<option value="0:00">9:00 AM</option>
-<option value="0:00">9:30 AM</option>
-<option value="0:00">10:00 AM</option>
-<option value="0:00">10:30 AM</option>
-<option value="0:00">11:00 AM</option>
-<option value="0:00">11:30 AM</option>
-<option value="0:00">12:00 PM</option
-<option value="0:00">12:30 PM</option>
-<option value="0:00">1:00 PM</option>
-<option value="0:00">1:30 PM</option>
-<option value="0:00">2:00 PM</option>
-<option value="0:00">2:30 PM</option>
-<option value="0:00">3:00 PM</option>
-<option value="0:00">3:30 PM</option>
-<option value="0:00">4:00 PM</option>
-<option value="0:00">4:30 PM</option>
-<option value="0:00">5:00 PM</option>
-<option value="0:00">5:30 PM</option>
-<option value="0:00">6:00 PM</option>
-<option value="0:00">6:30 PM</option
-<option value="0:00">7:00 PM</option>
-<option value="0:00">7:30 PM</option>
-<option value="0:00">8:00 PM</option>
-<option value="0:00">8:30 PM</option>
-<option value="0:00">9:00 PM</option>
-<option value="0:00">9:30 PM</option>
-<option value="0:00">10:00 PM</option>
-<option value="0:00">10:30 PM</option>
-<option value="0:00">11:00 PM</option>
-<option value="0:00">11:30 PM</option>
-
-
-
-    </select>
-
-
-  </div>
 
 
 </div>
 
+<div class="row">
 
 
-</div>
+
+
+
+
+
 
 
 <div class="row">
-<div class="input-field col s4">
+<div class="input-field col s8">
+<i class="material-icons prefix">subject</i>
         <textarea id="details" class="materialize-textarea"></textarea>
           <label for="details">Description (any details you'd like to provide)</label>
         </div>
       </div>
 
 
+
+<div class="row">
+
+          <div class="input-field col s4">
+
+<i class="material-icons prefix">group</i>
+
+           <%= f.text_field :min_players %>
+
+<label for="event_min_players">Minimum players</label>
+
+
+
+          </div>
+
+          <div class="input-field col s4">
+
+
+
+           <%= f.text_field :max_players %>
+
+
+<label for="event_max_players">Maximum players</label>
+
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  <div class="row">
 
 
 
-        <div class="input-field col s4">
+        <div class="input-field col s8">
+
+
 <div class="file-field input-field">
+
+
       <div class="btn">
-        <span>file</span>
+        <span><i class="material-icons white-text" style="font-size:170%">photo_camera</i></span>
         <input type="file">
       </div>
       <div class="file-path-wrapper">
 
-        <input class="file-path validate" type="text">
+        <input class="file-path validate" type="text" placeholder="Event image (optional)">
 
       </div>
     </div>
@@ -226,6 +162,9 @@
 
       <div class="row">
         <div class="input-field col s12">
+
+
+
           <input id="password" type="password" class="validate">
           <label for="password">Password</label>
         </div>
@@ -247,6 +186,17 @@
       </div>
 
   </div>
+
+
+
+<%= submit_tag("Submit") %>
+
+    <% end %>
+
+</div>
+</div>
+</div>
+</div>
 
 
 
