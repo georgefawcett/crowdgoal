@@ -6,10 +6,11 @@ class Event < ApplicationRecord
 
 
 
-# before_create :combine_datetime
+before_validation :combine_datetime
 
-#  private
-#      def combine_datetime
-#      self.title = "#{params[:event][:title]} test!"
-#     end
+ private
+     def combine_datetime
+     self.expiry = "#{start_date} #{start_time}"
+     puts self.expiry
+    end
 end

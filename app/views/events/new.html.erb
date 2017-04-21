@@ -1,12 +1,18 @@
+
+<p id="demo"></p>
+
+
+
 <div class="col s12 m7" style="width: 100%;"">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
 
-        <span class="card-title" style="font-size: 160%">Create Event</span>
-        <hr />
+        <span class="card-title" style="font-size: 160%; font-weight:; bold">Create Event</span>
+        <hr class="blue"/>
 <br>
-<%= form_for :event do |f| %>
+<%= form_for :event, :url => events_path do |f| %>
+
 <div class="row">
 
 
@@ -40,9 +46,6 @@
 
            <%= f.text_field :title, 'data-length': 100 %>
 
-
-
-
             <label for="event_title">Event title (keep it short!)</label>
           </div>
         </div>
@@ -63,7 +66,41 @@
 <i class="material-icons prefix">access_time</i>
 
 <%= f.select :start_time, options_for_select([
-['12:00 AM', '1']
+['6:00 AM', '06:00:00'],
+['6:30 AM', '06:30:00'],
+['7:00 AM', '07:00:00'],
+['7:30 AM', '07:30:00'],
+['8:00 AM', '08:00:00'],
+['8:30 AM', '08:30:00'],
+['9:00 AM', '09:00:00'],
+['9:30 AM', '09:30:00'],
+['10:00 AM', '10:00:00'],
+['10:30 AM', '10:30:00'],
+['11:00 AM', '11:00:00'],
+['11:30 AM', '11:30:00'],
+['12:00 PM', '12:00:00'],
+['12:30 PM', '12:30:00'],
+['1:00 PM', '13:00:00'],
+['1:30 PM', '13:30:00'],
+['2:00 PM', '14:00:00'],
+['2:30 PM', '14:30:00'],
+['3:00 PM', '15:00:00'],
+['3:30 PM', '15:30:00'],
+['4:00 PM', '16:00:00'],
+['4:30 PM', '16:30:00'],
+['5:00 PM', '17:00:00'],
+['5:30 PM', '17:30:00'],
+['6:00 PM', '18:00:00'],
+['6:30 PM', '18:30:00'],
+['7:00 PM', '19:00:00'],
+['7:30 PM', '19:30:00'],
+['8:00 PM', '20:00:00'],
+['8:30 PM', '20:30:00'],
+['9:00 PM', '21:00:00'],
+['9:30 PM', '21:30:00'],
+['10:00 PM', '22:00:00'],
+['10:30 PM', '22:30:00'],
+['11:00 PM', '23:00:00']
   ]), include_blank: true %>
 
 
@@ -84,13 +121,27 @@
 
 
 <div class="row">
-<div class="input-field col s8">
+<div class="input-field col s10">
 <i class="material-icons prefix">subject</i>
         <textarea id="details" class="materialize-textarea"></textarea>
-          <label for="details">Description (any details you'd like to provide)</label>
+          <label for="details">Description (any details/comments you'd like to add)</label>
         </div>
       </div>
 
+
+
+ <div class="row">
+ <div class="input-field col s8">
+
+        <i class="material-icons prefix">location_on</i>
+
+<%= f.text_field :location, placeholder: '' %>
+     <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
+<label for="event_location">Location (Google autocomplete)</label>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
+</div>
+      </div>
 
 
 <div class="row">
@@ -99,9 +150,9 @@
 
 <i class="material-icons prefix">group</i>
 
-           <%= f.text_field :min_players %>
+           <%= f.text_field :min_people %>
 
-<label for="event_min_players">Minimum players</label>
+<label for="event_min_people">Minimum players</label>
 
 
 
@@ -111,10 +162,10 @@
 
 
 
-           <%= f.text_field :max_players %>
+           <%= f.text_field :max_people %>
 
 
-<label for="event_max_players">Maximum players</label>
+<label for="event_max_people">Maximum players</label>
 
 
           </div>
@@ -134,62 +185,19 @@
 
 
 
- <div class="row">
 
 
 
-        <div class="input-field col s8">
-
-
-<div class="file-field input-field">
-
-
-      <div class="btn">
-        <span><i class="material-icons white-text" style="font-size:170%">photo_camera</i></span>
-        <input type="file">
-      </div>
-      <div class="file-path-wrapper">
-
-        <input class="file-path validate" type="text" placeholder="Event image (optional)">
-
-      </div>
-    </div>
-
-
-  </div>
-
-  </div>
-
-      <div class="row">
-        <div class="input-field col s12">
 
 
 
-          <input id="password" type="password" class="validate">
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
-          <label for="email">Email</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          This is an inline input field:
-          <div class="input-field inline">
-            <input id="email" type="email" class="validate">
-            <label for="email" data-error="wrong" data-success="right">Email</label>
-          </div>
-        </div>
-      </div>
-
-  </div>
 
 
+<%= button_tag( :class => "waves-effect waves-light btn green") do %>
+  Create Event <i class="material-icons left">group_add</i>
+<% end %>
 
-<%= submit_tag("Submit") %>
+
 
     <% end %>
 
@@ -197,6 +205,27 @@
 </div>
 </div>
 </div>
+
+
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+
 
 
 

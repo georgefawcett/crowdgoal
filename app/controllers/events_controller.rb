@@ -16,6 +16,7 @@ class EventsController < ApplicationController
     # params[:event].except!(:start_date)
     # puts params
 
+
     event = Event.new(event_params)
     # puts event_params
       if event.save
@@ -25,11 +26,18 @@ class EventsController < ApplicationController
       end
     end
 
+
+    def show
+
+      @event = Event.find params[:id]
+
+    end
+
  private
 
    def event_params
 
-    params.require(:event).permit(:sport_id, :title, :start_time)
+    params.require(:event).permit(:sport_id, :title, :start_date, :start_time, :details, :location, :min_people, :max_people, :expiry)
     # puts params[:event][:title]
   #   # params[:start_time] = "01:00:00"
   #   # params

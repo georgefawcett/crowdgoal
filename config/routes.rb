@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
   root to: 'events#index'
 
-  get '/events/new' => 'events#new'
-  post '/events/new' => 'events#create'
+  # get '/events/new' => 'events#new'
+  # post '/events/new' => 'events#create'
+
+  resources :events
 
   get '/register' => 'users#new'
   post '/register' => 'users#create'
@@ -12,5 +14,7 @@ Rails.application.routes.draw do
   get '/tests/new' => 'tests#new'
   post '/tests/new' => 'tests#create'
 
+ root to: "photos#index"
+  resources :photos
 
 end
