@@ -18,9 +18,20 @@ class EventsController < ApplicationController
 
 
     event = Event.new(event_params)
+
     # puts event_params
       if event.save
+
+    event_user = Events_User.new()
+
+
+
         redirect_to '/'
+
+
+
+
+
       else
         redirect_to '/'
       end
@@ -28,8 +39,11 @@ class EventsController < ApplicationController
 
 
     def show
+    @event = Event.find(params[:id])
+    @user = @event.user
 
-      @event = Event.find params[:id]
+
+
 
     end
 
@@ -37,7 +51,7 @@ class EventsController < ApplicationController
 
    def event_params
 
-    params.require(:event).permit(:sport_id, :title, :start_date, :start_time, :details, :location, :min_people, :max_people, :expiry)
+    params.require(:event).permit(:sport_id, :title, :start_date, :start_time, :details, :location, :address, :min_people, :max_people, :expiry)
     # puts params[:event][:title]
   #   # params[:start_time] = "01:00:00"
   #   # params

@@ -1,1 +1,54 @@
-<%= @event %>
+<div class="col s12 m7" style="width: 100%;"">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+
+        <span class="card-title" style="font-size: 160%; font-weight:; bold"><%= @event.title %></span>
+        <hr class="blue"/>
+<br>
+<%= @event.sport_id %><br>
+<%= @event.start_date.strftime("%A, %B %-d, %Y") %><br>
+<%= @event.start_time.strftime("%l:%M %p") %><br>
+<%= @event.min_people %><br>
+<%= @event.max_people %><br>
+
+<%= @event.user_id %> -
+<%= @user.name %><br>
+
+
+
+
+</div>
+  </div>
+
+    </div>
+      </div>
+
+<div class="col s12 m7" style="width: 100%;">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+
+ <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s2"><a href="#test1">Itinerary</a></li>
+        <li class="tab col s2"><a class="active" href="#test2">Details</a></li>
+        <li class="tab col s2 disabled"><a href="#test3">Players</a></li>
+        <li class="tab col s2"><a href="#test4">Messages</a></li>
+        <li class="tab col s2"><a href="#test4">Photos</a></li>
+      </ul>
+    </div>
+    <div id="test1" class="col s12">Test 1</div>
+    <div id="test2" class="col s12">Test 2</div>
+    <div id="test3" class="col s12">Test 3</div>
+    <div id="test4" class="col s12">Test 4</div>
+  </div>
+
+</div>
+</div>
+  </div>
+  </div>
+
+
+

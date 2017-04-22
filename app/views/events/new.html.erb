@@ -3,6 +3,24 @@
 
 
 
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+
 <div class="col s12 m7" style="width: 100%;"">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
@@ -123,8 +141,9 @@
 <div class="row">
 <div class="input-field col s10">
 <i class="material-icons prefix">subject</i>
-        <textarea id="details" class="materialize-textarea"></textarea>
-          <label for="details">Description (any details/comments you'd like to add)</label>
+
+        <%= f.text_area :details, class: "materialize-textarea" %>
+          <label for="event_details">Details (any information you'd like to add)</label>
         </div>
       </div>
 
@@ -138,11 +157,17 @@
 <%= f.text_field :location, placeholder: '' %>
      <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
 <label for="event_location">Location (Google autocomplete)</label>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
 
 </div>
       </div>
 
+ <div class="row">
+ <div class="input-field col s8">
+ <i class="material-icons prefix"></i>
+      <%= f.text_field :address, disabled: 'true' %>
+</div>
+</div>
 
 <div class="row">
 
@@ -203,28 +228,77 @@
 
 </div>
 </div>
+
+
+
+
+
+
+
+
+
 </div>
 </div>
 
 
 
-<script>
-var x = document.getElementById("demo");
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+ <script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+       var placeSearch, autocomplete;
+
+
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('event_location')),
+            {types: ['geocode', 'establishment']});
+
+ autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+ function fillInAddress() {
+
+        var place = autocomplete.getPlace();
+
+
+
+
+
+
+
+
+            document.getElementById('event_address').value = place.formatted_address;
+
 }
 
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
-}
-</script>
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
 
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFNr3GhJQS1XLqtpJd23rI0b6nwQfXGAo&libraries=places&callback=initAutocomplete"
+        async defer></script>
 
 
 
