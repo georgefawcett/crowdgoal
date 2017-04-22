@@ -1,12 +1,17 @@
 class SessionsController < ApplicationController
 
+  include ApplicationHelper
+
   def index
-    @user = User.new
+    if current_user
+      redirect_to '/events'
+    else
+      @user = User.new
+    end
   end
 
   def create
     @user = User.find_by(email: user_params["email"])
-    puts @user.inspect
     if @user && @user.valid_password?(user_params["password"])
       session[:user_id] = @user.id
       redirect_to '/events'

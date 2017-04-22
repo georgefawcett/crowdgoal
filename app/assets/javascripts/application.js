@@ -27,5 +27,9 @@ $(document).ready(function(){
     min: new Date(),
     max: new Date(2018,12,30),
   });
+
+  $("#share-on-fb").on('click', () => {
+    alert("share on fb!!");
+  })
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
 });
