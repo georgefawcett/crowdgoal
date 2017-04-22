@@ -15,3 +15,17 @@
 //= require turbolinks
 //= require_tree .
 //= require materialize-sprockets
+
+$(document).ready(function(){
+  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+  $('.modal').modal();
+  $(".dropdown-button").dropdown();
+  $('select').material_select();
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 2, // Creates a dropdown of 15 years to control year
+    min: new Date(),
+    max: new Date(2018,12,30),
+  });
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+});

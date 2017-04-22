@@ -1,12 +1,47 @@
-<h1>Signup!</h1>
+<div class="row">
+  <div class="col s4"></div>
+   <div class="col s4 form-block">
+      <h4 class="center-align">Register</h4>
+      <h6 class="center-align"> It's free and always will be! </h6>
+      <%= form_for @user, url: '/register'  do |form| %>
+        <% if @user.errors.any? %>
+          <ul class="error-message">
+            <% @user.errors.full_messages.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        <% end %>
 
-<%= form_for :user, url: '/register' do |f| %>
+        <div class="row">
+          <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+            <%= form.text_field :name, class: 'validate form-field', placeholder: 'Full Name'%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">email</i>
+            <%= form.email_field :email, class: 'validate  form-field', placeholder: 'Email'%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock_open</i>
+            <%= form.password_field :password, class: 'validate  form-field', placeholder: 'Password' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock_outline</i>
+            <%= form.password_field :password_confirmation, class: 'validate  form-field', placeholder: 'Confirm Password' %>
+          </div>
+        </div>
+        <center>
+          <%= form.submit 'Register', class: 'btn btn-medium center-align waves-effect waves-light green darken-2 no-uppercase' %>
+        </center><br>
+      <% end %>
+    </div>
+    <div class="col s4"></div>
+</div>
 
-  First Name: <%= f.text_field :first_name %>
-  Last Name: <%= f.text_field :last_name %>
-  Email: <%= f.text_field :email %>
-  Password: <%= f.password_field :password %>
-  Password Confirmation: <%= f.password_field :password_confirmation %>
-  <%= f.submit "Submit" %>
 
-<% end %>

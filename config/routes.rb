@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+  # devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root to: 'events#index'
+  root to: 'sessions#index'
 
-  # get '/events/new' => 'events#new'
-  # post '/events/new' => 'events#create'
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  get '/login' => 'sessions#index'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
 
   resources :events
 

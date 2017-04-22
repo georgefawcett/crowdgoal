@@ -17,11 +17,61 @@
 
  */
 @import "materialize";
+@import "font-awesome";
 
+body {
+  .body-content{
+    padding: 20px;
+    color: black;
+  }
+  .nav-options{
+    font-size: small;
 
+    li {
+      padding-right: 10px;
+    }
+  }
 
+  .error-message{
+    color: red;
+  }
 
+  .form-block{
+    border: 1px solid gray;
+    background-color: white;
+    opacity: 0.8;
+  }
+  .form-field{
+    border: 1px solid gray; //#1976d2;
+    border-radius: 10px;
+    margin-bottom: 0;
+  }
 
+  .no-uppercase{
+    text-transform: none;
+  }
+
+  /* label underline focus color */
+  .input-field input[type=email]:focus {
+    border: 1px solid #388e3c;
+    box-shadow: 0 1px 0 0 #388e3c;
+  }
+
+  .input-field input[type=password]:focus {
+    border: 1px solid #388e3c;
+    box-shadow: 0 1px 0 0 #388e3c;
+  }
+
+  .input-field input[type=text]:focus {
+    border: 1px solid #388e3c;
+    box-shadow: 0 1px 0 0 #388e3c;
+  }
+
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+    color: #388e3c;
+  }
+}
 .btn {
   overflow: hidden;
 }

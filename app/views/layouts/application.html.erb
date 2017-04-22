@@ -3,59 +3,21 @@
   <head>
     <title>Final</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-
-<script language="javascript">
-$(document).ready(function() {
-  $('select').material_select();
-
-    $('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 2, // Creates a dropdown of 15 years to control year
-    min: new Date(),
-      max: new Date(2018,11,30),
-
-
-  });
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-
-$('.modal').modal();
-
-
-
- $(".button-collapse").dropdown();
-
-new google.maps.places.Autocomplete(
-  (document.getElementById('event_location')), {
-    types: ['geocode']
-  });
-getLocation();
-
-
-
-});
-
-
-
-
-</script>
-
-<link href="https://fonts.googleapis.com/css?family=Mada:900" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Mada:900" rel="stylesheet">
   </head>
 
   <body>
-<%= render 'layouts/navbar' %>
+    <%= render 'layouts/navbar' %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
 
-<div id="backgroundImage">
-
-    <div class="main">
-    <br><br>
-    <%= yield %>
-    </div>
+    <div id="backgroundImage">
+      <div class="body-content">
+      <br>
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
