@@ -1,62 +1,7 @@
-<p> <%= @events.inspect %> </p>
+<div class="container">
 
-<div class="col s12 m7" style="width: 100%;"">
-  <div class="card horizontal" style="border: 1px solid #e3f2fd">
-    <div class="card-stacked">
-      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
-         <div style="float:right">
-            <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" style="margin-top: 7px; border-radius: 50%; border: 1px solid #666666" width="50">
-          </div>
-          <h6 style="margin-bottom: 9px"><%=User.find(@events.user_id).name %> needs <b>3 more people</b> for soccer:</h6>
-          <div style="float:left">
-            <img src="http://icons.iconarchive.com/icons/martin-berube/sport/256/Soccer-icon.png" width="65" style="margin-right: 10px">
-          </div>
-          <h5>5-on-5 soccer game</h5>
-          <i class="material-icons" style="font-size: 16px; color: #888888">date_range</i>
-            Thursday, April 27&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-          <i class="material-icons" style="font-size: 18px; color: #888888;">access_time</i>
-            3:00 - 5:00pm&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-          <i class="material-icons" style="font-size: 16px; color: #888888">location_on</i>
-            <a href="#modal1">46 Spadina Ave (<i class="material-icons tiny">filter_none</i>)</a>
-
-          <ul class="collapsible" data-collapsible="accordion" style="margin-top: 12px">
-            <li>
-              <div class="collapsible-header z-depth-0" style="color: #999999">
-                <i class="material-icons">subject</i> View details...
-              </div>
-              <div class="collapsible-body">
-                Description goes here!
-              </div>
-            </li>
-          </ul>
-      </div>
-      <div class="card-action" style="padding-top: 0; padding-bottom: 0">
-        <table width="100%">
-          <tr>
-            <td>
-              <font style="font-size: 90%"> <b> 7 </b> out of <b> 10 </b> required players have joined
-                <font style="color: #aaaaaa"> | Expires in 6 days </font>
-              </font>
-              <div class="progress grey lighten-4" style="height: 16px; border: 1px solid #888888; margin-bottom: 6px">
-                <div class="determinate blue darken-1" style="width: 60%"></div>
-              </div>
-            </td>
-            <td align="right">
-              <div style="float: right">
-                <a class="waves-effect waves-light btn green">
-                  <i class="material-icons left">person_add</i> join game
-                </a>
-              </div>
-              <!-- Modal Structure -->
-              <div id="modal1" class="modal">
-                <div class="modal-content">
-                  <h4>Map for address!</h4>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
+  <div class="products">
+    <%= render @events %>
   </div>
-</div>
+
+</section>

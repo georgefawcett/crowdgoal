@@ -1,4 +1,4 @@
 class EventsUser < ApplicationRecord
-  belongs_to :events
-  belongs_to :users
+  belongs_to :events, optional: true
+  belongs_to :users, optional: true
 end
