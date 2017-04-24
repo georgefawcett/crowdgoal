@@ -17,7 +17,6 @@ include ApplicationHelper
   end
 
   def update
-
   end
 
   def show
