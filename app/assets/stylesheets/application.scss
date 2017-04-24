@@ -219,5 +219,263 @@ body {
 }
 
 
+#map {
+        float: left;
+        height: 300px;
+        width: 50%;
+        border: 1px solid black
+
+      }
+
+#pano {
+        float: left;
+        height: 300px;
+        width: 50%;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        border-right: 1px solid black
+      }
 
 
+.tabs .indicator {
+  background-color: #388e3c;
+}
+
+
+
+.tabs .tab a {
+  color: #388e3c;
+  opacity: 0.7
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+  color: #388e3c;
+  opacity: 1
+}
+
+.tabs .tab.disabled a,
+.tabs .tab.disabled a:hover {
+  color: #aaaaaa;
+  opacity: 0.8;
+  cursor: default;
+}
+
+.messagedate {
+  font-size: 80%;
+  color: #aaaaaa
+}
+
+
+textarea.materialize-textarea {
+  border: 1px solid #388e3c;
+  padding: 5px;
+  height: 55px;
+  margin-bottom: 0
+}
+
+textarea.materialize-textarea.valid,
+textarea.materialize-textarea:focus.valid {
+  border-bottom: 1px solid #388e3c;
+  box-shadow: 0 1px 0 0 #388e3c;
+}
+
+textarea.materialize-textarea.valid + label:after,
+textarea.materialize-textarea:focus.valid + label:after {
+  color: #388e3c;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #388e3c;
+  box-shadow: 0 1px 0 0 #388e3c;
+}
+
+textarea:focus {
+  border-bottom: 1px solid #388e3c;
+  -webkit-box-shadow: 0 1px 0 0 #388e3c;
+  -moz-box-shadow: 0 1px 0 0 #388e3c;
+  box-shadow: 0 1px 0 0 #388e3c;
+}
+
+.delete {
+  opacity: 0.3;
+  float: right;
+  font-size: 75%;
+}
+
+.delete:hover {
+  opacity: 1
+}
+
+.deletefont {
+  padding-top: 2px;
+  float: left;
+}
+
+.ratingfont {
+  font-size: 85%;
+  padding-top: 18px;
+  float: left;
+  color: #666666;
+}
+
+.addmessage {
+  margin-left: 10px;
+  margin-top: 4px
+}
+
+/*Five-star rating CSS*/
+.ratingstars {
+ border: 0;
+}
+
+
+/* Radio Buttons
+   */
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+  position: absolute;
+left: -9999px;
+  opacity: 0;
+}
+
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  line-height: 10px;
+  font-size: 0;
+  transition: none;
+  /* webkit (konqueror) browsers */
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+[type="radio"] + label:before,
+[type="radio"] + label:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0;
+  margin: 0px;
+  width: 0px;
+  height: 0px;
+  z-index: 0;
+  transition: none;
+}
+
+/* Unchecked styles */
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:not(:checked) + label:after,
+[type="radio"]:checked + label:before,
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:before,
+[type="radio"].with-gap:checked + label:after {
+  border-radius: 100%;
+  visibility: hidden;
+}
+
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:not(:checked) + label:after {
+  border: 0;
+}
+
+[type="radio"]:not(:checked) + label:after {
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+
+.rating {
+    float:left;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    border: 0;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:1.2;
+    color:#ddd;
+
+}
+
+.rating:not(:checked) > label:before {
+    content: '';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+
+}
+
+.rating > label:active {
+
+}
+
+
+ .ratingaverage {
+  float: right;
+  font-size: 80%;
+  text-align: center;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  }
+
+  .noimage {
+    font-size: 200%;
+  }
+
+  .collection .collection-item.avatar .circle {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  left: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.collection .collection-item.avatar i.circle {
+  font-size: 32px;
+  line-height: 42px;
+  color: #fff;
+  background-color: #999;
+  text-align: center;
+}

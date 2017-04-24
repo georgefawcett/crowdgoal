@@ -1,5 +1,17 @@
 
-<p id="demo"></p>
+<p id="demo">
+
+  <%
+  if current_user
+    %>
+    Yes <%= current_user.id %>
+    <% else %>
+    No
+    <% end %>
+
+
+
+</p>
 
 
 
@@ -158,6 +170,8 @@ function showPosition(position) {
      <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
 <label for="event_location">Location (Google autocomplete)</label>
 
+<%= f.text_field :loc_lng %>
+<%= f.text_field :loc_lat %>
 
 </div>
       </div>
@@ -165,7 +179,7 @@ function showPosition(position) {
  <div class="row">
  <div class="input-field col s8">
  <i class="material-icons prefix"></i>
-      <%= f.text_field :address, disabled: 'true' %>
+      <%= f.text_field :address, readonly: 'true' %>
 </div>
 </div>
 
@@ -199,25 +213,6 @@ function showPosition(position) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <%= button_tag( :class => "waves-effect waves-light btn green") do %>
   Create Event <i class="material-icons left">group_add</i>
 <% end %>
@@ -228,11 +223,6 @@ function showPosition(position) {
 
 </div>
 </div>
-
-
-
-
-
 
 
 
@@ -277,6 +267,9 @@ function showPosition(position) {
 
 
             document.getElementById('event_address').value = place.formatted_address;
+            document.getElementById('event_loc_lng').value = place.geometry.location.lng();
+            document.getElementById('event_loc_lat').value = place.geometry.location.lat();
+
 
 }
 

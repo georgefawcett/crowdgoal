@@ -1,0 +1,165 @@
+<ul class="collection">
+  <li class="collection-item avatar">
+
+
+
+
+    <div class="row">
+
+
+
+      <div class="input-field col s12">
+
+        <div class="ratingaverage">
+          Average event rating:
+          <p>
+            <%
+            if rating_avg = Review.where(event_id: @event.id).average(:rating)
+            full_stars = rating_avg.to_i
+            if  (rating_avg*2).round/2.to_f % 1 != 0
+              half_stars = 1
+            else
+              half_stars = 0
+            end
+
+            empty_stars = 5 - full_stars - half_stars
+
+            while full_stars > 0 do %>
+             <i class="material-icons blue-text text-darken-1">star</i>
+              <% full_stars -= 1
+            end
+             while half_stars > 0 do %>
+             <i class="material-icons blue-text text-darken-1">star_half</i>
+              <% half_stars -= 1
+            end
+            while empty_stars > 0 do %>
+              <i class="material-icons blue-text text-darken-1">star_border</i>
+              <% empty_stars -= 1
+            end
+          end
+            %>
+          </p>
+        </div>
+
+        <p class="title">
+          Review this event:
+        </p>
+
+        <%= form_for :review, :url => reviews_path do |f| %>
+
+          <font class="ratingfont">Rating:</font>
+
+            <div class="rating">
+
+
+              <%= f.radio_button :rating, '5' %>
+                <%= f.label(:rating_5)  do %>
+                <i class="material-icons">star</i>
+                <% end %>
+
+              <%= f.radio_button :rating, '4' %>
+                <%= f.label(:rating_4)  do %>
+                <i class="material-icons">star</i>
+                <% end %>
+
+              <%= f.radio_button :rating, '3' %>
+                <%= f.label(:rating_3)  do %>
+                <i class="material-icons">star</i>
+                <% end %>
+
+              <%= f.radio_button :rating, '2' %>
+                <%= f.label(:rating_2)  do %>
+                <i class="material-icons">star</i>
+                <% end %>
+
+              <%= f.radio_button :rating, '1' %>
+                <%= f.label(:rating_1)  do %>
+                <i class="material-icons">star</i>
+                <% end %>
+
+            </div>
+
+        </div>
+
+      </div>
+
+    <div class="row">
+
+        <div class="input-field col s10">
+          <%= f.text_area :review, class: "materialize-textarea", placeholder: "Your review" %>
+          <%= f.hidden_field :event_id, value: @event.id %>
+        </div>
+
+        <div class="input-field col s2">
+          <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light green addmessage") do %><i class="material-icons">add</i><% end %>
+        </div>
+
+    </div>
+
+      <% end %> <!-- end form -->
+
+
+  </li>
+
+
+  <% @reviews.each do |review| %>
+
+    <% @author = User.find(review.user_id) %>
+
+    <li class="collection-item avatar">
+
+    <% if @author.image %>
+      <img src="images/yuna.jpg" alt="" class="circle">
+    <% else %>
+      <i class="material-icons circle">face</i>
+    <%end %>
+
+    <p>
+
+      <%
+      full_stars = review.rating
+      empty_stars = 5 - review.rating
+      while full_stars > 0 do %>
+        <i class="material-icons green-text">star</i>
+        <% full_stars -= 1
+      end
+      while empty_stars > 0 do %>
+        <i class="material-icons green-text">star_border</i>
+        <% empty_stars -= 1
+      end
+      %>
+
+
+    </p>
+
+    <p>
+      <%= review.review %>
+    </p>
+    <p>
+      <font class="messagedate">
+        Reviewed by <a href="/users/<%= @author.id %>"><%= @author.name %></a> on <%= review.created_at.strftime("%A, %B %-d") %>
+      </font>
+    </p>
+
+
+    <!-- If message author is logged in, allow delete option -->
+
+    <% if current_user.id == review.user_id %>
+
+      <%= link_to review_path(review), method: :delete, data: { confirm: 'Delete review?' } do %>
+        <div class="delete secondary-content red-text">
+        <font class="deletefont">delete</font>
+        <i class="material-icons">indeterminate_check_box</i>
+        </div>
+      <% end %>
+
+    <% end %>
+
+
+
+    </li>
+
+  <% end %>
+
+
+</ul>

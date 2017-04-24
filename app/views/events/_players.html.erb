@@ -1,0 +1,22 @@
+<ul class="collection">
+
+  <% @players.each do |player| %>
+
+    <% @playerinfo = User.find(player.user_id) %>
+
+    <li class="collection-item avatar">
+
+      <% if @playerinfo.image %>
+        <img src="images/yuna.jpg" alt="" class="circle">
+      <% else %>
+        <i class="material-icons circle">face</i>
+      <%end %>
+
+      <span class="title"><a href="/users/<%= @playerinfo.id %>"><%= @playerinfo.name %></a></span>
+
+    </li>
+
+  <% end %>
+
+
+</ul>
