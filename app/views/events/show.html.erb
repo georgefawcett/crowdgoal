@@ -3,26 +3,95 @@
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
 
-        <span class="card-title" style="font-size: 160%; font-weight:; bold"><%= @event.title %></span>
-        <hr class="blue"/>
-<br>
-<%= @event.sport_id %><br>
-<%= @event.start_date.strftime("%A, %B %-d, %Y") %><br>
-<%= @event.start_time.strftime("%l:%M %p") %><br>
-<%= @event.min_people %><br>
-<%= @event.max_people %><br>
-<%= @event.address %><br>
-<%= @event.user_id %> -
-<%= @user.name %><br>
-<%= current_user.id %>
 
-<br><br>
-<%= @event.address %><br>
-<%= @event.loc_lng %><br>
-<br>
-<%= @event.loc_lat %><br>
 
- <span class="new badge" data-badge-caption="">4</span>
+
+<% event = @event %>
+<% min_people = event.min_people %>
+  <% joined_count = event.events_users.count %>
+  <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
+<% @host = User.find(event.user_id) %>
+
+             <div class="organizer">
+             <table>
+              <tr>
+                <td>
+             <b>Organized by:</b><br>
+             <a href="/users/<%= @host.id %>"><%= @host.name %></a>
+             </td>
+             <td>
+              <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" class="circle" width="50">
+              </td>
+              </tr>
+              </table>
+            </div>
+            <p class = "card-header" style="margin-bottom: 9px">
+
+
+            <div style="float:left">
+
+              <img src="http://icons.iconarchive.com/icons/martin-berube/sport/256/Soccer-icon.png" width="65" style="margin-right: 10px">
+            </div>
+            <p id="event-title" style="font-size: 160%"><%= event.title %></p>
+
+
+            <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">date_range</i>
+
+              <font class="eventfont"><%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</font>
+
+            <i class="material-icons" style="font-size: 18px; color: #888888; vertical-align: middle">access_time</i>
+            <font class="eventfont"><%= event.start_time.strftime("%l:%M %p") %></font>
+
+
+
+        </div>
+        <div class="card-action" style="padding-top: 0; padding-bottom: 0">
+          <table width="100%">
+            <tr>
+              <td>
+                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
+                  <font style="color: #aaaaaa"> | Expires in <%= ?? %> days </font>
+                </font>
+                <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
+                  <% if (joined_count < min_people) %>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate blue darken-1"></div>
+                  <% elsif (joined_count >= event.max_people) %>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate red darken-1"></div>
+                  <% else %>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate green darken-1"></div>
+                  <% end %>
+                  <script type="text/javascript">
+                    $("#progress_bar_<%=event.id%>").css("width"," <%= width %> ");
+                  </script>
+                </div>
+
+              </td>
+              <td align="right">
+                <div class="card-button" style="float: right">
+                  <% if (event.events_users.find_by(user_id: current_user.id))%>
+                    <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
+                      <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
+                    </button>
+                  <% else %>
+                    <% if (joined_count >= event.max_people) then %>
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                        <i class="material-icons left">person_add</i> Join Game
+                      </button>
+                    <% else %>
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
+                        <i class="material-icons left">person_add</i>Join Game
+                      </button>
+                    <% end %>
+                  <% end %>
+                </div>
+
+              </td>
+            </tr>
+          </table>
+
+
+
+
 
 
 
@@ -41,7 +110,7 @@
  <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s2" class="active"><a href="#overview">Overview</a></li>
+        <li class="tab col s2" class="active"><a href="#location">Location</a></li>
         <li class="tab col s2"><a href="#details">Details</a></li>
         <li class="tab col s2"><a href="#players">Players</a></li>
         <li class="tab col s2"><a href="#messages">
@@ -52,39 +121,9 @@
         <li class="tab col s2"><a href="#reviews">Reviews</a></li>
       </ul>
     </div>
-    <div id="overview" class="col s12" style="padding-top: 15px">
 
-
-     <div id="map"></div>
-    <div id="pano"></div>
-
-      <script>
-
-      function initialize() {
-        // var fenway = {lat: 42.345573, lng: -71.098326};
-       var fenway = {lng: <%= @event.loc_lng %>, lat: <%= @event.loc_lat %>};
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: fenway,
-          zoom: 14
-        });
-        var panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('pano'), {
-              position: fenway,
-              pov: {
-                heading: 34,
-                pitch: 10
-              }
-            });
-        map.setStreetView(panorama);
-      }
-    </script>
-  <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1yTlhd3-TxcRUhLKp5Pwr43bvAlnXFo0&callback=initialize">
-    </script>
-
-
-
+    <div id="location" class="col s12">
+      <%= render 'location' %>
     </div>
 
     <div id="details" class="col s12">

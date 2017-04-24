@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :messages
   resources :reviews
+  resources :users
 
   resources :events do
     resources :players, only: [:create, :destroy]

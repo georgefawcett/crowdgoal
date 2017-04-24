@@ -233,7 +233,8 @@ body {
         width: 50%;
         border-bottom: 1px solid black;
         border-top: 1px solid black;
-        border-right: 1px solid black
+        border-right: 1px solid black;
+        margin-bottom: 20px
       }
 
 
@@ -309,6 +310,10 @@ textarea:focus {
 .deletefont {
   padding-top: 2px;
   float: left;
+}
+
+.eventfont {
+  font-size: 90%
 }
 
 .ratingfont {
@@ -456,6 +461,12 @@ width:1em;
   padding-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;
+  }
+
+  .organizer {
+  float: right;
+  font-size: 85%;
+  text-align: right
   }
 
   .noimage {

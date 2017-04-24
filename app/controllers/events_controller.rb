@@ -12,12 +12,16 @@ class EventsController < ApplicationController
     event = Event.new(event_params)
     event.user_id = session[:user_id]
 
-    # Add the organizer as a participant in their own event
 
 
     if event.save
-
-      redirect_to '/'
+ # Add the organizer as a participant in their own event
+    addplayer = EventsUser.new({
+      event_id: event.id,
+      user_id: event.user_id
+      })
+    addplayer.save
+      redirect_to :controller => 'events', :id => event.id, :action => 'show'
     else
       redirect_to '/'
     end
