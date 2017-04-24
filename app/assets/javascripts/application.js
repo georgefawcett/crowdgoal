@@ -29,7 +29,8 @@ $(document).ready(function(){
     min: new Date(),
     max: new Date(2018,12,30),
   });
-  let updateCardProgress = function(event_id, min_people, max_people, joined_count){
+
+  let updateProgressBar = function(event_id, min_people, max_people, joined_count){
     let remaining_count = Number(max_people - joined_count)
     if (remaining_count == 0){
       remaining_count = "No";
@@ -65,7 +66,7 @@ $(document).ready(function(){
       $button = $("<button>").attr("data-event-id",event_id).attr("data-user-id",user_id).attr("id",`withdraw_game_${event_id}`).addClass("withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase").text("Withdraw");
       $button.append("<i class=\"material-icons left\" style=\"vertical-align: middle;\">remove_circle_outline</i>")
       $(`#join_game_${event_id}`).replaceWith($button);
-      updateCardProgress(event_id, min_people, max_people, response.joined_count)
+      updateProgressBar(event_id, min_people, max_people, response.joined_count)
     },
     error: function(error) {
       console.log(error);
