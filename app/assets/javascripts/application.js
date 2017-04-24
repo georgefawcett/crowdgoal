@@ -46,40 +46,40 @@ $(document).ready(function(){
     var remaining_count = Number(max_people - joined_count)
     if (remaining_count == 0){
       remaining_count = "No";
-      $(`#join_game_${event_id}`).addClass("disabled");
-      $(`#progress_bar_${event_id}`).removeClass("green blue red");
-      $(`#progress_bar_${event_id}`).addClass("red");
+      $('#join_game_' + event_id).addClass("disabled");
+      $('#progress_bar_' + event_id).removeClass("green blue red");
+      $('#progress_bar_' + event_id).addClass("red");
     }
-    $(`#remaining_count_${event_id}`).text(`${remaining_count}`);
+    $('#remaining_count_' + event_id).text('' + remaining_count);
     if (joined_count <= min_people){
-      $(`#joined_count_${event_id}`).text(`${joined_count}`);
-      const width = ((joined_count / min_people) * 100).toString() + "%";
-      $(`#progress_bar_${event_id}`).css("width", `${width}`);
+      $('#joined_count_' + event_id).text('' + joined_count);
+      var width = ((joined_count / min_people) * 100).toString() + "%";
+      $('#progress_bar_' + event_id).css("width", '' + width);
       if (joined_count == min_people && min_people != max_people){
-        $(`#progress_bar_${event_id}`).removeClass("blue green red");
-        $(`#progress_bar_${event_id}`).addClass("green");
+        $('#progress_bar_' + event_id).removeClass("blue green red");
+        $('#progress_bar_' + event_id).addClass("green");
       } else if(joined_count < min_people) {
-        $(`#progress_bar_${event_id}`).removeClass("blue green red");
-        $(`#progress_bar_${event_id}`).addClass("blue");
+        $('#progress_bar_' + event_id).removeClass("blue green red");
+        $('#progress_bar_' + event_id).addClass("blue");
       }
     }
   }
   $(".card-button").on("click",".join-game-button",function(){
     var event_id = $(this).attr("data-event-id");
     var user_id = $(this).attr("data-user-id");
-    var min_people = Number($(`#min_people_${event_id}`).text());
-    var max_people = Number($(`#remaining_count_${event_id}`).attr("data-max-people"));
+    var min_people = Number($('#min_people_' + event_id).text());
+    var max_people = Number($('#remaining_count_' + event_id).attr("data-max-people"));
     $.ajax({
-     url: `/events/${event_id}/players`,
+     url: '/events/' + event_id + '/players',
      type: "POST",
      dataType : 'json',
      success: function(response) {
       //console.log(response);
-      $button = $("<button>").attr("data-event-id",event_id).attr("data-user-id",user_id).attr("id",`withdraw_game_${event_id}`).addClass("withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase").text("Withdraw");
-      if ($(`#host_name_${event_id}`).attr("data-host-id") == user_id)
+      $button = $("<button>").attr("data-event-id",event_id).attr("data-user-id",user_id).attr("id",'withdraw_game_' + event_id).addClass("withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase").text("Withdraw");
+      if ($('#host_name_' + event_id).attr("data-host-id") == user_id)
         $button.addClass("disabled");
       $button.append("<i class=\"material-icons left\" style=\"vertical-align: middle;\">remove_circle_outline</i>")
-      $(`#join_game_${event_id}`).replaceWith($button);
+      $('#join_game_' + event_id).replaceWith($button);
       updateProgressBar(event_id, min_people, max_people, response.joined_count)
     },
     error: function(error) {
@@ -90,17 +90,17 @@ $(document).ready(function(){
   $(".card-button").on("click",".withdraw-game-button", function() {
     var event_id = $(this).attr("data-event-id");
     var user_id = $(this).attr("data-user-id");
-    var min_people = Number($(`#min_people_${event_id}`).text());
-    var max_people = Number($(`#remaining_count_${event_id}`).attr("data-max-people"));
+    var min_people = Number($('#min_people_' + event_id).text());
+    var max_people = Number($('#remaining_count_' + event_id).attr("data-max-people"));
     $.ajax({
-      url: `/events/${event_id}/players/${user_id}`,
+      url: '/events/' + event_id + '/players/' + user_id,
       type: 'DELETE',
       dataType: 'json',
       success: function(response) {
         //console.log(response);
-        $button = $("<button>").attr("data-event-id",event_id).attr("data-user-id",user_id).attr("id",`join_game_${event_id}`).addClass("join-game-button waves-effect waves-light btn green no-uppercase").text("Join Game");
+        $button = $("<button>").attr("data-event-id",event_id).attr("data-user-id",user_id).attr("id",'join_game_' + event_id).addClass("join-game-button waves-effect waves-light btn green no-uppercase").text("Join Game");
         $button.append("<i class=\"material-icons left\" style=\"vertical-align: middle;\">person_add</i>")
-        $(`#withdraw_game_${event_id}`).replaceWith($button);
+        $('#withdraw_game_' + event_id).replaceWith($button);
         updateProgressBar(event_id, min_people, max_people, response.joined_count)
       },
       error: function(error) {
