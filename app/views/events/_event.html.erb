@@ -1,4 +1,4 @@
-<section>
+<div>
   <% min_people = event.min_people %>
   <% joined_count = event.events_users.count %>
   <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
@@ -10,7 +10,7 @@
            <div style="float:right">
               <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" style="margin-top: 7px; border-radius: 50%; border: 1px solid #666666" width="50">
             </div>
-            <p class = "card-header" style="margin-bottom: 9px"><b><%=User.find(event.user_id).name %></b> needs <%=min_people%></span> players (minimum) for <%= event.sport.name %> | <b> <span id="remaining_count_<%=event.id%>"> <%=event.max_people - joined_count %> </span> more spots </b> open!</p>
+            <p class = "card-header" style="margin-bottom: 9px"><b><%=User.find(event.user_id).name %></b> needs <%=min_people%></span> players (minimum) for <%= event.sport.name %> | <b> <span data-max-people="<%=event.max_people%>" id="remaining_count_<%=event.id%>"> <%=event.max_people - joined_count %> </span> more spots </b> open!</p>
             <div style="float:left">
               <img src="http://icons.iconarchive.com/icons/martin-berube/sport/256/Soccer-icon.png" width="65" style="margin-right: 10px">
             </div>
@@ -55,18 +55,18 @@
 
               </td>
               <td align="right">
-                <div style="float: right">
+                <div class="card-button" style="float: right">
                   <% if (event.events_users.find_by(user_id: current_user.id))%>
-                    <button value="<%=event.id%>" id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase">
+                    <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
                       <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
                     </button>
                   <% else %>
                     <% if (joined_count >= event.max_people) then %>
-                      <button value="<%=event.id%>" id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
                         <i class="material-icons left">person_add</i> Join Game
                       </button>
                     <% else %>
-                      <button value="<%=event.id%>" id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
                         <i class="material-icons left">person_add</i>Join Game
                       </button>
                     <% end %>
@@ -85,4 +85,4 @@
       </div>
     </div>
   </div>
-</section>
+</div>

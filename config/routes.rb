@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-  resources :events
+  resources :events do
+    resources :players, only: [:create, :destroy]
+  end
 
   get '/register' => 'users#new'
   post '/register' => 'users#create'
