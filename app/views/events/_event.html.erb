@@ -15,11 +15,11 @@
               <img src="http://icons.iconarchive.com/icons/martin-berube/sport/256/Soccer-icon.png" width="65" style="margin-right: 10px">
             </div>
             <p id="event-title"><%= event.title %></p>
-            <i class="material-icons" style="font-size: 16px; color: #888888">date_range</i>
+            <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">date_range</i>
               <%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <i class="material-icons" style="font-size: 18px; color: #888888;">access_time</i>
+            <i class="material-icons" style="font-size: 18px; color: #888888; vertical-align: middle">access_time</i>
               <%= event.start_time.strftime("%l:%M %p") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <i class="material-icons" style="font-size: 16px; color: #888888">location_on</i>
+            <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">location_on</i>
               <a href="#modal1"><%= event.location %> (<i class="material-icons tiny">filter_none</i>)</a>
 
             <ul class="collapsible" data-collapsible="accordion" style="margin-top: 12px">
@@ -56,14 +56,20 @@
               </td>
               <td align="right">
                 <div style="float: right">
-                  <% if (joined_count >= event.max_people) then %>
-                    <button value="<%=event.id%>" id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled">
-                      <i class="material-icons left">person_add</i> join game
+                  <% if (event.events_users.find_by(user_id: current_user.id))%>
+                    <button value="<%=event.id%>" id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase">
+                      <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
                     </button>
                   <% else %>
-                    <button value="<%=event.id%>" id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green">
-                      <i class="material-icons left">person_add</i> join game
-                    </button>
+                    <% if (joined_count >= event.max_people) then %>
+                      <button value="<%=event.id%>" id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                        <i class="material-icons left">person_add</i> Join Game
+                      </button>
+                    <% else %>
+                      <button value="<%=event.id%>" id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
+                        <i class="material-icons left">person_add</i>Join Game
+                      </button>
+                    <% end %>
                   <% end %>
                 </div>
                 <!-- Modal Structure -->
