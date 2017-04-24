@@ -30,8 +30,20 @@ $(document).ready(function(){
     max: new Date(2018,12,30),
   });
 
-  let updateProgressBar = function(event_id, min_people, max_people, joined_count){
-    let remaining_count = Number(max_people - joined_count)
+  $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 10, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+
+  var updateProgressBar = function(event_id, min_people, max_people, joined_count){
+    var remaining_count = Number(max_people - joined_count)
     if (remaining_count == 0){
       remaining_count = "No";
       $(`#join_game_${event_id}`).addClass("disabled");
@@ -53,10 +65,10 @@ $(document).ready(function(){
     }
   }
   $(".card-button").on("click",".join-game-button",function(){
-    const event_id = $(this).attr("data-event-id");
-    const user_id = $(this).attr("data-user-id");
-    const min_people = Number($(`#min_people_${event_id}`).text());
-    const max_people = Number($(`#remaining_count_${event_id}`).attr("data-max-people"));
+    var event_id = $(this).attr("data-event-id");
+    var user_id = $(this).attr("data-user-id");
+    var min_people = Number($(`#min_people_${event_id}`).text());
+    var max_people = Number($(`#remaining_count_${event_id}`).attr("data-max-people"));
     $.ajax({
      url: `/events/${event_id}/players`,
      type: "POST",
@@ -64,6 +76,8 @@ $(document).ready(function(){
      success: function(response) {
       //console.log(response);
       $button = $("<button>").attr("data-event-id",event_id).attr("data-user-id",user_id).attr("id",`withdraw_game_${event_id}`).addClass("withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase").text("Withdraw");
+      if ($(`#host_name_${event_id}`).attr("data-host-id") == user_id)
+        $button.addClass("disabled");
       $button.append("<i class=\"material-icons left\" style=\"vertical-align: middle;\">remove_circle_outline</i>")
       $(`#join_game_${event_id}`).replaceWith($button);
       updateProgressBar(event_id, min_people, max_people, response.joined_count)
@@ -74,10 +88,10 @@ $(document).ready(function(){
    });
   });
   $(".card-button").on("click",".withdraw-game-button", function() {
-    const event_id = $(this).attr("data-event-id");
-    const user_id = $(this).attr("data-user-id");
-    const min_people = Number($(`#min_people_${event_id}`).text());
-    const max_people = Number($(`#remaining_count_${event_id}`).attr("data-max-people"));
+    var event_id = $(this).attr("data-event-id");
+    var user_id = $(this).attr("data-user-id");
+    var min_people = Number($(`#min_people_${event_id}`).text());
+    var max_people = Number($(`#remaining_count_${event_id}`).attr("data-max-people"));
     $.ajax({
       url: `/events/${event_id}/players/${user_id}`,
       type: 'DELETE',
