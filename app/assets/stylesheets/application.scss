@@ -73,9 +73,16 @@ body {
   .input-field .prefix.active {
     color: #388e3c;
   }
+
+  .card-header {
+    margin-bottom: 9px;
+    font-size: 14px;
+  }
+
+  #event-title {
+    font-size: 18px;
+  }
 }
-
-
 
 .btn {
   overflow: hidden;
@@ -323,7 +330,7 @@ textarea:focus {
 
 
 /* Radio Buttons
-   ========================================================================== */
+   */
 [type="radio"]:not(:checked),
 [type="radio"]:checked {
   position: absolute;

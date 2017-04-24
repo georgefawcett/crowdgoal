@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  get 'reviews/create'
-
-  get 'reviews/destroy'
-
-  get 'messages/new'
 
   # devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -16,15 +11,20 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-  resources :events
+
+
   resources :messages
   resources :reviews
+
+  resources :events do
+    resources :players, only: [:create, :destroy]
+  end
+
 
   get '/register' => 'users#new'
   post '/register' => 'users#create'
 
-  get '/tests/new' => 'tests#new'
-  post '/tests/new' => 'tests#create'
+
 
  root to: "photos#index"
   resources :photos

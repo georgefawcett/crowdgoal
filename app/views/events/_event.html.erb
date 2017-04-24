@@ -1,0 +1,88 @@
+<div>
+  <% min_people = event.min_people %>
+  <% joined_count = event.events_users.count %>
+  <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
+
+  <div class="col s12 m7" style="width: 100%">
+    <div class="card horizontal" style="border: 1px solid #e3f2fd">
+      <div class="card-stacked">
+        <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+           <div style="float:right">
+              <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" style="margin-top: 7px; border-radius: 50%; border: 1px solid #666666" width="50">
+            </div>
+            <p class = "card-header" style="margin-bottom: 9px"><b><%=User.find(event.user_id).name %></b> needs <%=min_people%></span> players (minimum) for <%= event.sport.name %> | <b> <span data-max-people="<%=event.max_people%>" id="remaining_count_<%=event.id%>"> <%=event.max_people - joined_count %> </span> more spots </b> open!</p>
+            <div style="float:left">
+              <img src="http://icons.iconarchive.com/icons/martin-berube/sport/256/Soccer-icon.png" width="65" style="margin-right: 10px">
+            </div>
+            <p id="event-title"><%= event.title %></p>
+            <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">date_range</i>
+              <%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <i class="material-icons" style="font-size: 18px; color: #888888; vertical-align: middle">access_time</i>
+              <%= event.start_time.strftime("%l:%M %p") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">location_on</i>
+              <a href="#modal1"><%= event.location %> (<i class="material-icons tiny">filter_none</i>)</a>
+
+            <ul class="collapsible" data-collapsible="accordion" style="margin-top: 12px">
+              <li>
+                <div class="collapsible-header z-depth-0" style="color: #999999">
+                  <i class="material-icons">subject</i> View details...
+                </div>
+                <div class="collapsible-body">
+                  <%= event.details%>
+                </div>
+              </li>
+            </ul>
+        </div>
+        <div class="card-action" style="padding-top: 0; padding-bottom: 0">
+          <table width="100%">
+            <tr>
+              <td>
+                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
+                  <font style="color: #aaaaaa"> | Expires in <%= ?? %> days </font>
+                </font>
+                <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
+                  <% if (joined_count < min_people) %>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate blue darken-1"></div>
+                  <% elsif (joined_count >= event.max_people) %>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate red darken-1"></div>
+                  <% else %>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate green darken-1"></div>
+                  <% end %>
+                  <script type="text/javascript">
+                    $("#progress_bar_<%=event.id%>").css("width"," <%= width %> ");
+                  </script>
+                </div>
+
+              </td>
+              <td align="right">
+                <div class="card-button" style="float: right">
+                  <% if (event.events_users.find_by(user_id: current_user.id))%>
+                    <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
+                      <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
+                    </button>
+                  <% else %>
+                    <% if (joined_count >= event.max_people) then %>
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                        <i class="material-icons left">person_add</i> Join Game
+                      </button>
+                    <% else %>
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
+                        <i class="material-icons left">person_add</i>Join Game
+                      </button>
+                    <% end %>
+                  <% end %>
+                </div>
+                <!-- Modal Structure -->
+                <div id="modal1" class="modal">
+                  <div class="modal-content">
+                    <h4>Map for address!</h4>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

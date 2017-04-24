@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
 
   def index
-    @events = Event.find(28);
+    @events = Event.all
   end
 
   def create
@@ -23,6 +23,10 @@ class EventsController < ApplicationController
     end
     puts event.errors.full_messages
   end
+
+  def update
+  end
+
 
   def show
     @event = Event.find(params[:id])
