@@ -1,0 +1,43 @@
+<div class="row">
+  <section class="col s8">  </section>
+  <section class="col s4 form-block" style="border-style: 1px solid gray">
+    <h4 class="center-align">Login</h4>
+    <%= form_for @user, url: '/login' do |form| %>
+      <% if @user.errors.any? %>
+        <ul class="error-message">
+          <% @user.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <%= form.email_field :email, class: 'validate form-field' , placeholder: 'Email'%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">lock</i>
+          <%= form.password_field :password, class: 'validate form-field', placeholder: 'Password' %>
+        </div>
+      </div>
+      <center>
+        <%= form.submit 'Login', class: 'btn btn-medium center-align waves-effect waves-light green darken-2 no-uppercase' %>
+      </center>
+    <% end %>
+    <br>
+    <section class="divider"></section>
+    <br>
+    <div class="center-align">
+      <%= link_to user_facebook_omniauth_authorize_path, class: 'btn btn-medium center-align waves-effect waves-light no-uppercase green darken-2' do %> <i class="fa fa-facebook" aria-hidden="true"></i> &nbsp; Login with facebook <% end %><br><br>
+    </div>
+  </section>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,298 @@
+
+<p id="demo">
+
+  <%
+  if current_user
+    %>
+    Yes <%= current_user.id %>
+    <% else %>
+    No
+    <% end %>
+
+
+
+</p>
+
+
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+
+<div class="col s12 m7" style="width: 100%;"">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+
+        <span class="card-title" style="font-size: 160%; font-weight:; bold">Create Event</span>
+        <hr class="blue"/>
+<br>
+<%= form_for :event, :url => events_path do |f| %>
+
+<div class="row">
+
+
+
+
+
+
+      <div class="row">
+
+
+
+        <div class="input-field col s6">
+
+  <i class="material-icons prefix">art_track</i>
+
+
+
+ <%= f.select :sport_id, options_from_collection_for_select(Sport.all.order(:name), :id, :name), { prompt: 'Choose a Sport' } %>
+
+
+  </div>
+</div>
+
+
+
+
+<div class="row">
+          <div class="input-field col s8">
+
+           <i class="material-icons prefix">volume_up</i>
+
+           <%= f.text_field :title, 'data-length': 100 %>
+
+            <label for="event_title">Event title (keep it short!)</label>
+          </div>
+        </div>
+
+
+
+<div class="row">
+<div class="input-field col s4">
+
+<i class="material-icons prefix">today</i>
+<%= f.text_field :start_date, class: 'datepicker' %>
+
+
+ <label for="event_start_date">Date</label>
+</div>
+
+<div class="input-field col s4">
+<i class="material-icons prefix">access_time</i>
+
+<%= f.select :start_time, options_for_select([
+['6:00 AM', '06:00:00'],
+['6:30 AM', '06:30:00'],
+['7:00 AM', '07:00:00'],
+['7:30 AM', '07:30:00'],
+['8:00 AM', '08:00:00'],
+['8:30 AM', '08:30:00'],
+['9:00 AM', '09:00:00'],
+['9:30 AM', '09:30:00'],
+['10:00 AM', '10:00:00'],
+['10:30 AM', '10:30:00'],
+['11:00 AM', '11:00:00'],
+['11:30 AM', '11:30:00'],
+['12:00 PM', '12:00:00'],
+['12:30 PM', '12:30:00'],
+['1:00 PM', '13:00:00'],
+['1:30 PM', '13:30:00'],
+['2:00 PM', '14:00:00'],
+['2:30 PM', '14:30:00'],
+['3:00 PM', '15:00:00'],
+['3:30 PM', '15:30:00'],
+['4:00 PM', '16:00:00'],
+['4:30 PM', '16:30:00'],
+['5:00 PM', '17:00:00'],
+['5:30 PM', '17:30:00'],
+['6:00 PM', '18:00:00'],
+['6:30 PM', '18:30:00'],
+['7:00 PM', '19:00:00'],
+['7:30 PM', '19:30:00'],
+['8:00 PM', '20:00:00'],
+['8:30 PM', '20:30:00'],
+['9:00 PM', '21:00:00'],
+['9:30 PM', '21:30:00'],
+['10:00 PM', '22:00:00'],
+['10:30 PM', '22:30:00'],
+['11:00 PM', '23:00:00']
+  ]), include_blank: true %>
+
+
+ <label for="start_time">Time</label>
+</div>
+
+
+</div>
+
+<div class="row">
+
+
+
+
+
+
+
+
+
+<div class="row">
+<div class="input-field col s10">
+<i class="material-icons prefix">subject</i>
+
+        <%= f.text_area :details, class: "materialize-textarea" %>
+          <label for="event_details">Details (any information you'd like to add)</label>
+        </div>
+      </div>
+
+
+
+ <div class="row">
+ <div class="input-field col s8">
+
+        <i class="material-icons prefix">location_on</i>
+
+<%= f.text_field :location, placeholder: '' %>
+     <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
+<label for="event_location">Location (Google autocomplete)</label>
+
+<%= f.text_field :loc_lng %>
+<%= f.text_field :loc_lat %>
+
+</div>
+      </div>
+
+ <div class="row">
+ <div class="input-field col s8">
+ <i class="material-icons prefix"></i>
+      <%= f.text_field :address, readonly: 'true' %>
+</div>
+</div>
+
+<div class="row">
+
+          <div class="input-field col s4">
+
+<i class="material-icons prefix">group</i>
+
+           <%= f.text_field :min_people %>
+
+<label for="event_min_people">Minimum players</label>
+
+
+
+          </div>
+
+          <div class="input-field col s4">
+
+
+
+           <%= f.text_field :max_people %>
+
+
+<label for="event_max_people">Maximum players</label>
+
+
+          </div>
+        </div>
+
+
+
+
+<%= button_tag( :class => "waves-effect waves-light btn green") do %>
+  Create Event <i class="material-icons left">group_add</i>
+<% end %>
+
+
+
+    <% end %>
+
+</div>
+</div>
+
+
+
+
+</div>
+</div>
+
+
+
+
+ <script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+       var placeSearch, autocomplete;
+
+
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('event_location')),
+            {types: ['geocode', 'establishment']});
+
+ autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+ function fillInAddress() {
+
+        var place = autocomplete.getPlace();
+
+
+
+
+
+
+
+
+            document.getElementById('event_address').value = place.formatted_address;
+            document.getElementById('event_loc_lng').value = place.geometry.location.lng();
+            document.getElementById('event_loc_lat').value = place.geometry.location.lat();
+
+
+}
+
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFNr3GhJQS1XLqtpJd23rI0b6nwQfXGAo&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+
+
+

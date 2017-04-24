@@ -1,0 +1,66 @@
+<ul class="collection">
+  <li class="collection-item avatar">
+
+      <%= form_for :message, :url => messages_path do |f| %>
+
+        <div class="row">
+
+          <div class="input-field col s10">
+            <%= f.text_area :message, class: "materialize-textarea", placeholder: "Add a message" %>
+            <%= f.hidden_field :event_id, value: @event.id %>
+          </div>
+
+          <div class="input-field col s2">
+            <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light green addmessage") do %><i class="material-icons">add</i><% end %>
+          </div>
+
+        </div>
+
+      <% end %>
+
+  </li>
+
+
+  <% @messages.each do |message| %>
+
+    <% @author = User.find(message.user_id) %>
+
+    <li class="collection-item avatar">
+
+      <% if @author.image %>
+        <img src="images/yuna.jpg" alt="" class="circle">
+      <% else %>
+        <i class="material-icons circle">face</i>
+      <%end %>
+
+    <p>
+      <%= message.message %>
+    </p>
+    <p>
+      <font class="messagedate">
+        Posted by <a href="/users/<%= @author.id %>"><%= @author.name %></a> on <%= message.created_at.strftime("%A, %B %-d at %l:%M %p") %>
+      </font>
+    </p>
+
+
+    <!-- If message author is logged in, allow delete option -->
+
+    <% if current_user.id == message.user_id %>
+
+      <%= link_to message_path(message), method: :delete, data: { confirm: 'Delete message?' } do %>
+        <div class="delete secondary-content red-text">
+        <font class="deletefont">delete</font>
+        <i class="material-icons">indeterminate_check_box</i>
+        </div>
+      <% end %>
+
+    <% end %>
+
+
+
+    </li>
+
+  <% end %>
+
+
+</ul>
