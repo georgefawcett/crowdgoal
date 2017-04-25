@@ -10,6 +10,12 @@ class Event < ApplicationRecord
   has_many :reviews
 
   validates :title, presence: true
+  validates :sport_id, presence: true
+  validates :start_date, presence: true
+  validates :start_time, presence: true
+  validates :location, presence: true
+  validates :min_people, presence: true
+  validates :max_people, presence: true
 
   # before_validation :combine_datetime
 

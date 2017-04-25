@@ -8,6 +8,18 @@
 
 
 
+        <div class="fixed-action-btn" style="position:absolute; top:0; bottom:0">
+          <a>
+            <i class="btn-floating small material-icons transparent green-text">more_vert</i>
+          </a>
+          <ul>
+            <li><a class="btn-floating blue" id="edit-form-button" ><i class="material-icons">mode_edit</i></a></li>
+            <li><a class="btn-floating red" id="delete-form-button"><i class="material-icons">delete</i></a></li>
+          </ul>
+        </div>
+
+
+
 
 <% event = @event %>
 <% min_people = event.min_people %>
@@ -105,12 +117,21 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
 
 
 </div>
+
   </div>
+</div>
 
-    </div>
+<section id="event-edit-form" width="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 0px; padding-bottom: 0; margin:0;">
+        <%= render 'event_form', event: @event %>
       </div>
+    </div>
+  </div>
+</section>
 
-<div class="col s12 m7" style="width: 70%;">
+<div class="col s12 m7">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">

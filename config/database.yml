@@ -8,25 +8,25 @@ default: &default
   adapter: postgresql
   pool: 5
   timeout: 5000
-  host: ec2-54-221-244-196.compute-1.amazonaws.com
-  username: sxbsruwpmuvbpe
-  database: d43q2mvihpjb4q
-  password: 613e83baf938b072647baa294cd11bf1fe8292816a40596e06eb2c5824e3b133
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  database: <%= ENV['DB_DATABASE'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
 
 development:
   <<: *default
-  host: ec2-54-221-244-196.compute-1.amazonaws.com
-  username: sxbsruwpmuvbpe
-  database: d43q2mvihpjb4q
-  password: 613e83baf938b072647baa294cd11bf1fe8292816a40596e06eb2c5824e3b133
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  database: <%= ENV['DB_DATABASE'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  # database: db/test.sqlite3
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  # database: db/production.sqlite3

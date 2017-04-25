@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-
+  resources :filters, only: [:show]
 
   resources :messages
   resources :reviews

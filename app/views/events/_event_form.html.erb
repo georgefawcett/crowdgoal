@@ -1,0 +1,132 @@
+<br>
+<p><%= event.inspect%></p>
+<button id="edit-close-button" class="btn-flat red-text" style="position:absolute;top:0;right:0;"><i class="material-icons small">close</i></button>
+<span class="card-title" style="font-size: 160%; font-weight:; bold">
+  Edit Event
+</span>
+<hr class="blue"/>
+<br>
+
+  <div class="row">
+    <div class="row">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">art_track</i>
+        <input type="text" disabled="true" value="<%=Sport.find(event.sport_id).name%>" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s8">
+        <i class="material-icons prefix">volume_up</i>
+        <input type="text" disabled="true" value="<%=event.title%>">
+        <label class="active">Event title (keep it short!)</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s4">
+        <i class="material-icons prefix">today</i>
+        <input type="date" class="datepicker" id="event-date">
+        <script type="text/javascript">
+          var $input = $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 2, // Creates a dropdown of 15 years to control year
+            min: new Date(),
+            max: new Date(2018,12,30),
+            format: "ddd dd mmm, yyyy"
+          });
+          var picker = $input.pickadate('picker');
+          picker.set('select', new Date("<%=event.start_date.to_date.strftime("%a %d %b, %Y")%>"))
+        </script>
+        <label class="active">Date & Time</label>
+      </div>
+      <div class="input-field col s4">
+        <i class="material-icons prefix">access_time</i>
+        <select class="active" id="event-start-time">
+          <option value="06:00:00"> 6:00 AM</option>
+          <option value="06:30:00"> 6:30 AM</option>
+          <option value="07:00:00"> 7:00 AM</option>
+          <option value="07:30:00"> 7:30 AM</option>
+          <option value="08:00:00"> 8:00 AM</option>
+          <option value="08:30:00"> 8:30 AM</option>
+          <option value="09:00:00"> 9:00 AM</option>
+          <option value="09:30:00"> 9:30 AM</option>
+          <option value="10:00:00"> 10:00 AM</option>
+          <option value="10:30:00"> 10:30 AM</option>
+          <option value="11:00:00"> 11:00 AM</option>
+          <option value="11:30:00"> 11:30 AM</option>
+          <option value="12:00:00"> 12:00 PM</option>
+          <option value="12:30:00"> 12:30 PM</option>
+          <option value="13:00:00"> 1:00 PM</option>
+          <option value="13:30:00"> 1:30 PM</option>
+          <option value="14:00:00"> 2:00 PM</option>
+          <option value="14:30:00"> 2:30 PM</option>
+          <option value="15:00:00"> 3:00 PM</option>
+          <option value="15:30:00"> 3:30 PM</option>
+          <option value="16:00:00"> 4:00 PM</option>
+          <option value="16:30:00"> 4:30 PM</option>
+          <option value="17:00:00"> 5:00 PM</option>
+          <option value="17:30:00"> 5:30 PM</option>
+          <option value="18:00:00"> 6:00 PM</option>
+          <option value="18:30:00"> 6:30 PM</option>
+          <option value="19:00:00"> 7:00 PM</option>
+          <option value="19:30:00"> 7:30 PM</option>
+          <option value="20:00:00"> 8:00 PM</option>
+          <option value="20:30:00"> 8:30 PM</option>
+          <option value="21:00:00"> 9:00 PM</option>
+          <option value="21:30:00"> 9:30 PM</option>
+          <option value="22:00:00"> 10:00 PM</option>
+          <option value="22:30:00"> 10:30 PM</option>
+          <option value="23:00:00"> 11:00 PM</option>
+        </select>
+        <script type="text/javascript">
+          var time="<%=event.start_time.strftime("%H:%M:%S")%>"
+          $('#event-start-time').val(time).change();
+        </script>
+        <!-- <label for="event_start_time" style="margin-bottom: 25px;">Time</label> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="row">
+        <div class="input-field col s10">
+          <i class="material-icons prefix">subject</i>
+          <textarea class="materialize-textarea"><%=event.details%></textarea>
+          <label for="event_details" class="active" style="padding-bottom: 10px;">Details (any information you'd like to add)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s8">
+          <i class="material-icons prefix">location_on</i>
+          <input type="text" placeholder: '' />
+          <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
+          <label class="active">Location (Google autocomplete)</label>
+          <input type="hidden" name="loc_lng"  %>
+          <input type="hidden" name="loc_lat"  %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s8" style="margin-top:0;">
+          <i class="material-icons prefix"></i>
+          <input type="text" name="address" disabled="true">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s4">
+          <i class="material-icons prefix">group</i>
+          <input type="text" name="min_people" value="<%=event.min_people%>"/>
+          <label for="event_min_people" class="active">Minimum players</label>
+        </div>
+
+        <div class="input-field col s4">
+          <input type="text" name="max_people" value="<%=event.max_people%>"/>
+          <label for="event_max_people" class="active">Maximum players</label>
+        </div>
+      </div>
+
+      <button id="save-event-form" class = "right waves-effect waves-light btn-flat transparent green-text no-uppercase" >
+        Save <i class="material-icons small left green-text">save</i>
+      </button>
+
+    </div>
+  <br>
+</div>
+

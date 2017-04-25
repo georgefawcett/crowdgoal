@@ -1,5 +1,15 @@
 
 <div class="container">
+    <a class='dropdown-button btn no-uppercase green lighten-5 grey-text text-darken-4' href='#' data-activates='sports'>
+      <i class="material-icons right">arrow_drop_down</i> Filter Events </a>
+
+    <ul id='sports' class='dropdown-content'>
+      <li> <%= link_to 'All', events_path %> </li>
+      <% Sport.all.each do |sport| %>
+        <li> <%= link_to sport.name, filter_path(sport) %> </li>
+      <% end %>
+    </ul>
+
 
   <div class="products">
     <%= render @events %>
