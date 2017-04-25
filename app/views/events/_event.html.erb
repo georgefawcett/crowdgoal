@@ -15,7 +15,7 @@
             <div style="float:left">
               <img src="http://icons.iconarchive.com/icons/martin-berube/sport/256/Soccer-icon.png" width="65" style="margin-right: 10px">
             </div>
-            <p id="event-title"><%= event.title %></p>
+            <h5 id="event-title"><%= link_to event.title, event %></h5>
             <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">date_range</i>
               <%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
             <i class="material-icons" style="font-size: 18px; color: #888888; vertical-align: middle">access_time</i>
@@ -39,7 +39,7 @@
             <tr>
               <td>
                 <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
-                  <font style="color: #aaaaaa"> | Expires in <%= ?? %> days </font>
+                  <font style="color: #aaaaaa"> | Expires in <%= (event.start_date.to_date - Date.today).to_i %> days </font>
                 </font>
                 <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
                   <% if (joined_count < min_people) %>

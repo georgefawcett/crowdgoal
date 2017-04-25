@@ -2,36 +2,47 @@
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
-
-        <span class="card-title" style="font-size: 160%; font-weight:; bold"><%= @event.title %></span>
+        <span class="card-title" style="display:inline-block; font-size: 160%; font-weight:; bold"><%= @event.title %></span>
+        <div class="fixed-action-btn" style="position:absolute; top:0; bottom:0">
+          <a>
+            <i class="btn-floating small material-icons transparent green-text">more_vert</i>
+          </a>
+          <ul>
+            <li><a class="btn-floating blue" id="edit-form-button" ><i class="material-icons">mode_edit</i></a></li>
+            <li><a class="btn-floating red" id="delete-form-button"><i class="material-icons">delete</i></a></li>
+          </ul>
+        </div>
         <hr class="blue"/>
-<br>
-<%= @event.sport_id %><br>
-<%= @event.start_date.strftime("%A, %B %-d, %Y") %><br>
-<%= @event.start_time.strftime("%l:%M %p") %><br>
-<%= @event.min_people %><br>
-<%= @event.max_people %><br>
-<%= @event.address %><br>
-<%= @event.user_id %> -
-<%= @user.name %><br>
-<%= current_user.id %>
-
-<br><br>
-<%= @event.address %><br>
-<%= @event.loc_lng %><br>
-<br>
-<%= @event.loc_lat %><br>
-
- <span class="new badge" data-badge-caption="">4</span>
-
-
-
-
-</div>
-  </div>
-
-    </div>
+        <br>
+        <%= @event.sport_id %><br>
+        <%= @event.start_date.strftime("%A, %B %-d, %Y") %><br>
+        <%= @event.start_time.strftime("%l:%M %p") %><br>
+        <%= @event.min_people %><br>
+        <%= @event.max_people %><br>
+        <%= @event.address %><br>
+        <%= @event.user_id %> -
+        <%= @user.name %><br>
+        <%= current_user.id %>
+        <br><br>
+        <%= @event.address %><br>
+        <%= @event.loc_lng %><br>
+        <br>
+        <%= @event.loc_lat %><br>
+        <span class="new badge" data-badge-caption="">4</span>
       </div>
+    </div>
+  </div>
+</div>
+
+<section id="event-edit-form" width="col s12 m7" style="width: 70%;">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 0px; padding-bottom: 0; margin:0;">
+        <%= render 'event_form', event: @event %>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="col s12 m7" style="width: 70%;">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">

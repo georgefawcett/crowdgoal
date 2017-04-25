@@ -6,48 +6,35 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Mada:900" rel="stylesheet">
+
+    <meta property="og:url"           content="https://stormy-reef-34928.herokuapp.com/" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="CrowdGoal" />
+  <meta property="og:description"   content="CrowdGoal" />
+  <meta property="og:image"         content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaa_5A9F9-OYxwur51VWv_JEsFpEsMXX1VtzUzhHi2x85G3hdsdg" />
   </head>
 
   <body>
+<!--
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=275643089562100";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script> -->
 
-    <!-- <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '275643089562100',
-          xfbml      : true,
-          version    : 'v2.9'
-        });
-
-        FB.ui({
-          method: 'share_open_graph',
-          action_type: 'og.likes',
-          action_properties: JSON.stringify({
-            object:'http://localhost:3000/events',
-          })
-        }, function(response){
-          // Debug response (optional)
-          console.log(response);
-        });
-
-        FB.AppEvents.logPageView();
-      };
-
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script> -->
 
     <%= render 'layouts/navbar' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <!-- <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p> -->
+
+    <!-- <div class="fb-share-button" data-href="https://stormy-reef-34928.herokuapp.com/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flocalhost%3A3000%2Fevents&amp;src=sdkpreparse">Share</a></div> -->
 
     <div id="backgroundImage">
       <div class="body-content">
-      <br>
+      <!-- <br> -->
         <%= yield %>
       </div>
     </div>

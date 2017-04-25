@@ -23,19 +23,20 @@ $(document).ready(function(){
   $('.modal').modal();
   $(".dropdown-button").dropdown();
   $('select').material_select();
-  $('.datepicker').pickadate({
+  var $input = $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 2, // Creates a dropdown of 15 years to control year
     min: new Date(),
     max: new Date(2018,12,30),
+    format: "ddd dd mmm, yyyy"
   });
 
   $('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
       constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
-      gutter: 10, // Spacing from edge
+      hover: false, // Activate on hover
+      gutter: 0, // Spacing from edge
       belowOrigin: true, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
@@ -108,4 +109,17 @@ $(document).ready(function(){
       }
     });
   });
+
+  $("#edit-close-button").click(function(){
+    $("#event-edit-form").css("display","none");
+  });
+
+  $("#edit-form-button").click(function(){
+    $("#event-edit-form").toggle();
+  })
+
+  $("#save-event-form").click(function(){
+    alert("saved!")
+  })
+
 });
