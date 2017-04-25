@@ -10,11 +10,20 @@
 
       <div class="input-field col s12">
 
+
+
+<%
+# Check to make sure that the event has already passed before allowing reviews
+if Time.now > @event.start_date
+%>
+
+
+
         <div class="ratingaverage">
+        <% if rating_avg = Review.where(event_id: @event.id).average(:rating) %>
           Average event rating:
           <p>
             <%
-            if rating_avg = Review.where(event_id: @event.id).average(:rating)
             full_stars = rating_avg.to_i
             if  (rating_avg*2).round/2.to_f % 1 != 0
               half_stars = 1
@@ -36,10 +45,35 @@
               <i class="material-icons blue-text text-darken-1">star_border</i>
               <% empty_stars -= 1
             end
-          end
+
             %>
           </p>
+
+          <% else %>
+            No reviews yet!
+          <% end %>
+
         </div>
+
+
+        <%
+        # Check if logged-in user is the event organizer,
+        # or if logged-in user has already reviewed event.
+        # If not, display the review form.
+
+        if @event.user_id = session[:user_id]
+        %>
+
+        Your event has received <%= pluralize(@reviews.length, 'review', 'reviews') %> so far.
+
+
+        <% elsif user_review = Review.where(user_id: session[:user_id]) %>
+
+        <br>
+        You have reviewed this event.
+
+        <% else %>
+
 
         <p class="title">
           Review this event:
@@ -97,7 +131,14 @@
     </div>
 
       <% end %> <!-- end form -->
+    <% end %> <!-- end if logged-in user has reviewed -->
 
+  <% else %> <!-- if event has taken place -->
+<center>
+
+  Reviews will be available beginning the day after the event.
+</center>
+  <% end %>
 
   </li>
 
