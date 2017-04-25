@@ -9,16 +9,18 @@
   </head>
 
   <body>
+
+
     <%= render 'layouts/navbar' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <div id="backgroundImage">
+ <div id="backgroundImage">
       <div class="body-content">
       <br>
         <%= yield %>
       </div>
-    </div>
+ </body>
 
     <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -29,6 +31,6 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+    </div>
 
-  </body>
 </html>

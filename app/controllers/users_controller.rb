@@ -35,8 +35,8 @@ class UsersController < ApplicationController
                      WHERE  followed_id = #{@user.id}"
     @followers = User.where("id IN (#{follower_ids})")
 
-    organized = "SELECT id FROM events WHERE user_id = #{@user.id} AND start_date > Now()"
-    @records_array = ActiveRecord::Base.connection.execute(organized)
+    organized = "SELECT id FROM events WHERE user_id = #{@user.id} AND start_date < Now()"
+
 
 
   end
