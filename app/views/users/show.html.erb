@@ -1,6 +1,13 @@
-
+<%# current_user = User.find_by(id: session[:user_id]) %>
 <div style="width: 71%">
+<%=
+@records_array
 
+# @happened = User.where("id IN (#{following_ids})")
+# @happened
+%>
+
+<img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/Soccer.ico">
 
       <div class="row">
       <div class="input-field col s3">
@@ -36,7 +43,20 @@ Affogato four loko meggings kombucha trust fund. Farm-to-table asymmetrical seit
 </td>
 <td>
 
-<a class="waves-effect waves-light btn white blue-text text-darken-1 followbutton"><i class="material-icons left">notifications_none</i>Follow Organized Games</a>
+
+
+
+
+
+   <div id="follow_form" style="float: right">
+  <% if current_user.following?(@user) %>
+    <%= render 'unfollow' %>
+  <% else %>
+    <%= render 'follow' %>
+    <% end %>
+</div>
+
+
 </td>
 </tr>
 </table>
@@ -58,11 +78,21 @@ Affogato four loko meggings kombucha trust fund. Farm-to-table asymmetrical seit
  <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s3" class="active"><a href="#location">Activity</a></li>
+        <li class="tab col s3" class="active"><a href="#activity">Activity</a></li>
 
-        <li class="tab col s3"><a href="#players">Reviews (25)</a></li>
-        <li class="tab col s3"><a href="#details">Followers (20)</a></li>
-        <li class="tab col s3"><a href="#players">Following (20)</a></li>
+        <li class="tab col s3"><a href="#organized">Organized (25)</a></li>
+
+        <% if @user.followers.count > 0 %>
+          <li class="tab col s3" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
+        <% else %>
+          <li class="tab col s3 disabled" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
+        <% end %>
+
+        <% if @user.following.count > 0 %>
+          <li class="tab col s3"><a href="#following">Following (<%= @user.following.count %>)</a></li>
+        <% else %>
+          <li class="tab col s3 disabled"><a href="#following">Following (<%= @user.following.count %>)</a></li>
+        <% end %>
 
 
 
@@ -70,11 +100,13 @@ Affogato four loko meggings kombucha trust fund. Farm-to-table asymmetrical seit
       </ul>
     </div>
 
-    <div id="location" class="col s12">
-      Test
+    <div id="activity" class="col s12">
+
+      <%= render 'activity' %>
+
     </div>
 
-    <div id="details" class="col s12">
+    <div id="organized" class="col s12">
       <ul class="collection">
         <li class="collection-item">
           Test
@@ -82,19 +114,15 @@ Affogato four loko meggings kombucha trust fund. Farm-to-table asymmetrical seit
       </ul>
     </div>
 
-    <div id="players" class="col s12">
-      Test
+    <div id="followers" class="col s12">
+      <%= render 'followers' %>
     </div>
 
-    <div id="messages" class="col s12">
-      Test
+    <div id="following" class="col s12">
+      <%= render 'following' %>
     </div>
 
-    <div id="photos" class="col s12">Test 4</div>
 
-    <div id="reviews" class="col s12">
-      Test
-    </div>
 
   </div>
 

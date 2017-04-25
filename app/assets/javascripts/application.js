@@ -29,6 +29,29 @@ $(document).ready(function(){
     min: new Date(),
     max: new Date(2018,12,30),
   });
+
+  $('#followbutton').click(function() {
+  $('#followbutton').toggleClass("savedList");
+  if ($('#followbutton').html() === '<font color="#cc2900"><i class="fa fa-bookmark-o" aria-hidden="true"></i></font> &nbsp;Bookmark') {
+   $("#followbutton").html('<font color="#cc2900"><i class="fa fa-bookmark" aria-hidden="true"></i></font> &nbsp;Bookmarked');
+   //alert("saving into favourites!")
+   $.ajax({
+     url: "/api/users/savefavourite",
+     type: "POST",
+     data: {id: $("#bookmark-row").data('list-id')}
+   });
+  } else {
+   $('#followbutton').html('<font color="#cc2900"><i class="fa fa-bookmark-o" aria-hidden="true"></i></font> &nbsp;Bookmark');
+   //alert("unsave!!")
+   $.ajax({
+     url: "/api/users/deletefavourite",
+     type: "POST",
+     data: {id: $("#bookmark-row").data('list-id')}
+   });
+ }
+});
+
+
   let updateProgressBar = function(event_id, min_people, max_people, joined_count){
     let remaining_count = Number(max_people - joined_count)
     if (remaining_count == 0){

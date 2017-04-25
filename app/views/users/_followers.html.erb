@@ -1,0 +1,30 @@
+<ul class="collection">
+
+
+  <% @followers.each do |follower| %>
+
+
+
+    <li class="collection-item avatar">
+
+      <% if follower.image %>
+        <img src="images/yuna.jpg" alt="" class="circle">
+      <% else %>
+        <i class="material-icons circle">face</i>
+      <%end %>
+
+    <p>
+      <a href="/users/<%= follower.id %>"><%= follower.name %></a>
+    </p>
+    <p>
+      <font class="messagedate">
+        Following since <a href="/users/"></a> <%= follower.created_at.strftime("%A, %B %-d") %>
+      </font>
+    </p>
+
+     </li>
+
+  <% end %>
+
+
+</ul>

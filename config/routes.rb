@@ -15,7 +15,13 @@ Rails.application.routes.draw do
 
   resources :messages
   resources :reviews
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
+  resources :relationships,       only: [:create, :destroy]
 
   resources :events do
     resources :players, only: [:create, :destroy]

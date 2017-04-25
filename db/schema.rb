@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20170424143257) do
-
+ActiveRecord::Schema.define(version: 20170425151616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +41,8 @@ ActiveRecord::Schema.define(version: 20170424143257) do
     t.string   "location"
     t.datetime "start_time"
     t.string   "address"
-<<<<<<< HEAD
     t.string   "loc_lat"
     t.string   "loc_lng"
-=======
->>>>>>> c2347754e7db2e54c1b1d0619c24aa952657ca39
   end
 
   create_table "events_users", force: :cascade do |t|
@@ -59,7 +54,6 @@ ActiveRecord::Schema.define(version: 20170424143257) do
     t.index ["user_id"], name: "index_events_users_on_user_id", using: :btree
   end
 
-<<<<<<< HEAD
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -68,8 +62,6 @@ ActiveRecord::Schema.define(version: 20170424143257) do
     t.datetime "updated_at", null: false
   end
 
-=======
->>>>>>> c2347754e7db2e54c1b1d0619c24aa952657ca39
   create_table "photos", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at",         null: false
@@ -91,7 +83,16 @@ ActiveRecord::Schema.define(version: 20170424143257) do
     t.datetime "updated_at",         null: false
   end
 
-<<<<<<< HEAD
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
+    t.index ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -101,8 +102,6 @@ ActiveRecord::Schema.define(version: 20170424143257) do
     t.datetime "updated_at", null: false
   end
 
-=======
->>>>>>> c2347754e7db2e54c1b1d0619c24aa952657ca39
   create_table "sports", force: :cascade do |t|
     t.string   "name"
     t.string   "icon"

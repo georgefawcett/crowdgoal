@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  include ApplicationHelper
+
   def new
     @user = User.new
   end
@@ -23,6 +25,20 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @created = Event.where(user_id: @user.id)
+
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = #{@user.id}"
+    @following = User.where("id IN (#{following_ids})")
+
+    follower_ids = "SELECT follower_id FROM relationships
+                     WHERE  followed_id = #{@user.id}"
+    @followers = User.where("id IN (#{follower_ids})")
+
+    organized = "SELECT id FROM events WHERE user_id = #{@user.id} AND start_date > Now()"
+    @records_array = ActiveRecord::Base.connection.execute(organized)
+
+
   end
 
 

@@ -1,0 +1,9 @@
+<%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+  <div><%= hidden_field_tag :followed_id, @user.id %></div>
+
+<%= button_tag(type: 'submit', class: "waves-effect waves-light btn white red-text text-darken-2 followbutton tooltipped", "data-position": "top", "data-tooltip": "Get notified when this player organizes a new game", "data-delay": 0) do %>
+ <i class="material-icons left">notifications_none</i>Follow Games
+
+<% end %>
+
+<% end %>
