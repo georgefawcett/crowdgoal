@@ -1,6 +1,5 @@
 <br>
-<p><%= event.inspect%></p>
-<button id="edit-close-button" class="btn-flat red-text" style="position:absolute;top:0;right:0;"><i class="material-icons small">close</i></button>
+<button id="edit-close-button" class="btn-flat grey-text" style="position:absolute;top:0;right:1em;padding:0;"><i class="material-icons small">close</i></button>
 <span class="card-title" style="font-size: 160%; font-weight:; bold">
   Edit Event
 </span>
@@ -24,7 +23,7 @@
     <div class="row">
       <div class="input-field col s4">
         <i class="material-icons prefix">today</i>
-        <input type="date" class="datepicker" id="event-date">
+        <input type="date" class="datepicker" id="event-start-date">
         <script type="text/javascript">
           var $input = $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
@@ -88,45 +87,47 @@
       <div class="row">
         <div class="input-field col s10">
           <i class="material-icons prefix">subject</i>
-          <textarea class="materialize-textarea"><%=event.details%></textarea>
+          <textarea class="materialize-textarea" id="event-details"><%=event.details%></textarea>
           <label for="event_details" class="active" style="padding-bottom: 10px;">Details (any information you'd like to add)</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s8">
           <i class="material-icons prefix">location_on</i>
-          <input type="text" placeholder: '' />
+          <input type="text" id="event-location" value="<%=event.location%>" />
           <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
           <label class="active">Location (Google autocomplete)</label>
-          <input type="hidden" name="loc_lng"  %>
-          <input type="hidden" name="loc_lat"  %>
+          <input type="hidden" name="loc_lng" id="event-lng" value="<%=event.loc_lng%>">
+          <input type="hidden" name="loc_lat" id="event-lat" value="<%=event.loc_lat%>">
         </div>
       </div>
       <div class="row">
         <div class="input-field col s8" style="margin-top:0;">
           <i class="material-icons prefix"></i>
-          <input type="text" name="address" disabled="true">
+          <input type="text" name="address" disabled="true" id="event-address" value="<%=event.address%>">
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s4">
           <i class="material-icons prefix">group</i>
-          <input type="text" name="min_people" value="<%=event.min_people%>"/>
+          <input type="text" name="min_people" value="<%=event.min_people%>" disabled="true"/>
           <label for="event_min_people" class="active">Minimum players</label>
         </div>
 
         <div class="input-field col s4">
-          <input type="text" name="max_people" value="<%=event.max_people%>"/>
+          <input type="text" name="max_people" value="<%=event.max_people%>" disabled="true"/>
           <label for="event_max_people" class="active">Maximum players</label>
         </div>
       </div>
 
-      <button id="save-event-form" class = "right waves-effect waves-light btn-flat transparent green-text no-uppercase" >
+      <button id="save-event-form" data-event-id="<%=event.id%>" class = "right waves-effect waves-light btn-flat transparent green-text no-uppercase" >
         Save <i class="material-icons small left green-text">save</i>
       </button>
 
     </div>
   <br>
 </div>
+
+
 

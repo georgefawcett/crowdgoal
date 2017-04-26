@@ -8,17 +8,9 @@
 
 
 
-        <div class="fixed-action-btn" style="position:absolute; top:0; bottom:0">
-          <a>
-            <i class="btn-floating small material-icons transparent green-text">more_vert</i>
-          </a>
-          <ul>
-            <li><a class="btn-floating blue" id="edit-form-button" ><i class="material-icons">mode_edit</i></a></li>
-            <li><a class="btn-floating red" id="delete-form-button"><i class="material-icons">delete</i></a></li>
-          </ul>
-        </div>
 
 
+<!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
 
 
 <% event = @event %>
@@ -35,12 +27,23 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
              <div class="organizer">
              <table>
               <tr>
-                <td>
-             <b>Organized by:</b><br>
-             <a href="/users/<%= @host.id %>"><%= @host.name %></a>
-             </td>
-             <td>
-              <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" class="circle" width="50">
+                <% if (event.user_id == current_user.id) then %>
+                  <td>
+                    <a class="btn-floating transparent" id="edit-form-button"><i class="material-icons blue-text">mode_edit</i></a>
+                  </td>
+                  <td>
+                    <a class="btn-floating transparent" id="delete-form-button" ><i class="material-icons red-text">delete</i></a>
+                  </td>
+                  </td>
+                <% else %>
+                  <td>
+                    <b>Organized by:</b><br>
+                    <a href="/users/<%= @host.id %>"><%= @host.name %></a>
+                  </td>
+                  <td>
+                    <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" class="circle" width="50">
+                  </td>
+                <% end %>
               </td>
               </tr>
               </table>
@@ -88,10 +91,15 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
               </td>
               <td align="right">
                 <div class="card-button" style="float: right">
-                  <% if (event.events_users.find_by(user_id: session[:user_id]))%>
+                  <% if (event.events_users.find_by(user_id: current_user.id))%>
                     <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
                       <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
                     </button>
+                      <% if (event.user_id == current_user.id) then %>
+                        <script type="text/javascript">
+                          $("#withdraw_game_<%=event.id%>").addClass("disabled");
+                        </script>
+                      <% end %>
                   <% else %>
                     <% if (joined_count >= event.max_people) then %>
                       <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
@@ -104,24 +112,15 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
                     <% end %>
                   <% end %>
                 </div>
-
               </td>
             </tr>
           </table>
-
-
-
-
-
-
-
-
 </div>
 
   </div>
 </div>
 
-<section id="event-edit-form" width="col s12 m7">
+<section id="event-edit-form" width="col s12 m7" style="display:none;">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 0px; padding-bottom: 0; margin:0;">
@@ -188,9 +187,15 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
   </div>
 
 
-
-
-
+<div id="delete-event-model" class="modal">
+  <div class="modal-content">
+    <button id="delete-close-button" class="btn-flat grey-text" style="position:absolute;top:0;right:0;"><i class="material-icons small">close</i></button>
+    <h6>Reason for cancelling the event:</h6>
+    <textarea id="cancel-event-reason" style="width: 650px;height:150px"></textarea><br>
+    <em>Note:  This will be sent across all the signed-up players for this event to notify the cancellation.</em>
+  </div>
+    <button id="delete-event-button" data-event-id="<%=event.id%>" class = "right z-depth-4 waves-effect waves-light btn-flat red-text no-uppercase" style="bottom:10px;right:10px;"> Cancel Event </button>
+</div>
 
 
 

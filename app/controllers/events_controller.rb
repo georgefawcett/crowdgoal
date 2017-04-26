@@ -29,6 +29,16 @@ class EventsController < ApplicationController
   end
 
   def update
+    @event = Event.update(params[:event_id], start_date: params[:event_start_date], start_time: Time.parse(params[:event_start_time]), location: params[:event_location]);
+    if (@event)
+      render status:200, json:{
+        message: "saved."
+      }
+    else
+    render status: 500, json: {
+        message: "Internal Server Error.",
+      }.to_json
+    end
   end
 
 
@@ -38,9 +48,18 @@ class EventsController < ApplicationController
     @players = @event.events_users
     @messages = @event.messages.order(created_at: :desc)
     @reviews = @event.reviews.order(created_at: :desc)
+  end
 
-
-
+  def destroy
+    if Event.destroy(params[:id])
+      render status:200, json:{
+        message:"Event deleted."
+      }.to_json
+    else
+      render status:500, json:{
+        message:"Internal Server Error."
+      }.to_json
+    end
   end
 
   private

@@ -18,7 +18,10 @@
 //= require components
 //= require_tree .
 //= require materialize-sprockets
-$(document).ready(function(){
+// $(document).ready(onLoad);
+$(document).on('turbolinks:load', onLoad);
+
+function onLoad(){
   // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
   $('.modal').modal();
   $(".dropdown-button").dropdown();
@@ -110,10 +113,76 @@ $(document).ready(function(){
   $("#edit-close-button").click(function(){
     $("#event-edit-form").css("display","none");
   });
+
+  $("#delete-close-button").click(function(){
+    $('#delete-event-model').modal('close');
+  });
+
   $("#edit-form-button").click(function(){
-    $("#event-edit-form").toggle();
+    $('#event-edit-form').toggle();
+  })
+  $("#delete-form-button").click(function(){
+    $('#delete-event-model').modal('open');
   })
   $("#save-event-form").click(function(){
-    alert("saved!")
+    if ($("#event-start-date").val() == ''){
+      Materialize.toast("Date cannot be empty!",3000,"red");
+      return false;
+    }
+    if($("#event-start-time").val() == ''){
+      Materialize.toast("Time cannot be empty!",3000,"red");
+      return false;
+    }
+    if ($("#event-location").val() == ''){
+      Materialize.toast("Location cannot be empty!",3000,"red");
+      return false;
+    }
+    var event_id = $(this).attr("data-event-id");
+    $.ajax({
+      url:'/events/'+event_id,
+      method: "PATCH",
+      dataType: "json",
+      data:{
+        event_id: event_id,
+        event_start_date: $("#event-start-date").val(),
+        event_start_time: $("#event-start-time").val(),
+        event_details: $("#event-details").val(),
+        event_location: $("#event-location").val(),
+        event_address: $("#event-address").val(),
+        event_lat: $("#event-lat").val(),
+        event_lng: $("#event-lng").val()
+      },
+      success: function(response) {
+        Materialize.toast(response.message, 3000, "blue");
+        $("#event-edit-form").css("display","none");
+      },
+      error: function(response){
+        Materialize.toast(response.message, 3000, "red");
+      }
+    });
   })
-});
+
+  $("#delete-event-button").click(function(){
+    if($("#cancel-event-reason").val() == ''){
+      Materialize.toast("Reason can not be empty.", 2000, "red");
+      return false;
+    }
+    var event_id = $(this).attr("data-event-id");
+    $.ajax({
+      url:'/events/'+event_id,
+      method:'DELETE',
+      dataType: 'json',
+      success: function(){
+        $("#delete-event-model").modal('close');
+        Materialize.toast("Event deleted.",2000,"blue");
+        document.location.href="/events";
+      },
+      error: function(){
+        Materialize.toast("Internal Server Error",2000,"red");
+      }
+    })
+  })
+}
+
+
+
