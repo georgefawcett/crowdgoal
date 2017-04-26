@@ -36,6 +36,21 @@
             <%= form.password_field :password_confirmation, class: 'validate  form-field', placeholder: 'Confirm Password' %>
           </div>
         </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">photo_camera</i>
+
+
+            <%= form.file_field :picture, class: 'validate' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">face</i>
+            <%= form.text_field :about, class: 'validate form-field' %>
+          </div>
+        </div>
+
         <center>
           <%= form.submit 'Register', class: 'btn btn-medium center-align waves-effect waves-light green darken-2 no-uppercase' %>
         </center><br>

@@ -1,5 +1,6 @@
 class Photo < ApplicationRecord
 
+  belongs_to :gallery
 
     #Mounts paperclip image
   has_attached_file :image

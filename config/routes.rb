@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'galleries/create'
+
   # devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -23,6 +25,10 @@ Rails.application.routes.draw do
 
   resources :relationships,       only: [:create, :destroy]
 
+  resources :galleries,       only: [:create, :destroy]
+  resources :photos
+
+
   resources :events do
     resources :players, only: [:create, :destroy]
   end
@@ -34,6 +40,6 @@ Rails.application.routes.draw do
 
 
  root to: "photos#index"
-  resources :photos
+
 
 end

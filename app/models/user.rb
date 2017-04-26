@@ -18,6 +18,18 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :galleries
+
+
+
+
+  #Mounts paperclip image
+  has_attached_file :picture
+
+  #This validates the type of file uploaded. According to this, only images are allowed.
+  validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/
+
+
   # has_secure_password
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

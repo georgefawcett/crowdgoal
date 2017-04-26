@@ -26,6 +26,7 @@ function onLoad(){
   $('.modal').modal();
   $(".dropdown-button").dropdown();
   $('select').material_select();
+  $('.materialboxed').materialbox();
   var $input = $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 2, // Creates a dropdown of 15 years to control year

@@ -10,6 +10,7 @@ gem 'material_icons'
 
 gem 'momentjs-rails', '>= 2.9.0'
 gem "paperclip", "~> 5.0.0"
+gem 'aws-sdk', '~> 2.3'
 
 gem 'devise'
 gem 'omniauth-facebook'
