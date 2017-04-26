@@ -90,10 +90,7 @@ config.paperclip_defaults = {
     access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
     secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
     s3_region: ENV.fetch('AWS_REGION'),
-  },
-  :s3_host_name => "s3-ca-central-1.amazonaws.com", # Added entry
-  :url => ":s3_host_name"                        # Added entry
-}
+  }
 
 
   # Do not dump schema after migrations.
