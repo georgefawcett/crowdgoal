@@ -94,7 +94,7 @@ config.paperclip_defaults = {
   :s3_host_name => "s3-ca-central-1.amazonaws.com", # Added entry
   :url => ":s3_host_name"                        # Added entry
 }
-}
+
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
