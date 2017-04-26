@@ -1,18 +1,37 @@
 <div class="col s12 m7" style="width: 70%">
-
-
-
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+        <div id="clockdiv">
+          <div>
+            <span class="days"></span>
+            <div class="smalltext">Days</div>
+          </div>
+          <div>
+            <span class="hours"></span>
+            <div class="smalltext">Hours</div>
+          </div>
+          <div>
+            <span class="minutes"></span>
+            <div class="smalltext">Minutes</div>
+          </div>
+          <div>
+            <span class="seconds"></span>
+            <div class="smalltext">Seconds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-
-
+<div class="col s12 m7" style="width: 70%">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
 <!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
-
-
 <% event = @event %>
 <% min_people = event.min_people %>
   <% joined_count = event.events_users.count %>
