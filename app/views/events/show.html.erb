@@ -124,20 +124,7 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
 
 
 
-<div class="col s12 m7 yellow">
 
-
-
-  <div class="card horizontal yellow" style="border: 1px solid #e3f2fd">
-    <div class="card-stacked yellow">
-      <div class="card-content small green" style="padding-top: 8px; padding-bottom: 0;">
-
-<br>
-
-</div>
-</div>
-</div>
-</div>
 
 
 
@@ -170,7 +157,7 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
           <li class="tab col s2 disabled"><a href="#messages">Messages</a></li>
         <% end %>
 
-        <li class="tab col s2 disabled"><a href="#photos">Photos</a></li>
+        <li class="tab col s2"><a href="#photos">Photos</a></li>
         <li class="tab col s2"><a href="#reviews">Reviews</a></li>
       </ul>
     </div>
@@ -195,7 +182,9 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
       <%= render 'messages' %>
     </div>
 
-    <div id="photos" class="col s12">Test 4</div>
+    <div id="photos" class="col s12">
+      <%= render 'photos' %>
+    </div>
 
     <div id="reviews" class="col s12">
       <%= render 'reviews' %>

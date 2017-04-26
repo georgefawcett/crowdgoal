@@ -1,0 +1,81 @@
+<ul class="collection">
+  <li class="collection-item avatar">
+
+      <%= form_for :gallery, :html => { :multipart => true }, :url => galleries_path do |f| %>
+
+        <div class="row">
+
+          <div class="input-field col s8">
+
+            <!-- <div class="file-field input-field"> -->
+
+              <!-- <div class="btn blue darken-1">
+                <span>File</span> -->
+                <%#=f.file_field "images[]", type: :file, multiple: true %>
+                <%= f.hidden_field :event_id, value: @event.id %>
+              <!-- </div> -->
+
+              <!-- <div class="file-path-wrapper"> -->
+                <%= file_field_tag "images[]", type: :file, multiple: true %>
+              <!-- </div> -->
+
+            <!-- </div> -->
+
+          </div>
+
+          <div class="input-field col s2">
+            <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light green addmessage") do %>
+              <i class="material-icons">add</i>
+            <% end %>
+          </div>
+
+
+
+        </div>
+
+      <% end %>
+
+  </li>
+
+
+  <% @galleries.each do |g| %>
+
+    <% @author = User.find(g.user_id) %>
+
+    <% @photos = g.photos %>
+
+    <li class="collection-item avatar">
+
+    <font class="messagedate">
+      <%= @author.name %> posted <%= pluralize(@photos.length, 'photo', 'photos') %> on <%= g.created_at %>:
+    </font>
+
+    <% @photos.each do |p| %>
+     <%= image_tag p.image.url %>
+    <% end %>
+
+
+    <!-- If message author is logged in, allow delete option -->
+
+    <% if current_user.id == g.user_id %>
+
+      <%= link_to gallery_path(g), method: :delete, data: { confirm: 'Delete your photos?' } do %>
+        <div class="delete secondary-content red-text">
+        <font class="deletefont">delete</font>
+        <i class="material-icons">indeterminate_check_box</i>
+        </div>
+      <% end %>
+
+    <% end %>
+
+
+
+    </li>
+
+  <% end %>
+
+
+
+</ul>
+
+

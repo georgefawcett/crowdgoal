@@ -9,6 +9,8 @@ class Event < ApplicationRecord
   has_many :messages
   has_many :reviews
 
+  has_many :galleries
+
   validates :title, presence: true
   validates :sport_id, presence: true
   validates :start_date, presence: true

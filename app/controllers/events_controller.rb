@@ -38,7 +38,7 @@ class EventsController < ApplicationController
     @players = @event.events_users
     @messages = @event.messages.order(created_at: :desc)
     @reviews = @event.reviews.order(created_at: :desc)
-
+    @galleries = @event.galleries.order(created_at: :desc)
 
 
   end

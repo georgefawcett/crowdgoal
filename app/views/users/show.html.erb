@@ -12,7 +12,9 @@
       <div class="row">
       <div class="input-field col s3">
 
-<img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/2/000/1a3/129/3a73f4c.jpg" class="circle profilepic">
+<%= link_to image_tag(@user.picture.url, class: 'circle profilepic') %>
+
+
 
 </div>
         <div class="input-field col s9">
