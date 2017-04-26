@@ -167,10 +167,12 @@ function onLoad(){
       Materialize.toast("Reason can not be empty.", 2000, "red");
       return false;
     }
+    alert($("#cancel-event-reason").val());
     var event_id = $(this).attr("data-event-id");
     $.ajax({
       url:'/events/'+event_id,
       method:'DELETE',
+      data:{reason: $("#cancel-event-reason").val()},
       dataType: 'json',
       success: function(){
         $("#delete-event-model").modal('close');

@@ -3,11 +3,11 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :sport
 
-  has_many :events_users
+  has_many :events_users, dependent: :destroy
   has_many :users, :through => :events_users
 
-  has_many :messages
-  has_many :reviews
+  has_many :messages, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   validates :title, presence: true
   validates :sport_id, presence: true

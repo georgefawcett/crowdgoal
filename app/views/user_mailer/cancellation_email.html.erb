@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <style type="text/css">
+    p{
+      font-size: 16px;
+
+    }
+  </style>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p> Hey there, </p>
+    <p> This is to notify that the event "<%=@event.title%>" you signed-up in CrowdGoal has been cancelled by the host. </p>
+    <h4> Event Details </h4>
+    <p><b>Event Date & Time:</b> <%=@event.start_date.to_date.strftime("%A, %B %-d, %Y")%> | <%=@event.start_time.strftime("%H:%M:%S")%></p>
+    <p><b>Event Location:</b> <%=@event.address%></p>
+    <p><b>Reason for Cancellation:</b> <%=@reason%></p>
+    <br>
+    <p>Best Regards,</5>
+    <p><b>CrowdGoal Team.</b></p>
+  </body>
+</html>

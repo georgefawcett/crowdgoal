@@ -28,6 +28,7 @@ class EventsController < ApplicationController
     puts event.errors.full_messages
   end
 
+
   def update
     @event = Event.update(params[:event_id], start_date: params[:event_start_date], start_time: Time.parse(params[:event_start_time]), location: params[:event_location]);
     if (@event)
@@ -51,7 +52,16 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    puts params[:reason]
+    @event = Event.find(params[:id]);
+    @players = @event.events_users
+    @email_ids = Array.new
+    @players.each do |player|
+      @email_ids.push(User.find(player.user_id).email)
+    end
+    # @email_ids = User.where(id: @players.collect(&:user_id).join(",")).all.collect(&:email).join(",")
     if Event.destroy(params[:id])
+      UserMailer.cancellation_email(@event, @email_ids, params[:reason]).deliver
       render status:200, json:{
         message:"Event deleted."
       }.to_json

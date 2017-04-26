@@ -1,0 +1,9 @@
+Hey there,
+This is to notify that the event "<%=@event.title%>" you signed-up in CrowdGoal has been cancelled by the host.
+Event Details
+Event Date & Time: <%=@event.start_date.to_date.strftime("%A, %B %-d, %Y")%> | <%=@event.start_time.strftime("%H:%M:%S")%>
+Event Location: <%=@event.address%>
+Reason for Cancellation: <%=@reason%>
+
+Best Regards,
+CrowdGoal Team.
