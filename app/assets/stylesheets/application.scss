@@ -24,6 +24,10 @@
 body {
 
 
+    background-image: url('https://s3.ca-central-1.amazonaws.com/crowdgoal/static/background/baseball.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 
   .body-content{
     padding: 20px;
@@ -358,7 +362,7 @@ textarea:focus {
 }
 
 .eventfont {
-  font-size: 90%;
+  font-size: 85%;
   margin-top: 0;
   padding-top: 0;
   line-height: 16px;
@@ -548,9 +552,13 @@ width:1em;
 }
 
 .sportsicon {
-  width: 65px;
-  margin-right: 10px
+  width: 60px;
+  margin-right: 10px;
+  margin-bottom: 6px;
+  opacity: 0.8;
 }
+
+
 
 span.badge {
   min-width: 3rem;
@@ -610,14 +618,14 @@ span.badge.new {
 }
 
 .eventicons {
-  color: #888888
+  color: #888888;
+  font-size: 90%;
 }
 
 .sideNav {
     padding: 10px 0;
-    position: fixed;
+    position: absolute;
     right: 30px;
-overflow-y: scroll;
     top: 70px; /* same as .content top*/
     bottom: 0px;
     width: 24%;

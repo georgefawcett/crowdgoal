@@ -21,19 +21,19 @@
 
 
               <div class="vertalign">
-                <i class="material-icons md-18 eventicons">date_range</i>
+                <i class="material-icons md-18 eventicons" style="font-size: 100%">date_range</i>
                 <span class="eventfont">
                   &nbsp;<%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
               </div>
               <div class="vertalign">
-                <i class="material-icons md-18 eventicons">access_time</i>
+                <i class="material-icons md-18 eventicons" style="font-size: 100%">access_time</i>
                 <span class="eventfont">
                   &nbsp;<%= event.start_time.strftime("%l:%M %p") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
               </div>
               <div class="vertalign">
-                <i class="material-icons md-18 eventicons">location_on</i>
+                <i class="material-icons md-18 eventicons" style="font-size: 100%">location_on</i>
                 <span class="eventfont">
                   &nbsp;<a href="#modal1"><%= truncate(event.location, length:29) %></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
