@@ -26,6 +26,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @created = Event.where(user_id: @user.id)
 
+    @joined = "SELECT count(*) FROM events_users
+                     WHERE  user_id = #{@user.id}"
+
+
+
+
     following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = #{@user.id}"
     @following = User.where("id IN (#{following_ids})")
@@ -34,7 +40,7 @@ class UsersController < ApplicationController
                      WHERE  followed_id = #{@user.id}"
     @followers = User.where("id IN (#{follower_ids})")
 
-    organized = "SELECT id FROM events WHERE user_id = #{@user.id} AND start_date < Now()"
+
 
 
 

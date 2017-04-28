@@ -34,6 +34,7 @@ function onLoad(){
     max: new Date(2018,12,30),
     format: "ddd dd mmm, yyyy"
   });
+  $('.collapsible').collapsible();
   $('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
@@ -43,8 +44,7 @@ function onLoad(){
       belowOrigin: true, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
-    }
-  );
+    });
   var updateProgressBar = function(event_id, min_people, max_people, joined_count){
     var remaining_count = Number(max_people - joined_count)
     if (remaining_count == 0){

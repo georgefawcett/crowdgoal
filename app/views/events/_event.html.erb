@@ -10,10 +10,10 @@
         <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
            <div style="float:right">
            <a href="/users/<%= @user.id %>">
-              <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" style="margin-top: 7px; border-radius: 50%; border: 1px solid #666666" width="50">
+              <%= image_tag @user.picture.url(:thumb), class: 'circle thumbprofile' %>
             </a>
             </div>
-            <p class = "card-header" style="margin-bottom: 9px"><b id="host_name_<%=event.id%>" data-host-id="<%=@user.id%>"><a href="/users/<%= @user.id %>"><%=@user.name %></a></b> needs at least <%=min_people%></span> players for <%= event.sport.name %> | <b> <span data-max-people="<%=event.max_people%>" id="remaining_count_<%=event.id%>"> <%=event.max_people - joined_count %> </span> more spots </b> open!</p>
+            <p class = "card-header" style="margin-bottom: 9px"><span id="host_name_<%=event.id%>" data-host-id="<%=@user.id%>"><a href="/users/<%= @user.id %>" style="color: #888888"><%=@user.name %></a></span> needs at least <%=min_people%></span> players for <%= event.sport.name %> | <b> <span data-max-people="<%=event.max_people%>" id="remaining_count_<%=event.id%>"> <%=event.max_people - joined_count %> </span> more spots </b> open!</p>
             <div style="float:left">
               <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= event.sport.icon %>.ico" class="sportsicon">
             </div>
@@ -21,36 +21,32 @@
 
 
               <div class="vertalign">
-                <i class="material-icons md-18 eventicons">date_range</i>
+                <i class="material-icons md-18 eventicons" style="font-size: 100%">date_range</i>
                 <span class="eventfont">
                   &nbsp;<%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
               </div>
               <div class="vertalign">
-                <i class="material-icons md-18 eventicons">access_time</i>
+                <i class="material-icons md-18 eventicons" style="font-size: 100%">access_time</i>
                 <span class="eventfont">
                   &nbsp;<%= event.start_time.strftime("%l:%M %p") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
               </div>
               <div class="vertalign">
-                <i class="material-icons md-18 eventicons">location_on</i>
+                <i class="material-icons md-18 eventicons" style="font-size: 100%">location_on</i>
                 <span class="eventfont">
-                  &nbsp;<a href="#modal1"><%= event.location %>&nbsp;
+                  &nbsp;<a href="#modal1"><%= truncate(event.location, length:29) %></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
-                <i class="material-icons md-18">filter_none</i>
+              </div>
+               <div class="vertalign">
+                <span class="eventfont">
+                  &nbsp;<a href="#modal1">Details
+                </span>
+                <i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i>
                 </a>
               </div>
 
-            <ul class="collapsible" data-collapsible="accordion" style="margin-top: 12px">
-              <li>
-                <div class="collapsible-header z-depth-0" style="color: #999999">
-                  <i class="material-icons">subject</i> View details...
-                </div>
-                <div class="collapsible-body">
-                  <%= event.details%>
-                </div>
-              </li>
-            </ul>
+
         </div>
         <div class="card-action" style="padding-top: 0; padding-bottom: 0">
           <table width="100%">
@@ -99,7 +95,12 @@
                 <!-- Modal Structure -->
                 <div id="modal1" class="modal">
                   <div class="modal-content">
+
+
                     <h4>Map for address!</h4>
+
+
+
                   </div>
                 </div>
               </td>

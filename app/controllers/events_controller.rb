@@ -3,7 +3,12 @@ class EventsController < ApplicationController
 
 
   def index
-    @events = Event.all
+
+  now = Time.now
+  @events = Event.where('start_date > :end',
+    :end=> now.beginning_of_day,
+  )
+
   end
 
   def create
@@ -54,6 +59,8 @@ class EventsController < ApplicationController
     @messages = @event.messages.order(created_at: :desc)
     @reviews = @event.reviews.order(created_at: :desc)
     @galleries = @event.galleries.order(created_at: :desc)
+
+
   end
 
   def destroy

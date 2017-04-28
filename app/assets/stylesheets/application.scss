@@ -24,10 +24,15 @@
 body {
 
 
+    background-image: url('https://s3.ca-central-1.amazonaws.com/crowdgoal/static/background/baseball.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 
   .body-content{
     padding: 20px;
     color: black;
+    width: 70%
   }
   .nav-options{
     font-size: small;
@@ -289,7 +294,8 @@ body {
 
 .tabs .tab a {
   color: #388e3c;
-  opacity: 0.7
+  opacity: 0.7;
+  padding: 0 12px;
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {
@@ -356,7 +362,7 @@ textarea:focus {
 }
 
 .eventfont {
-  font-size: 90%;
+  font-size: 85%;
   margin-top: 0;
   padding-top: 0;
   line-height: 16px;
@@ -539,16 +545,20 @@ width:1em;
 }
 
 .profilepic {
-  width: 100%;
+
   border: 1px solid #cccccc;
   box-shadow: 1px 1px 3px #888888;
   margin-top: 8px;
 }
 
 .sportsicon {
-  width: 65px;
-  margin-right: 10px
+  width: 60px;
+  margin-right: 10px;
+  margin-bottom: 6px;
+  opacity: 0.8;
 }
+
+
 
 span.badge {
   min-width: 3rem;
@@ -608,6 +618,100 @@ span.badge.new {
 }
 
 .eventicons {
-  color: #888888
+  color: #888888;
+  font-size: 90%;
 }
 
+.sideNav {
+    padding: 10px 0;
+    position: absolute;
+    right: 30px;
+    top: 70px; /* same as .content top*/
+    bottom: 0px;
+    width: 24%;
+
+    }
+
+
+  .messagestab {
+  padding-left: 3px;
+  padding-right: 3px
+  }
+
+
+.navbarpic {
+  margin-top: 6px;
+  border: 1px solid #cccccc
+}
+
+.thumbprofile {
+  width: 50px;
+  border: 1px solid #cccccc
+}
+
+.collapsible-body {
+  display: none;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.side-alert {
+  font-size: 85%
+}
+
+.game-alert {
+  font-size: 95%;
+  min-height: 85px;
+}
+
+.game_alert_font {
+  font-size: 85%;
+  line-height: 12px;
+}
+
+
+/*SIDE BAR CALENDAR ICONS*/
+
+.icon_date {
+
+  width: 50px;
+  height: 63px;
+  margin: 0px;
+  background: #fff;
+  text-align: center;
+  font-family: 'Helvetica', sans-serif;
+  border: 1px solid #aaa;
+  position: relative;
+  top: 0;
+  left: 0;
+  float: left;
+}
+
+
+.icon_date .icon_month {
+  background: #d32f2f;
+  display: block;
+  padding: 4px;
+  color: #fff;
+  font-size: 110%;
+  font-weight: bold;
+  border-bottom: 1px solid #aaa;
+  text-transform: uppercase;
+}
+
+.icon_date .icon_day {
+  display: block;
+  margin: 0;
+  padding: 0px;
+  font-size: 190%;
+  font-weight: bold;
+  position: relative;
+}
+
+.game_alert_div {
+
+  position: relative;
+  top: 0px;
+  left: 10px;
+}

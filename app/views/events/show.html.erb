@@ -16,6 +16,8 @@
 
 <div class="col s12 m7" style="width: 70%;">
   <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
+<!-- <div class="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd"> -->
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
           <table style="width:100%;">
@@ -96,9 +98,10 @@
 
 <% event = @event %>
 <% min_people = event.min_people %>
-  <% joined_count = event.events_users.count %>
-  <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
+<% joined_count = event.events_users.count %>
+<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
 <% @host = User.find(event.user_id) %>
+
 <%
 playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
 
@@ -128,7 +131,7 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
                     <a href="/users/<%= @host.id %>"><%= @host.name %></a>
                   </td>
                   <td>
-                    <img src="https://www.linkedin.com/mpr/mpr/AAEAAQAAAAAAAAt2AAAAJGUyM2NlYjgxLTIxYWMtNDJkMi04NDQyLWI4YzQ1MTJhNjA4OA.jpg" class="circle" width="50">
+                    <%= link_to image_tag(@host.picture.url(:thumb), class: 'circle profilepic thumbprofile') %>
                   </td>
                 <% end %>
               </td>
@@ -224,19 +227,19 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
 
  <div class="row">
     <div class="col s12">
-      <ul class="tabs">
+      <ul class="tabs tabs-fixed-width">
         <li class="tab col s2" class="active"><a href="#location">Location</a></li>
         <li class="tab col s2"><a href="#details">Details</a></li>
-        <li class="tab col s2"><a href="#players">Players</a></li>
+        <li class="tab col s2"><a href="#players">Players (<%= @players.length %>)</a></li>
 
         <% if playing.length > 0 %>
-          <li class="tab col s2"><a href="#messages">Messages</a></li>
+          <li class="tab col s2 messagestab"><a href="#messages">Messages (<%= @messages.length %>)</a></li>
         <% else %>
-          <li class="tab col s2 disabled"><a href="#messages">Messages</a></li>
+          <li class="tab col s2 disabled messagestab"><a href="#messages">Messages (<%= @messages.length %>)</a></li>
         <% end %>
 
-        <li class="tab col s2"><a href="#photos">Photos</a></li>
-        <li class="tab col s2"><a href="#reviews">Reviews</a></li>
+        <li class="tab col s2"><a href="#photos">Photos (<%= Photo.where(gallery_id: @event.galleries.ids).count %>)</a></li>
+        <li class="tab col s2"><a href="#reviews">Reviews (<%= @reviews.length %>)</a></li>
       </ul>
     </div>
 

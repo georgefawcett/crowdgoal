@@ -24,7 +24,11 @@ class User < ApplicationRecord
 
 
   #Mounts paperclip image
-  has_attached_file :picture
+  has_attached_file :picture, :styles => {
+      :thumb => "50x50#",
+      :profile  => "200x200#"
+      },
+      default_url: "https://s3.ca-central-1.amazonaws.com/crowdgoal/users/pictures/missing.png"
 
   #This validates the type of file uploaded. According to this, only images are allowed.
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/

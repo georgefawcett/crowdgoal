@@ -29,17 +29,34 @@
     }(document, 'script', 'facebook-jssdk'));</script> -->
 
 
+
     <%= render 'layouts/navbar' %>
     <!-- <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p> -->
 
     <!-- <div class="fb-share-button" data-href="https://stormy-reef-34928.herokuapp.com/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flocalhost%3A3000%2Fevents&amp;src=sdkpreparse">Share</a></div> -->
 
-    <div id="backgroundImage">
+
+
+
+
+
       <div class="body-content">
+
+
+
       <!-- <br> -->
         <%= yield %>
-      </div>
-    </div>
-  </body>
+
+
+
+
+  </div>
+
+  <%= render '/layouts/sidebar' %>
+
+
+
+
+      </body>
 </html>

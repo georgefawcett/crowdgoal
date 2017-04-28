@@ -5,14 +5,14 @@ class GalleriesController < ApplicationController
      @gallery.user_id = session[:user_id]
 
 
-    if @gallery.save
+if params[:images]
 
-      if params[:images]
+    if @gallery.save
         puts params[:images]
         params[:images].each { |image|
           @gallery.photos.create(image: image)
         }
-      end
+
 
       redirect_to :controller => 'events', :id => @gallery.event_id, :anchor => 'photos', :action => 'show'
 
@@ -20,6 +20,10 @@ class GalleriesController < ApplicationController
       redirect_to :controller => 'events', :id => @gallery.event_id, :anchor => 'photos', :action => 'show', :notice => 'Your upload failed.'
     end
     puts @gallery.errors.full_messages
+
+else
+  redirect_to :controller => 'events', :id => @gallery.event_id, :anchor => 'photos', :action => 'show', :notice => 'No photos'
+end
 
   end
 
