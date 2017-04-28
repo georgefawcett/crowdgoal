@@ -1,30 +1,111 @@
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+<style type="text/css">
+  .time_circles div h4 {
+    font-size: 10px !important;
+    line-height: 5px !important;
+  }
+  .time_circles div span {
+    font-size: 20px !important;
+    line-height: 10px !important;
+  }
+  th, td, tr{
+    padding:0;
+    padding-top: 0;
+  }
+</style>
+
 <div class="col s12 m7">
-  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
+<!-- <div class="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd"> -->
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
-        <div id="clockdiv">
-          <div>
-            <span class="days"></span>
-            <div class="smalltext">Days</div>
-          </div>
-          <div>
-            <span class="hours"></span>
-            <div class="smalltext">Hours</div>
-          </div>
-          <div>
-            <span class="minutes"></span>
-            <div class="smalltext">Minutes</div>
-          </div>
-          <div>
-            <span class="seconds"></span>
-            <div class="smalltext">Seconds</div>
-          </div>
-        </div>
+          <table style="width:100%;">
+            <tr>
+              <td>Event starts in</td>
+              <td>Weather: <span id="weather-summary"> Summary </span> </td>
+            </tr>
+            <tr width="100%">
+              <td width="60%">
+                <div id="DateCountdown" data-date="<%=@event.start_date.to_date%> <%=@event.start_time.strftime("%H:%M:%S")%>" style="height:50%; width: 70%;margin: auto;">
+                </div>
+              </td>
+              <td width="40%">
+              <table>
+                <tr>
+                  <td colspan="3"></td>
+                </tr>
+                <tr>
+                  <td><center><canvas id="weather-image" width="50" height="50"></canvas></center></td>
+                  <td>
+                    <table>
+                      <tr><td width="50%" aligh="right">During Event -</td><td width="50%"><span id="hour_temp"></span><span>&#8451;</span></td></tr>
+                      <tr><td width="50%" align="right">Min - </td><td width="50%"><span id="min_temp"></span><span>&#8451;</span></td></tr>
+                      <tr><td width="50%">Max - </td><td width="50%"><span id="max_temp"> </span><span>&#8451;</span></td></tr>
+                    </table>
+                  </td>
+                </tr></table>
+                <script type="text/javascript">
+                  var colors={
+                    "clear-day": "Orange",
+                    "clear-night": "Black",
+                    "rain":"DeepSkyBlue",
+                    "snow": "Aqua",
+                    "sleet": "Aqua",
+                    "wind": "SlateGray",
+                    "fog":"LightSteelBlue",
+                    "cloudy":"Gray",
+                    "partly-cloudy-day":"DarkOrange",
+                    "partly-cloudy-night": "LightSlateGray "
+                  }
+                  var lat = "<%=@event.loc_lat%>";
+                  var lng = "<%=@event.loc_lng%>"
+                  var start_date = "<%=@event.start_date.to_date%>";
+                  var start_time = "<%=@event.start_time.strftime("%H:%M:%S")%>"
+                  var index = "<%=@event.start_time.strftime("%H:%M:%S")%>".toString().substring(0,2).replace(0,'')
+                  console.log(index)
+                  console.log("https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + lat + "," + lng + "," + start_date + "T" + start_time + "?exclude=currently,flags,alerts,daily");
+                  $.ajax({
+                    url: "https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + lat + "," + lng + "," + start_date + "T" + start_time,
+                    method: "GET",
+                    dataType: "jsonp",
+                    success: function(response){
+                      console.log(response.hourly.data[index]);
+                      $("#weather-summary").text(response.hourly.data[index].summary)
+                      var hr_temp = Math.round((5/9) * (response.hourly.data[index].apparentTemperature-32),0)
+                      var min = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMin-32),0)
+                      var max = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMax-32),0)
+                      $("#hour_temp").text(hr_temp);
+                      $("#min_temp").text(min);
+                      $("#max_temp").text(max);
+                      var skycons = new Skycons({"color": colors[response.hourly.data[index].icon]});
+                      skycons.add("weather-image", response.hourly.data[index].icon);
+                      skycons.play();
+                    },
+                    error: function(error){
+                      console.log("error");
+                    }
+                  })
+
+                </script>
+              </td>
+            </tr>
+          </table>
       </div>
     </div>
   </div>
 </div>
 
+<% event = @event %>
+<% min_people = event.min_people %>
+<% joined_count = event.events_users.count %>
+<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
+<% @host = User.find(event.user_id) %>
+
+<%
+playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
+
+%>
 
 
 <div class="col s12 m7">
@@ -32,19 +113,6 @@
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
 <!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
-<% event = @event %>
-<% min_people = event.min_people %>
-<% joined_count = event.events_users.count %>
-<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
-<% @host = User.find(event.user_id) %>
-
-
-
-
-<%
-playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
-
-%>
 
              <div class="organizer">
              <table>
@@ -216,13 +284,11 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
     <button id="delete-close-button" class="btn-flat grey-text" style="position:absolute;top:0;right:0;"><i class="material-icons small">close</i></button>
     <h6>Reason for cancelling the event:</h6>
     <textarea id="cancel-event-reason" style="width: 650px;height:150px"></textarea><br>
-    <em>Note:  This will be sent across all the signed-up players for this event to notify the cancellation.</em>
+    <em>Note:  This will be sent across all the signed-up players of this event to notify the cancellation.</em>
   </div>
     <button id="delete-event-button" data-event-id="<%=event.id%>" class = "right z-depth-4 waves-effect waves-light btn-flat red-text no-uppercase" style="bottom:10px;right:10px;"> Cancel Event </button>
 </div>
 
+<script type="text/javascript">
 
-
-
-
-
+</script>

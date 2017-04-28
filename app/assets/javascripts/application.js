@@ -27,7 +27,6 @@ function onLoad(){
   $(".dropdown-button").dropdown();
   $('select').material_select();
   $('.materialboxed').materialbox();
-  $('.collapsible').collapsible();
  $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 2, // Creates a dropdown of 15 years to control year
@@ -35,6 +34,7 @@ function onLoad(){
     max: new Date(2018,12,30),
     format: "ddd dd mmm, yyyy"
   });
+  $('.collapsible').collapsible();
   $('.dropdown-button').dropdown({
       inDuration: 300,
       outDuration: 225,
@@ -44,8 +44,7 @@ function onLoad(){
       belowOrigin: true, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
-    }
-  );
+    });
   var updateProgressBar = function(event_id, min_people, max_people, joined_count){
     var remaining_count = Number(max_people - joined_count)
     if (remaining_count == 0){
@@ -145,14 +144,17 @@ function onLoad(){
       method: "PATCH",
       dataType: "json",
       data:{
-        event_id: event_id,
-        event_start_date: $("#event-start-date").val(),
-        event_start_time: $("#event-start-time").val(),
-        event_details: $("#event-details").val(),
-        event_location: $("#event-location").val(),
-        event_address: $("#event-address").val(),
-        event_lat: $("#event-lat").val(),
-        event_lng: $("#event-lng").val()
+        id: event_id,
+        event: {
+          start_date: $("#event-start-date").val(),
+          start_time: $("#event-start-time").val(),
+          details: $("#event-details").val(),
+          location: $("#event-location").val(),
+          address: $("#event-address").val(),
+          loc_lat: $("#event-lat").val(),
+          loc_lng: $("#event-lng").val()
+        }
+
       },
       success: function(response) {
         Materialize.toast(response.message, 3000, "blue");
@@ -185,8 +187,39 @@ function onLoad(){
         Materialize.toast("Internal Server Error",2000,"red");
       }
     })
-  })
-}
+  });
 
+  $(window).resize(function(){
+    $("#DateCountdown").TimeCircles().rebuild();
+  });
+  $("#DateCountdown").TimeCircles({
+    "animation": "smooth",
+    "bg_width": 0.2,
+    "fg_width": 0.031,
+    "circle_bg_color": "#60686F",
+      "time": {
+        "Days": {
+          "text": "Days",
+          "color": "#e65100",
+          "show": true
+        },
+            "Hours": {
+          "text": "Hours",
+          "color": "#0091ea",
+          "show": true
+        },
+        "Minutes": {
+          "text": "Minutes",
+          "color": "#827717",
+          "show": true
+        },
+        "Seconds": {
+          "text": "Seconds",
+          "color": "#f50057",
+           "show": true
+        }
+      }
+  });
+}
 
 
