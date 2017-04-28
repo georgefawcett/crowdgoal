@@ -30,7 +30,11 @@ class EventsController < ApplicationController
 
 
   def update
-    @event = Event.update(params[:event_id], start_date: params[:event_start_date], start_time: Time.parse(params[:event_start_time]), location: params[:event_location]);
+        @event = Event.find(params[:id]).update(event_update_params)
+
+
+
+    # @event = Event.update(params[:event_id], start_date: params[:event_start_date], start_time: Time.parse(params[:event_start_time]), location: params[:event_location]);
     if (@event)
       render status:200, json:{
         message: "saved."
@@ -79,4 +83,8 @@ class EventsController < ApplicationController
     params.require(:event).permit(:user_id, :sport_id, :title, :start_date, :start_time, :details, :location, :address, :loc_lng, :loc_lat, :min_people, :max_people)
 
   end
+  def event_update_params
+    params.require(:event).permit(:start_date, :start_time, :details, :location, :address, :loc_lng, :loc_lat)
+  end
+
 end

@@ -27,7 +27,7 @@ function onLoad(){
   $(".dropdown-button").dropdown();
   $('select').material_select();
   $('.materialboxed').materialbox();
-  var $input = $('.datepicker').pickadate({
+  $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 2, // Creates a dropdown of 15 years to control year
     min: new Date(),
@@ -144,14 +144,17 @@ function onLoad(){
       method: "PATCH",
       dataType: "json",
       data:{
-        event_id: event_id,
-        event_start_date: $("#event-start-date").val(),
-        event_start_time: $("#event-start-time").val(),
-        event_details: $("#event-details").val(),
-        event_location: $("#event-location").val(),
-        event_address: $("#event-address").val(),
-        event_lat: $("#event-lat").val(),
-        event_lng: $("#event-lng").val()
+        id: event_id,
+        event: {
+          start_date: $("#event-start-date").val(),
+          start_time: $("#event-start-time").val(),
+          details: $("#event-details").val(),
+          location: $("#event-location").val(),
+          address: $("#event-address").val(),
+          loc_lat: $("#event-lat").val(),
+          loc_lng: $("#event-lng").val()
+        }
+
       },
       success: function(response) {
         Materialize.toast(response.message, 3000, "blue");
@@ -184,8 +187,39 @@ function onLoad(){
         Materialize.toast("Internal Server Error",2000,"red");
       }
     })
-  })
-}
+  });
 
+  $(window).resize(function(){
+    $("#DateCountdown").TimeCircles().rebuild();
+  });
+  $("#DateCountdown").TimeCircles({
+    "animation": "smooth",
+    "bg_width": 0.2,
+    "fg_width": 0.031,
+    "circle_bg_color": "#60686F",
+      "time": {
+        "Days": {
+          "text": "Days",
+          "color": "#e65100",
+          "show": true
+        },
+            "Hours": {
+          "text": "Hours",
+          "color": "#0091ea",
+          "show": true
+        },
+        "Minutes": {
+          "text": "Minutes",
+          "color": "#827717",
+          "show": true
+        },
+        "Seconds": {
+          "text": "Seconds",
+          "color": "#f50057",
+           "show": true
+        }
+      }
+  });
+}
 
 
