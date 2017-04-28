@@ -1,16 +1,44 @@
 <div class="navbar-fixed">
  <nav>
     <div class="nav-wrapper white">
-      <a href="#!" class="brand-logo green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
+
+
+      <a href="/" class="brand-logo green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+
+
+
+
+<div class='hide-on-med-and-down' style="float:right">
+
+<% if current_user %>
+<%= link_to image_tag(current_user.picture.url(:thumb), class: 'circle navbarpic thumbprofile') %>
+<% end %>
+
       <ul class="right hide-on-med-and-down green-text text-darken-2 nav-options">
+
         <% if current_user %>
-          <li> <a class="dropdown-button blue-text text-darken-2" href="#!" data-activates="user-dropdown"> <%= current_user.name %> <i class="material-icons right">arrow_drop_down</i> </a> </li>
+
+
+          <li> <a class="dropdown-button blue-text text-darken-2" href="#!" data-activates="user-dropdown"> <%= current_user.name %>
+
+          <i class="material-icons right">arrow_drop_down</i>
+
+
+</a>
+
+          </li>
+
         <% else %>
           <li><strong><%= link_to register_path, class: 'green-text text-darken-2' do %> Register <%end%></strong></li>
           <li><strong><%= link_to login_path, class: 'green-text text-darken-2' do %> Login <%end%></strong></li>
         <% end %>
       </ul>
+
+</div>
+
+
     </div>
   </nav>
 </div>

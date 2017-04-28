@@ -14,7 +14,7 @@
 
 <%
 # Check to make sure that the event has already passed before allowing reviews
-if Time.now > @event.start_date
+if Time.now < @event.start_date
 %>
 
 
@@ -136,7 +136,7 @@ if Time.now > @event.start_date
   <% else %> <!-- if event has taken place -->
 <center>
 
-  Reviews will be available beginning the day after the event.
+  Reviews will be available the day after the event.
 </center>
   <% end %>
 
@@ -149,11 +149,7 @@ if Time.now > @event.start_date
 
     <li class="collection-item avatar">
 
-    <% if @author.image %>
-      <img src="images/yuna.jpg" alt="" class="circle">
-    <% else %>
-      <i class="material-icons circle">face</i>
-    <%end %>
+   <%= image_tag @author.picture.url(:thumb), class: 'circle thumbprofile' %>
 
     <p>
 

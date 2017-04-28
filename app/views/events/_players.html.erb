@@ -6,13 +6,13 @@
 
     <li class="collection-item avatar">
 
-      <% if @playerinfo.image %>
-        <img src="images/yuna.jpg" alt="" class="circle">
-      <% else %>
-        <i class="material-icons circle">face</i>
-      <%end %>
+     <%= image_tag @playerinfo.picture.url(:thumb), class: 'circle thumbprofile' %>
 
-      <span class="title"><a href="/users/<%= @playerinfo.id %>"><%= @playerinfo.name %></a></span>
+      <span class="title" style="float: left"><a href="/users/<%= @playerinfo.id %>"><%= @playerinfo.name %></a></span>
+
+    <% if @playerinfo.id == @host.id %>
+      <span class="new badge green" data-badge-caption="organizer" style="margin-left: 10px"></span>
+    <% end %>
 
     </li>
 
