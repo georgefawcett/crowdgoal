@@ -2,6 +2,13 @@
 <html>
   <head>
     <title>Final</title>
+    <meta property="og:url" content="https://stormy-reef-34928.herokuapp.com/events" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="When Great Minds Don’t Think Alike" />
+    <meta property="og:description" content="How much does culture influence creative thinking?" />
+    <meta property="og:image" content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
+    <meta property="fb:app_id" content="275643089562100">
+
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -9,16 +16,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.js"></script>
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
-
-    <meta property="og:url"           content="https://stormy-reef-34928.herokuapp.com/" />
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="CrowdGoal" />
-  <meta property="og:description"   content="CrowdGoal" />
-  <meta property="og:image"         content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaa_5A9F9-OYxwur51VWv_JEsFpEsMXX1VtzUzhHi2x85G3hdsdg" />
   </head>
 
   <body>
-<!--
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -26,8 +26,7 @@
       js = d.createElement(s); js.id = id;
       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=275643089562100";
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script> -->
-
+    }(document, 'script', 'facebook-jssdk'));</script>
 
 
     <%= render 'layouts/navbar' %>

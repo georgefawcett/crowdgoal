@@ -77,7 +77,7 @@ function onLoad(){
      type: "POST",
      dataType : 'json',
      success: function(response) {
-      //console.log(response);
+      console.log(response);
       $button = $("<button>").attr("data-event-id",event_id).attr("data-user-id",user_id).attr("id",'withdraw_game_' + event_id).addClass("withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase").text("Withdraw");
       if ($('#host_name_' + event_id).attr("data-host-id") == user_id)
         $button.addClass("disabled");
