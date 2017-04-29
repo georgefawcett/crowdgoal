@@ -14,6 +14,56 @@
   }
 </style>
 
+<script type="text/javascript">
+  function getWeather(summary_field, hour_field, min_field, max_field, image_field, event_date, event_time, loc_lat, loc_lng){
+    var colors={
+      "clear-day": "Orange",
+      "clear-night": "Black",
+      "rain":"DeepSkyBlue",
+      "snow": "Aqua",
+      "sleet": "Aqua",
+      "wind": "SlateGray",
+      "fog":"LightSteelBlue",
+      "cloudy":"Gray",
+      "partly-cloudy-day":"DarkOrange",
+      "partly-cloudy-night": "LightSlateGray "
+    }
+    // var lat = "<%=@event.loc_lat%>";
+    // var lng = "<%=@event.loc_lng%>"
+    // var start_date = "<%=@event.start_date.to_date%>";
+    // var start_time = "<%=@event.start_time.strftime("%H:%M:%S")%>"
+    // eventDate = new Date(event_date);
+    // month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
+    // start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
+    console.log(event_date);
+    var index = event_time.toString().substring(0,2) < 10 ? event_time.toString().substring(0,2).replace(0,'') : event_time.toString().substring(0,2)
+    console.log(index)
+    console.log("https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts");
+    $.ajax({
+      url: "https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts",
+      method: "GET",
+      dataType: "jsonp",
+      success: function(response){
+        console.log(response.hourly.data[index]);
+        $(summary_field).text(response.hourly.data[index].summary)
+        var hr_temp = Math.round((5/9) * (response.hourly.data[index].apparentTemperature-32),0)
+        var min = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMin-32),0)
+        var max = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMax-32),0)
+        $(hour_field).text(hr_temp);
+        $(min_field).text(min);
+        $(max_field).text(max);
+        var skycons = new Skycons({"color": colors[response.hourly.data[index].icon]});
+        skycons.add(image_field, response.hourly.data[index].icon);
+        skycons.play();
+      },
+      error: function(error){
+        console.log("error");
+      }
+    })
+  }
+  </script>
+
+
 <div class="col s12 m7">
   <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
 <!-- <div class="col s12 m7">
@@ -45,49 +95,7 @@
                     </table>
                   </td>
                 </tr></table>
-                <script type="text/javascript">
-                  var colors={
-                    "clear-day": "Orange",
-                    "clear-night": "Black",
-                    "rain":"DeepSkyBlue",
-                    "snow": "Aqua",
-                    "sleet": "Aqua",
-                    "wind": "SlateGray",
-                    "fog":"LightSteelBlue",
-                    "cloudy":"Gray",
-                    "partly-cloudy-day":"DarkOrange",
-                    "partly-cloudy-night": "LightSlateGray "
-                  }
-                  var lat = "<%=@event.loc_lat%>";
-                  var lng = "<%=@event.loc_lng%>"
-                  var start_date = "<%=@event.start_date.to_date%>";
-                  var start_time = "<%=@event.start_time.strftime("%H:%M:%S")%>"
-                  var index = "<%=@event.start_time.strftime("%H:%M:%S")%>".toString().substring(0,2).replace(0,'')
-                  console.log(index)
-                  console.log("https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + lat + "," + lng + "," + start_date + "T" + start_time + "?exclude=currently,flags,alerts,daily");
-                  $.ajax({
-                    url: "https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + lat + "," + lng + "," + start_date + "T" + start_time,
-                    method: "GET",
-                    dataType: "jsonp",
-                    success: function(response){
-                      console.log(response.hourly.data[index]);
-                      $("#weather-summary").text(response.hourly.data[index].summary)
-                      var hr_temp = Math.round((5/9) * (response.hourly.data[index].apparentTemperature-32),0)
-                      var min = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMin-32),0)
-                      var max = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMax-32),0)
-                      $("#hour_temp").text(hr_temp);
-                      $("#min_temp").text(min);
-                      $("#max_temp").text(max);
-                      var skycons = new Skycons({"color": colors[response.hourly.data[index].icon]});
-                      skycons.add("weather-image", response.hourly.data[index].icon);
-                      skycons.play();
-                    },
-                    error: function(error){
-                      console.log("error");
-                    }
-                  })
-
-                </script>
+                <script type="text/javascript"> getWeather("#weather-summary", "#hour_temp", "#min_temp", "#max_temp", "weather-image", "<%=@event.start_date.to_date%>", "<%=@event.start_time.strftime("%H:%M:%S")%>", "<%=@event.loc_lat%>", "<%=@event.loc_lng%>");</script>
               </td>
             </tr>
           </table>
@@ -163,7 +171,7 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
             <tr>
               <td>
                 <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
-                  <font style="color: #aaaaaa"> | Expires in <%= ?? %> days </font>
+                  <font style="color: #aaaaaa"> | Expires in <%= (event.start_date.to_date - Date.today).to_i %> days </font>
                 </font>
                 <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
                   <% if (joined_count < min_people) %>
@@ -289,6 +297,5 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
     <button id="delete-event-button" data-event-id="<%=event.id%>" class = "right z-depth-4 waves-effect waves-light btn-flat red-text no-uppercase" style="bottom:10px;right:10px;"> Cancel Event </button>
 </div>
 
-<script type="text/javascript">
 
-</script>
+

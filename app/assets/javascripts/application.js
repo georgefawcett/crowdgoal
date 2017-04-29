@@ -154,11 +154,12 @@ function onLoad(){
           loc_lat: $("#event-lat").val(),
           loc_lng: $("#event-lng").val()
         }
-
       },
       success: function(response) {
+        console.log(response)
         Materialize.toast(response.message, 3000, "blue");
         $("#event-edit-form").css("display","none");
+        document.location.href = "/events/"+event_id;
       },
       error: function(response){
         Materialize.toast(response.message, 3000, "red");
@@ -220,6 +221,65 @@ function onLoad(){
         }
       }
   });
+
+  $(".close-check-weather-modal").click(function(){
+    $("#check-weather-modal").modal('close');
+  });
+
+  $("#check-weather-button").click(function(){
+    if ($("#event-start-date").val() == ''){
+      Materialize.toast("Date field cannot be empty!",3000,"red");
+      return false;
+    }
+    if ($("#event-start-time").val() == ''){
+      Materialize.toast("Time field cannot be empty!",3000,"red");
+      return false;
+    }
+    if ($("#event-lat").val() == '' || $("#event-lng").val() == ''){
+      Materialize.toast("Invalid Location!",3000,"red");
+      return false;
+    }
+
+    $("#check-weather-model-date").text($("#event-start-date").val())
+    $("#check-weather-modal-time").text($("#event-start-time").val())
+    eventDate = new Date($("#event-start-date").val());
+    month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
+    start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
+    getWeather("#edit_weather_summary", "#edit_hour_temp", "#edit_min_temp", "#edit_max_temp", "edit_weather_image",
+      start_date, $("#event-start-time").val(), $("#event-lat").val(), $("#event-lng").val());
+    $("#check-weather-modal").modal('open');
+  });
+
+  $(".close-new-check-weather-modal").click(function(){
+    $("#new-check-weather-modal").modal('close');
+  });
+
+  $("#new-check-weather-button").click(function(){
+    if ($("#event_start_date").val() == ''){
+      Materialize.toast("Date field cannot be empty!",3000,"red");
+      return false;
+    }
+    if ($("#event_start_time").val() == ''){
+      Materialize.toast("Time field cannot be empty!",3000,"red");
+      return false;
+    }
+    if ($("#event_loc_lat").val() == '' || $("#event_loc_lng").val() == ''){
+      Materialize.toast("Invalid Location!",3000,"red");
+      return false;
+    }
+
+    $("#check-weather-model-date").text($("#event_start_date").val())
+    $("#check-weather-modal-time").text($("#event_start_time").val())
+    eventDate = new Date($("#event_start_date").val());
+    console.log(eventDate);
+    month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
+    console.log(month)
+    start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
+    getWeather("#edit_weather_summary", "#edit_hour_temp", "#edit_min_temp", "#edit_max_temp", "edit_weather_image",
+      start_date, $("#event_start_time").val(), $("#event_loc_lat").val(), $("#event_loc_lng").val());
+    $("#new-check-weather-modal").modal('open');
+  });
 }
+
 
 
