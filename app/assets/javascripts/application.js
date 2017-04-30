@@ -18,10 +18,23 @@
 //= require components
 //= require_tree .
 //= require materialize-sprockets
+
 // $(document).ready(onLoad);
 $(document).on('turbolinks:load', onLoad);
 
 function onLoad(){
+
+  $.ajaxSetup({ cache: true });
+  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId: '{275643089562100}',
+      version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+    });
+    $('#loginbutton,#feedbutton').removeAttr('disabled');
+    FB.getLoginStatus(updateStatusCallback);
+  });
+
+
   // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
   $('.modal').modal();
   $(".dropdown-button").dropdown();
