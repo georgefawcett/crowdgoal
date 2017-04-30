@@ -284,12 +284,15 @@ function onLoad(){
   $(".share-button").click(function(){
     // $(this).preventDefault();
     alert($(this).attr("data-link"))
+    $("meta[property='og\\:title']").attr("content", "Test Title");
+    $("meta[property='og\\:type']").attr("content", "website");
+    $("meta[property='og\\:description']").attr("content", "test description");
     FB.ui({
     method: 'share',
     href: $(this).attr("data-link"),
     caption: "Test Caption",
     description: "Test Description"
-  }, function(response){});
+  }, function(response){console.log(response);});
   })
 }
 
