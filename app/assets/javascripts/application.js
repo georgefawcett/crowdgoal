@@ -290,9 +290,7 @@ function onLoad(){
     setTimeout(FB.ui({
     method: 'share',
     href: $(this).attr("data-link"),
-    caption: "Test Caption",
-    description: "Test Description"
-  }, function(response){console.log(response);}), 1000);
+  }, function(response){console.log(response);}), 5000);
   })
 }
 
