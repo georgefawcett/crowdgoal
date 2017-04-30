@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   now = Time.now
   @events = Event.where('start_date > :end',
     :end=> now.beginning_of_day,
-  )
+  ).order('start_date', 'start_time')
 
   end
 

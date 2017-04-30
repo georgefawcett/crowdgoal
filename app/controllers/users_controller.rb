@@ -26,9 +26,25 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @created = Event.where(user_id: @user.id)
 
+
     @joined = "SELECT count(*) FROM events_users
                      WHERE  user_id = #{@user.id}"
 
+
+    activity_sql = "select events.id, events.title, events.user_id, events.sport_id, sports.icon, events.created_at as \"jointime\"
+                    from (events
+                    inner join sports ON events.sport_id = sports.id)
+                    where user_id = #{current_user.id}
+                    union
+                    select events.id, events.title, events.user_id, events.sport_id, sports.icon, events_users.created_at as \"jointime\"
+                    from ((events
+                    inner join events_users ON events.id = events_users.event_id)
+                    inner join sports ON events.sport_id = sports.id)
+                    where events_users.user_id = #{current_user.id}
+                    and events.user_id != #{current_user.id}
+                    order by jointime desc
+                    limit 20"
+    @activity = ActiveRecord::Base.connection.execute(activity_sql)
 
 
 

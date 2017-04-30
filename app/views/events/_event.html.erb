@@ -1,9 +1,26 @@
 <div>
+<% require 'uri'
+address = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAgkVReAs0_Ebw9ZzDAPhZWICv1VvUiJxg
+    &q=#{event.address}"
+enc_address = URI.escape(address)
+%>
   <% min_people = event.min_people %>
   <% joined_count = event.events_users.count %>
   <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
   <% @user = User.find(event.user_id) %>
 
+
+
+  <%
+  # Push event details to array so they can be looked up and displayed in modal
+  @details_array.push({
+    'id': event.id,
+    'details': event.details})
+    %>
+
+
+
+<% puts @details %>
   <div class="col s12 m7" style="width: 100%">
     <div class="card horizontal" style="border: 1px solid #e3f2fd">
       <div class="card-stacked">
@@ -35,15 +52,19 @@
               <div class="vertalign">
                 <i class="material-icons md-18 eventicons" style="font-size: 100%">location_on</i>
                 <span class="eventfont">
-                  &nbsp;<a href="#modal1"><%= truncate(event.location, length:29) %></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+
+                  &nbsp;<a class="maplink modal-trigger" data-eventloc="<%= enc_address %>" href="#location">
+                  <%= truncate(event.location, length:29) %></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
               </div>
                <div class="vertalign">
+               <%
+              map_query = event.location
+              %>
                 <span class="eventfont">
-                  &nbsp;<a href="#modal1">Details
+                  &nbsp;<a class="detailslink modal-trigger" data-event-details="<%= event.details %>" href="#details">Details<i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i></a>
                 </span>
-                <i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i>
-                </a>
+
               </div>
 
 
@@ -71,6 +92,9 @@
               </td>
               <td align="right">
                 <div class="card-button" style="float: right">
+
+                <% if current_user %>
+
                   <% if (event.events_users.find_by(user_id: current_user.id))%>
                     <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
                       <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
@@ -91,18 +115,46 @@
                       </button>
                     <% end %>
                   <% end %>
+
+                  <%
+                  #if not logged in
+                  else %>
+                   <button class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                        Login to Join Game!
+                      </button>
+                  <%
+                #end if logged in
+                end %>
                 </div>
-                <!-- Modal Structure -->
-                <div id="modal1" class="modal">
-                  <div class="modal-content">
 
-
-                    <h4>Map for address!</h4>
+                <%
 
 
 
+%>
+
+
+
+
+                <!-- Location Modal-->
+                <div id="location" class="modal">
+                  <div class="modal-content" style="width: 645px; height: 400px">
+                    <div class="modalmap map_content">
+                    </div>
                   </div>
                 </div>
+
+                 <!-- Details Modal-->
+                <div id="details" class="modal">
+                  <div class="modal-content" style="width: 645px; height: 400px">
+                    <div class="event_details">
+                    </div>
+                  </div>
+                </div>
+
+
+
+
               </td>
             </tr>
           </table>

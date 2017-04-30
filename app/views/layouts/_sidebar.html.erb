@@ -7,7 +7,7 @@
       <ul class="collapsible" data-collapsible="expandable">
     <li>
       <div class="collapsible-header active green white-text"><i class="material-icons">timer</i>My Games</div>
-      <div class="collapsible-body white" style="opacity: 0.5">
+      <div class="collapsible-body">
 
         <ul class="collection">
 
@@ -24,7 +24,7 @@ limit 4"
 %>
         <% games.take(3).each do |game| %>
  <% start_date = game['start_date'].to_datetime %>
-          <li class="collection-item game-alert">
+          <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
           <div>
 
             <div class="icon_date">
@@ -35,13 +35,13 @@ limit 4"
 
           <div class="game_alert_div">
 
-            <a href="/events/<%= game['id'] %>"><%= game['title'] %></a>
+            <a href="/events/<%= game['id'] %>"><%= truncate(game['title'], length:25) %></a>
 
             <font class="game_alert_font">
             <br>
             <%= game['count'] %> / <%= game['min_people'] %> players
             <% if game['user_id'] == current_user.id %>
-              &nbsp;&nbsp;&nbsp;<font style="background-color: green; color: white">&nbsp;organizer&nbsp;</font>
+              &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px">&nbsp;organizer&nbsp;</font>
             <% end %>
             </font>
               <div class="progress grey lighten-4" style="height: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 0; width: 72%">
@@ -67,8 +67,6 @@ limit 4"
 </div>
           </li>
 
-        <%  puts game %>
-
 
         <% end %>
 
@@ -80,7 +78,7 @@ limit 4"
     </li>
     <li>
       <div class="collapsible-header active red-text text-darken-2"><i class="material-icons">notifications_active</i>Alerts</div>
-      <div class="collapsible-body white" style="opacity: 0.5">
+      <div class="collapsible-body">
          <ul class="collection">
 <%
 sql = "Select messages.created_at as \"posted\",
@@ -119,14 +117,14 @@ where relationships.follower_id = #{current_user.id}
 
 order by posted desc
 limit 5"
-alerts = ActiveRecord::Base.connection.execute(sql)
+@alerts = ActiveRecord::Base.connection.execute(sql)
 %>
 
 
 
 
-<% alerts.each do |alert| %>
-  <li class="collection-item side-alert">
+<% @alerts.each do |alert| %>
+  <li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6)">
 
     <% if alert['message'] %>
       <%= alert['name'] %> posted a new message in <a href="/events/<%= alert['event_id'] %>#messages"><%= alert['title'] %></a>.
@@ -141,6 +139,9 @@ alerts = ActiveRecord::Base.connection.execute(sql)
 </li>
 <% end %>
 
+<li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6)">
+<div style="width: 100%; text-align: right"><a style="color: #e53935;" href="/users/<%= current_user.id %>">View more <i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i></a></div>
+</li>
 </ul>
 
 
@@ -154,5 +155,62 @@ alerts = ActiveRecord::Base.connection.execute(sql)
   </ul>
 
 
-<% end %> <!-- end if logged in -->
+<%
+#if not logged in
+ else %>
+
+     <ul class="collapsible" data-collapsible="expandable">
+    <li>
+      <div class="collapsible-header active green white-text"><i class="material-icons">person</i>Login</div>
+      <div class="collapsible-body">
+
+        <ul class="collection">
+        <li class="collection-item game-alert">
+
+
+<%= form_for @user, url: '/login' do |form| %>
+      <% if @user.errors.any? %>
+        <ul class="error-message">
+          <% @user.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.email_field :email, class: 'validate form-field' , placeholder: ' Email'%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.password_field :password, class: 'validate form-field', placeholder: ' Password' %>
+        </div>
+      </div>
+      <center>
+      <br>
+        <%= form.submit 'Login', class: 'btn btn-medium center-align waves-effect waves-light green  no-uppercase' %>
+      </center>
+    <% end %>
+    <br>
+    <section class="divider"></section>
+    <br>
+    <div class="center-align">
+    <p>
+    No account? <a href="/register">Register</a> or
+    </p>
+      <%= link_to user_facebook_omniauth_authorize_path, class: 'btn btn-medium center-align waves-effect waves-light no-uppercase blue darken-4' do %> <i class="fa fa-facebook" aria-hidden="true"></i> &nbsp; Login with Facebook <% end %><br><br>
+    </div>
+  </section>
+</div>
+
+
+        </li>
+        </ul>
+
+        </div>
+
+ <%
+ # end if logged in
+ end %>
   </div> <!-- end sidebar -->

@@ -1,13 +1,5 @@
 
-<p id="demo">
-  <%
-  if current_user
-    %>
-    Yes <%= current_user.id %>
-    <% else %>
-    No
-    <% end %>
-</p>
+
 
 
 
@@ -166,8 +158,8 @@ function showPosition(position) {
      <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
 <label for="event_location">Location (Google autocomplete)</label>
 
-<%= f.text_field :loc_lng %>
-<%= f.text_field :loc_lat %>
+<%= f.hidden_field :loc_lng %>
+<%= f.hidden_field :loc_lat %>
 
 </div>
       </div>
@@ -208,14 +200,17 @@ function showPosition(position) {
 
 
 
-
+<center>
+<br>
 <%= button_tag( :class => "waves-effect waves-light btn green") do %>
   Create Event <i class="material-icons left">group_add</i>
 <% end %>
-
+</center>
 
 
     <% end %>
+
+<br><br>
 
 </div>
 </div>

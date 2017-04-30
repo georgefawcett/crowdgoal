@@ -94,9 +94,9 @@
       <div class="row">
         <div class="input-field col s8">
           <i class="material-icons prefix">location_on</i>
-          <input type="text" id="event-location" value="<%=event.location%>" />
-          <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
-          <label class="active">Location (Google autocomplete)</label>
+          <input type="text" id="event-location" value="<%= event.location %>"/>
+          <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"> -->
+          <label for "event-location" class="active">Location (Google autocomplete)</label>
           <input type="hidden" name="loc_lng" id="event-lng" value="<%=event.loc_lng%>">
           <input type="hidden" name="loc_lat" id="event-lat" value="<%=event.loc_lat%>">
         </div>
@@ -104,7 +104,7 @@
       <div class="row">
         <div class="input-field col s8" style="margin-top:0;">
           <i class="material-icons prefix"></i>
-          <input type="text" name="address" disabled="true" id="event-address" value="<%=event.address%>">
+          <input type="text" name="address" readonly="true" id="event-address" value="<%=event.address%>">
         </div>
       </div>
 
@@ -128,6 +128,9 @@
     </div>
   <br>
 </div>
+
+
+
 
 
 

@@ -1,20 +1,26 @@
 <ul class="collection">
 
 
-  <% @created.each do |event| %>
+  <% @activity.each do |activity| %>
 
 
 
     <li class="collection-item avatar">
 
-      <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= event.sport.icon %>.ico" class="circle sportsicon">
+      <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= activity['icon'] %>.ico" class="circle sportsicon">
 
     <p>
-      Created an event: <a href="/events/<%= event.id %>"><%= event.title %></a>
+      <% if activity['user_id'] == current_user.id %>
+        Created an event:
+      <% else %>
+        Joined an event:
+      <% end %>
+
+      <a href="/events/<%= activity['id'] %>"><%= activity['title'] %></a>
     </p>
     <p>
       <font class="messagedate">
-        <%= event.created_at.strftime("%A, %B %-d, %Y") %>
+        on <%= activity['jointime'].to_date.strftime("%A, %B %-d, %Y") %>
       </font>
     </p>
 

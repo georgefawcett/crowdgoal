@@ -245,6 +245,7 @@ DEPENDENCIES
   material_icons
   materialize-sass
   momentjs-rails (>= 2.9.0)
+  nokogiri
   omniauth-facebook
   paperclip (~> 5.0.0)
   pg

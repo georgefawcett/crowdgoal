@@ -8,6 +8,8 @@ end
 gem 'materialize-sass'
 gem 'material_icons'
 
+gem 'nokogiri'
+
 gem 'momentjs-rails', '>= 2.9.0'
 gem "paperclip", "~> 5.0.0"
 gem 'aws-sdk', '~> 2.3'
@@ -15,6 +17,7 @@ gem 'aws-sdk', '~> 2.3'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'font-awesome-rails'
+
 
 gem 'react-rails'
 gem 'jquery-turbolinks'

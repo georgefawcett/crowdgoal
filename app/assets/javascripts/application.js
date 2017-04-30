@@ -19,12 +19,52 @@
 //= require_tree .
 //= require materialize-sprockets
 // $(document).ready(onLoad);
+
+
+
+
+
 $(document).on('turbolinks:load', onLoad);
 
 function onLoad(){
-  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-  $('.modal').modal();
+
+var displayMap = function(eventloc) {
+  $('.modal').modal({
+    ready: function(modal, trigger) { // Callback for Modal open.
+        $( "div.modalmap" ).html(function() {
+          return '<iframe width="635" height="350" frameborder="0" style="border:0" src="' + eventloc + '" allowfullscreen></iframe>';
+        });
+      }
+  });
+}
+
+$(".maplink").on("click",function(event){
+  var eventloc = $(this).attr("data-eventloc");
+  displayMap(eventloc);
+});
+
+
+var displayDetails = function(event_details) {
+  $('.modal').modal({
+    ready: function(modal, trigger) { // Callback for Modal open.
+        // function findDetails(event) {
+        //   return event.id === event_id;
+        // }
+        // console.log(details_array.find(findDetails));
+        $( "div.event_details" ).html(function() {
+          return '<h5>Event Details</h5><p>' + event_details + '</p>';
+        });
+      }
+  });
+}
+
+$(".detailslink").on("click",function(){
+  var event_details = $(this).attr("data-event-details");
+  displayDetails(event_details);
+});
+
   $(".dropdown-button").dropdown();
+$('.modal').modal();
   $('select').material_select();
   $('.materialboxed').materialbox();
  $('.datepicker').pickadate({

@@ -289,6 +289,62 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
     <button id="delete-event-button" data-event-id="<%=event.id%>" class = "right z-depth-4 waves-effect waves-light btn-flat red-text no-uppercase" style="bottom:10px;right:10px;"> Cancel Event </button>
 </div>
 
-<script type="text/javascript">
+<script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
 
-</script>
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+       var placeSearch, autocomplete;
+
+
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('event-location')),
+            {types: ['geocode', 'establishment']});
+
+ autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+ function fillInAddress() {
+
+        var place = autocomplete.getPlace();
+
+
+
+
+
+
+
+
+            document.getElementById('event-address').value = place.formatted_address;
+            document.getElementById('event-lng').value = place.geometry.location.lng();
+            document.getElementById('event-lat').value = place.geometry.location.lat();
+
+
+}
+
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+
+        }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFNr3GhJQS1XLqtpJd23rI0b6nwQfXGAo&libraries=places&callback=initAutocomplete"
+        async defer></script>
