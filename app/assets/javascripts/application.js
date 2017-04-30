@@ -280,6 +280,15 @@ function onLoad(){
       start_date, $("#event_start_time").val(), $("#event_loc_lat").val(), $("#event_loc_lng").val());
     $("#new-check-weather-modal").modal('open');
   });
+
+  $(".share-button").click(function(){
+    // $(this).preventDefault();
+    alert($(this).attr("data-link"))
+    FB.ui({
+    method: 'share',
+    href: $(this).attr("data-link"),
+  }, function(response){});
+  })
 }
 
 
