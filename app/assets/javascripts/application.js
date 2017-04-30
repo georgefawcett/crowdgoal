@@ -287,10 +287,11 @@ function onLoad(){
     $("meta[property='og\\:title']").attr("content", "Test Title");
     $("meta[property='og\\:type']").attr("content", "website");
     $("meta[property='og\\:description']").attr("content", "test description");
-    setTimeout(FB.ui({
+    sleep(5000);
+    FB.ui({
     method: 'share',
     href: $(this).attr("data-link"),
-  }, function(response){console.log(response);}), 5000);
+  }, function(response){console.log(response)});
   })
 }
 
