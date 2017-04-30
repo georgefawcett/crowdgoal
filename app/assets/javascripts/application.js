@@ -281,18 +281,23 @@ function onLoad(){
     $("#new-check-weather-modal").modal('open');
   });
 
-  $(".share-button").click(function(){
-    // $(this).preventDefault();
-    alert($(this).attr("data-link"))
+  function changeMetaContent(callback){
     $("meta[property='og\\:title']").attr("content", "Test Title");
     $("meta[property='og\\:type']").attr("content", "website");
     $("meta[property='og\\:description']").attr("content", "test description");
-    sleep(5000);
-    FB.ui({
-    method: 'share',
-    href: $(this).attr("data-link"),
-  }, function(response){console.log(response)});
-  })
+    callback();
+  }
+
+  $(".share-button").click(function(){
+    // $(this).preventDefault();
+    alert($(this).attr("data-link"))
+    changeMetaContent(function postEvent(){
+      FB.ui({
+        method: 'share',
+        href: $(this).attr("data-link"),
+      }, function(response){console.log(response)});
+    });
+  });
 }
 
 
