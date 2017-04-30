@@ -287,6 +287,8 @@ function onLoad(){
     FB.ui({
     method: 'share',
     href: $(this).attr("data-link"),
+    caption: "Test Caption",
+    description: "Test Description"
   }, function(response){});
   })
 }
