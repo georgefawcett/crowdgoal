@@ -43,7 +43,7 @@
 
     <!-- If message author is logged in, allow delete option -->
 
-    <% if current_user.id == message.user_id %>
+    <% if current_user && current_user.id == message.user_id %>
 
       <%= link_to message_path(message), method: :delete, data: { confirm: 'Delete message?' } do %>
         <div class="delete secondary-content red-text">

@@ -125,7 +125,7 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
              <div class="organizer">
              <table>
               <tr>
-                <% if (event.user_id == current_user.id) then %>
+                <% if (current_user && event.user_id == current_user.id) then %>
                   <td>
                     <a class="btn-floating transparent" id="edit-form-button"><i class="material-icons blue-text">mode_edit</i></a>
                   </td>
@@ -189,24 +189,26 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
               </td>
               <td align="right">
                 <div class="card-button" style="float: right">
-                  <% if (event.events_users.find_by(user_id: current_user.id))%>
-                    <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
-                      <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
-                    </button>
-                      <% if (event.user_id == current_user.id) then %>
-                        <script type="text/javascript">
-                          $("#withdraw_game_<%=event.id%>").addClass("disabled");
-                        </script>
-                      <% end %>
-                  <% else %>
-                    <% if (joined_count >= event.max_people) then %>
-                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
-                        <i class="material-icons left">person_add</i> Join Game
+                  <% if current_user then %>
+                    <% if (event.events_users.find_by(user_id: current_user.id))%>
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
+                        <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
                       </button>
+                        <% if (event.user_id == current_user.id) then %>
+                          <script type="text/javascript">
+                            $("#withdraw_game_<%=event.id%>").addClass("disabled");
+                          </script>
+                        <% end %>
                     <% else %>
-                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
-                        <i class="material-icons left">person_add</i>Join Game
-                      </button>
+                      <% if (joined_count >= event.max_people) then %>
+                        <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                          <i class="material-icons left">person_add</i> Join Game
+                        </button>
+                      <% else %>
+                        <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
+                          <i class="material-icons left">person_add</i>Join Game
+                        </button>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </div>

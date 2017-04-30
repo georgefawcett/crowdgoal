@@ -181,7 +181,7 @@ if Time.now < @event.start_date
 
     <!-- If message author is logged in, allow delete option -->
 
-    <% if current_user.id == review.user_id %>
+    <% if current_user && current_user.id == review.user_id %>
 
       <%= link_to review_path(review), method: :delete, data: { confirm: 'Delete review?' } do %>
         <div class="delete secondary-content red-text">
