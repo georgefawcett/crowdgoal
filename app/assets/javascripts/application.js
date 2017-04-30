@@ -281,20 +281,20 @@ function onLoad(){
     $("#new-check-weather-modal").modal('open');
   });
 
-  function changeMetaContent(callback){
+  function changeMetaContent(link, callback){
     $("meta[property='og\\:title']").attr("content", "Test Title");
     $("meta[property='og\\:type']").attr("content", "website");
     $("meta[property='og\\:description']").attr("content", "test description");
-    callback();
+    callback(link);
   }
 
   $(".share-button").click(function(){
     // $(this).preventDefault();
     alert($(this).attr("data-link"))
-    changeMetaContent(function postEvent(){
+    changeMetaContent($(this).attr("data-link"), function postEvent(link){
       FB.ui({
         method: 'share',
-        href: $(this).attr("data-link"),
+        href: link,
       }, function(response){console.log(response)});
     });
   });
