@@ -1,4 +1,24 @@
+<% event = @event %>
+<% min_people = event.min_people %>
+<% joined_count = event.events_users.count %>
+<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
+<% @host = User.find(event.user_id) %>
+
+<%
+playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
+
+%>
+
+
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+<meta property="og:url" content="https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>">
+<meta property="og:type" content="webpage">
+<meta property="og:title" content="<%=event.title%>">
+<meta property="og:description" content="<%=event.details%>">
+<meta property="fb:app_id" content="1303393716414144">
+<meta property="og:image" content="http://science-all.com/images/images/images-23.jpg">
+<meta property="og:site_name" content="CrowdGoal">
+
 <style type="text/css">
   .time_circles div h4 {
     font-size: 10px !important;
@@ -104,18 +124,6 @@
   </div>
 </div>
 
-<% event = @event %>
-<% min_people = event.min_people %>
-<% joined_count = event.events_users.count %>
-<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
-<% @host = User.find(event.user_id) %>
-
-<%
-playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
-
-%>
-
-
 <div class="col s12 m7">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
@@ -212,6 +220,9 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
                     <% end %>
                   <% end %>
                 </div>
+              </td>
+              <td width="10%">
+                <button class="share-button" data-link = "https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>">Share</button>
               </td>
             </tr>
           </table>
