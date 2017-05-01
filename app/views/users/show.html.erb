@@ -109,7 +109,7 @@
 
     <% if @user.id == current_user.id %>
       <div id="mygames" class="col s12">
-        <%= render 'activity' %>
+        <%= render 'mygames' %>
       </div>
     <% else %>
       <div id="activity" class="col s12">
@@ -119,7 +119,7 @@
 
     <% if @user.id == current_user.id %>
       <div id="myalerts" class="col s12">
-        <%= render 'activity' %>
+        <%= render 'myalerts' %>
       </div>
     <% else %>
       <div id="organized" class="col s12">

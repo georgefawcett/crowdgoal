@@ -117,7 +117,7 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
              <div class="organizer">
              <table>
               <tr>
-                <% if (event.user_id == current_user.id) then %>
+                <% if (current_user && event.user_id == current_user.id) then %>
                   <td>
                     <a class="btn-floating transparent" id="edit-form-button"><i class="material-icons blue-text">mode_edit</i></a>
                   </td>
@@ -181,6 +181,8 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
               </td>
               <td align="right">
                 <div class="card-button" style="float: right">
+
+                <% if current_user %>
                   <% if (event.events_users.find_by(user_id: current_user.id))%>
                     <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
                       <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
@@ -201,6 +203,18 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
                       </button>
                     <% end %>
                   <% end %>
+
+                    <%
+                  #if not logged in
+                  else %>
+                   <button class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                        Login to Join Game!
+                      </button>
+                  <%
+                #end if logged in
+                end %>
+
+
                 </div>
               </td>
             </tr>

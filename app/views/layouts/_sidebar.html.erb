@@ -22,6 +22,11 @@ order by events.start_date, events.start_time
 limit 4"
         games = ActiveRecord::Base.connection.execute(game_sql)
 %>
+
+<% if games.count > 0 %>
+
+
+
         <% games.take(3).each do |game| %>
  <% start_date = game['start_date'].to_datetime %>
           <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
@@ -70,7 +75,28 @@ limit 4"
 
         <% end %>
 
+<% if games.count > 3 %>
+<li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6); padding-top: 0; padding-bottom: 5px">
+<div style="width: 100%; text-align: right"><a href="/users/<%= current_user.id %>#mygames">View all <i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i></a></div>
+</li>
 
+<% end %>
+
+
+
+<% else %>
+<li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
+
+<p align="center">
+  <font class="game_alert_font">
+  No games scheduled.
+  </font>
+</p>
+
+
+</li>
+
+<% end %>
 
         </ul>
 
@@ -122,6 +148,8 @@ limit 5"
 
 
 
+<% if @alerts.count > 0 %>
+
 
 <% @alerts.each do |alert| %>
   <li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6)">
@@ -133,13 +161,24 @@ limit 5"
     <% elsif alert['photocount'] %>
       <%= alert['name'] %> posted <%= pluralize(alert['photocount'], 'new photo', 'new photos') %> in <a href="/events/<%= alert['event_id'] %>#photos"><%= alert['title'] %></a>.
     <% end %>
-<% puts alert %>
+
 
 
 </li>
 <% end %>
 
+
+<% else %>
 <li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6)">
+<center>
+No alerts yet!
+</center>
+</li>
+
+<% end %>
+
+
+<li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6); padding-top: 0; padding-bottom: 5px">
 <div style="width: 100%; text-align: right"><a style="color: #e53935;" href="/users/<%= current_user.id %>">View more <i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i></a></div>
 </li>
 </ul>
@@ -165,7 +204,7 @@ limit 5"
       <div class="collapsible-body">
 
         <ul class="collection">
-        <li class="collection-item game-alert">
+        <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.7)">
 
 
 <%= form_for @user, url: '/login' do |form| %>

@@ -1,0 +1,87 @@
+<%
+sql = "Select messages.created_at as \"posted\",
+events.id as \"event_id\", events.title, users.name, messages.message, Null as \"photocount\", 0 as \"user_id\"
+
+FROM (((events_users
+inner join events ON events_users.event_id = events.id)
+inner join messages ON events_users.event_id = messages.event_id)
+inner join users ON messages.user_id = users.id)
+where events_users.user_id = #{current_user.id}
+and messages.user_id != #{current_user.id}
+
+UNION
+
+Select galleries.created_at as \"posted\",
+events.id as \"event_id\", events.title, users.name, Null as \"messages.message\", count(distinct photos.id) as \"photocount\", 0 as \"user_id\"
+
+FROM ((((events_users
+inner join events ON events_users.event_id = events.id)
+inner join galleries ON events_users.event_id = galleries.event_id)
+inner join photos ON galleries.id = photos.gallery_id)
+inner join users ON galleries.user_id = users.id)
+where events_users.user_id = #{current_user.id}
+and galleries.user_id != #{current_user.id}
+group by events.id, users.name, galleries.created_at
+
+UNION
+
+Select events.created_at as \"posted\",
+events.id as \"event_id\", events.title, users.name, Null as \"messages.message\", Null as \"photocount\", users.id as \"user_id\"
+FROM ((relationships
+inner join events ON events.user_id = relationships.followed_id)
+inner join users ON events.user_id = users.id)
+where relationships.follower_id = #{current_user.id}
+
+
+order by posted desc
+limit 5"
+@alerts = ActiveRecord::Base.connection.execute(sql)
+%>
+
+<ul class="collection">
+
+<% if @alerts.count > 0 %>
+
+
+<% @alerts.each do |alert| %>
+
+   <li class="collection-item">
+
+<p>
+
+    <% if alert['message'] %>
+      <%= alert['name'] %> posted a new message in <a href="/events/<%= alert['event_id'] %>#messages"><%= alert['title'] %></a>
+    <% elsif alert['user_id'] > 0 %>
+       <a href="/users/<%= alert['user_id'] %>"><%= alert['name'] %></a> created a new event: <a href="/events/<%= alert['event_id'] %>"><%= alert['title'] %></a>&nbsp;&nbsp;&nbsp;<font style="background-color: #ff5252; color: white; padding: 1px; border-radius: 2px; font-size: 85%; opacity: 0.6">&nbsp;following&nbsp;</font>
+    <% elsif alert['photocount'] %>
+      <%= alert['name'] %> posted <%= pluralize(alert['photocount'], 'new photo', 'new photos') %> in <a href="/events/<%= alert['event_id'] %>#photos"><%= alert['title'] %></a>
+    <% end %>
+    </p>
+    <p>
+    <font class="messagedate">
+         on <%=alert['posted'].to_time.strftime("%A, %B %-d at %l: %M %p") %>
+    </font>
+    </p>
+
+
+
+
+
+
+
+
+
+</li>
+<% end %>
+
+
+<% else %>
+<li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6)">
+<center>
+No alerts yet!
+</center>
+</li>
+
+<% end %>
+
+</ul>

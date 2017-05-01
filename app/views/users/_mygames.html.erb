@@ -1,0 +1,91 @@
+<ul class="collection">
+
+<%
+        game_sql = "select events.id, events.start_date, events.start_time, events.title, events.min_people, events.location, events.user_id, events.sport_id, sports.icon, count(distinct events_users.user_id)
+from ((events_users
+inner join events ON events.id = events_users.event_id)
+inner join sports ON sports.id = events.sport_id)
+where
+events_users.user_id = #{current_user.id} and events.start_date >= CURRENT_DATE
+group by events.id, sports.icon
+order by events.start_date, events.start_time"
+        games = ActiveRecord::Base.connection.execute(game_sql)
+%>
+
+<% if games.count > 0 %>
+
+
+
+        <% games.take(3).each do |game| %>
+ <% start_date = game['start_date'].to_datetime %>
+          <li class="collection-item avatar game-alert" style="background: rgba(255, 255, 255, 0.6)">
+
+
+      <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= game['icon'] %>.ico" class="circle sportsicon">
+
+          <div>
+
+            <div class="icon_date">
+
+              <span class="icon_month"><%= start_date.strftime("%b") %></span>
+              <h1 class="icon_day"><%= start_date.strftime("%-d") %></h1>
+            </div>
+
+          <div class="game_alert_div">
+
+            <a href="/events/<%= game['id'] %>"><%= truncate(game['title'], length:25) %></a>
+
+            <font class="messagedate"> | <%= game['start_time'].to_time.strftime("%l:%M %p") %> at <%= game['location'] %>
+            </font>
+            <br>
+            <font class="game_alert_font">
+            <%= game['min_people'] %> minimum players | <%= pluralize(game['count'], 'has', 'have') %> joined
+            <% if game['user_id'] == current_user.id %>
+              &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px">&nbsp;organizer&nbsp;</font>
+            <% end %>
+            </font>
+              <div class="progress grey lighten-4" style="height: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 0; width: 72%">
+                  <% if (game['count'] < game['min_people']) %>
+                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate blue darken-1"></div>
+                  <% elsif (game['count'] >= game['max_people']) %>
+                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate red darken-1"></div>
+                  <% else %>
+                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate green darken-1"></div>
+                  <% end %>
+                   <% width = ((game['count'].to_f/game['min_people'].to_f)*100).to_s + "%" %>
+                     <script type="text/javascript">
+                    $("#progress_bar_<%= game['id'] %>-side").css("width"," <%= width %> ");
+                  </script>
+
+                </div>
+
+              </div>
+
+
+
+
+</div>
+          </li>
+
+
+        <% end %>
+
+
+
+
+
+<% else %>
+<li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
+
+<p align="center">
+  <font class="game_alert_font">
+  No games scheduled.
+  </font>
+</p>
+
+
+</li>
+
+<% end %>
+
+        </ul>
