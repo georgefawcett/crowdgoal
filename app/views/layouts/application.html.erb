@@ -2,13 +2,15 @@
 <html>
   <head>
     <title>CrowdGoal</title>
-    <meta property="og:url" content="https://stormy-reef-34928.herokuapp.com/events/68">
+    <% if @event then %>
+    <meta property="og:url" content="https://stormy-reef-34928.herokuapp.com/events/<%=@event.id%>">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="The Title">
-    <meta property="og:description" content="Test Description">
+    <meta property="og:title" content="<%=@event.title%>">
+    <meta property="og:description" content="<%=@event.details%>">
     <meta property="fb:app_id" content="1303393716414144">
-    <meta property="og:image" content="http://www.cgheroes.org/app/webroot/uploads/testimonial_image/14098956101.90mb_gif.GIF">
+    <meta property="og:image" content="https://yt3.ggpht.com/-0zo3UN2TACg/AAAAAAAAAAI/AAAAAAAAAAA/2zANjbHjEZQ/s900-c-k-no-mo-rj-c0xffffff/photo.jpg">
     <meta property="og:site_name" content="CrowdGoal">
+    <% end %>
 
 
     <%= csrf_meta_tags %>
