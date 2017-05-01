@@ -1,7 +1,5 @@
 class EventsController < ApplicationController
 
-
-
   def index
 
   now = Time.now

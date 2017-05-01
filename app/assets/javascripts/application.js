@@ -319,30 +319,135 @@ $('.modal').modal();
     $("#check-weather-model-date").text($("#event_start_date").val())
     $("#check-weather-modal-time").text($("#event_start_time").val())
     eventDate = new Date($("#event_start_date").val());
-    console.log(eventDate);
+    // console.log(eventDate);
     month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
-    console.log(month)
+    // console.log(month)
     start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
     getWeather("#edit_weather_summary", "#edit_hour_temp", "#edit_min_temp", "#edit_max_temp", "edit_weather_image",
       start_date, $("#event_start_time").val(), $("#event_loc_lat").val(), $("#event_loc_lng").val());
     $("#new-check-weather-modal").modal('open');
   });
 
-  // function changeMetaContent(link, callback){
-  //   $("meta[property='og\\:title']").attr("content", "Test Title");
-  //   $("meta[property='og\\:type']").attr("content", "website");
-  //   $("meta[property='og\\:description']").attr("content", "test description");
-  //   callback(link);
-  // }
-
   $(".share-button").click(function(){
-    // $("meta[property='og\\:title']").attr("content", $(this).attr("data-title"));
-    // $("meta[property='og\\:description']").attr("content", $(this).attr("data-description"));
-    console.log($(this).attr("data-link"))
     FB.ui({
       method: 'share',
       href: $(this).attr("data-link"),
     }, function(response){console.log(response)});
+  });
+
+  $("#change-password-button").click(function(){
+    $("#change-password-form").toggleClass("hide");
+  })
+
+  $("#save-password-button").click(function(){
+    if ($("#old-password").val() == "" || $("#new-password").val() == "" || $("#confirm-password").val() == "" ){
+      Materialize.toast("Password field cannot be empty",2000,"red");
+      return false;
+    }
+    $.ajax({
+      url:'/change_password',
+      method:"POST",
+      dataType: "json",
+      data: {
+        old_password: $("#old-password").val(),
+        user_password: {
+          password: $("#new-password").val(),
+          password_confirmation: $("#confirm-password").val()
+        }
+      },
+      success: function(response){
+        Materialize.toast(response.message,2000,"blue");
+        $("#change-password-form").toggleClass("hide");
+        $("#old-password").val("")
+        $("#new-password").val("")
+        $("#confirm-password").val("")
+      },
+      error: function(response){
+        response.responseJSON.message.forEach(function(error){
+          Materialize.toast(error, 2000, "red");
+        })
+      }
+    })
+  })
+
+  $("#update-user-info-button").click(function(){
+    user_id = $(this).attr('data-user-id');
+    $.ajax({
+      url:'/users/'+user_id,
+      method: 'PATCH',
+      dataType: "json",
+      data:{
+        user_info:{
+          name:$("#edit-name").val(),
+          about:$("#edit-description").val()
+        }
+      },
+      success: function(response){
+        Materialize.toast(response.message,2000,"blue");
+      },
+      error: function(response){
+        response.responseJSON.message.forEach(function(error){
+          Materialize.toast(error, 2000, "red");
+        });
+      }
+    });
+  });
+
+  $("#forgot-password-email-submit").click(function(){
+    if ($("#forgot-password-email").val() == ''){
+      Materialize.toast("Enter your email", 2000, "red");
+      return false;
+    }
+    $.ajax({
+      url: '/forgot_password',
+      method: 'POST',
+      dataType: 'json',
+      data: {
+        user_email: $("#forgot-password-email").val()
+      },
+      success: function(response){
+        console.log(response.OTP);
+        $("#forgot-password-otp").attr("data-otp", response.OTP);
+        $("#forgot-password-otp").attr("data-user-id", response.user_id)
+        $("#forgot-password-email-submit").toggleClass("hide");
+        $("#forgot-password-form").toggleClass("hide");
+      },
+      error: function(response){
+        Materialize.toast(response.responseJSON.message, 2000, "red");
+      }
+    });
+  });
+
+  $("#reset-password-button").click(function(){
+    if($("#forgot-password-otp").val() != $("#forgot-password-otp").attr("data-otp")){
+      Materialize.toast("Invalid OTP", 2000, "red");
+      return false;
+    }
+    if($("#forgot-password-password").val() != $("#forgot-password-confirm-password").val()){
+      Materialize.toast("Passwords mismatch", 2000, "red");
+      return false;
+    }
+    $.ajax({
+      url: '/forgot_password/'+$("#forgot-password-otp").attr("data-user-id"),
+      method: 'PUT',
+      dataType: 'json',
+      data: {
+        user_password: {
+          password: $("#forgot-password-password").val(),
+          password_confirmation: $("#forgot-password-confirm-password").val()
+        }
+      },
+      success: function(response){
+        console.log(response.message);
+        document.location.href="/events"
+      },
+      error: function(response){
+        response.responseJSON.message.forEach(function(error){
+          Materialize.toast(error, 2000, "red");
+        });
+        console.log(response);
+      }
+    });
   });
 }
 

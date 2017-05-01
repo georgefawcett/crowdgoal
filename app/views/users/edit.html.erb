@@ -2,15 +2,74 @@
   <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s6">
-              <input value="Alvin" id="first_name2" type="text" class="validate">
-              <label class="active" for="first_name2">First Name</label>
-            </div>
-          </div>
-        </form>
+        <table>
+          <tr>
+            <td width="29%" valign="top" style="padding-right: 15px; vertical-align: top">
+            <ul><li class="dropdown-button" data-activates="dp-dropdown">
+              <%= link_to image_tag(@user.picture.url(:profile), class: 'circle profilepic') %>
+            </li></ul>
+            </td>
+            <td>
+              <div class="row">
+                <div class="input-field col s8">
+                  <input value="<%=@user.name%>" id="edit-name" type="text" class="validate">
+                  <label class="active" for="Name">Full Name</label>
+                </div>
+              </div>
+
+              <div class="row">
+                <button id="change-password-button" class="btn transparent black-text no-uppercase" style="margin:10px;">Change Password</button>
+              </div>
+              <br>
+              <div id="change-password-form" class="hide">
+                <div class="row">
+                  <div class="input-field col s8">
+                    <input id="old-password" type="password" class="validate active">
+                    <label class="active" for="password">Old Password</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s8">
+                    <input id="new-password" type="password" class="validate active">
+                    <label class="active" for="new password">New Password</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s8">
+                    <input id="confirm-password" type="password" class="validate active">
+                    <label class="active" for="confirm password">Confirm Password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s8">
+                    <button id="save-password-button" class="btn transparent black-text no-uppercase right-align"> Save Password</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s8">
+                  <input id="edit-description" type="text" class="active" value="<%=@user.about%>">
+                  <label class="active" for="About You">About You</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s8">
+                  <button id="update-user-info-button" data-user-id="<%=current_user.id%>" class="btn transparent black-text no-uppercase right-align"> Update Info</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
+</div>
+
+
+<div id="dp-dropdown" class="dropdown-content black-text">
+<ul >
+  <li><a href="#!" class="black-text">Change Profile Picture</a></li>
+</ul>
 </div>

@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#index'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
+  post '/change_password' => 'change_password#change'
+
+  resources :forgot_password, only: [:index, :create, :update]
+
 
   get '/sendConfirmation' => 'mailers#sendConfirmation'
 
