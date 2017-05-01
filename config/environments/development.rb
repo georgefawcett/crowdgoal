@@ -65,7 +65,18 @@ Rails.application.configure do
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
-config.paperclip_defaults = {
+# config.paperclip_defaults = {
+#     :storage => :s3,
+#     :s3_credentials => {
+#       :bucket => ENV['AWS_BUCKET'],
+#       :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+#       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+#       :s3_region => ENV.fetch('AWS_REGION'),
+#       :s3_host_name => "s3-#{ENV['AWS_REGION']}.amazonaws.com"
+#     }
+# }
+
+  config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
       :bucket => ENV['AWS_BUCKET'],
@@ -75,6 +86,5 @@ config.paperclip_defaults = {
       :s3_host_name => "s3-#{ENV['AWS_REGION']}.amazonaws.com"
     }
 }
-
 
 end

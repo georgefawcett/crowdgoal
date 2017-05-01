@@ -1,0 +1,11 @@
+Hey there,
+This is to notify that the required number of players for the event "<%=@event.title%>" you signed-up in CrowdGoal have joined.
+Please visit the event page and make use of the discussion forum to exchange ideas and it also has other features exclusively for this event that lets you upload images, give ratings, write reviews etc..
+
+Event Details
+Event Date & Time: <%=@event.start_date.to_date.strftime("%A, %B %-d, %Y")%> | <%=@event.start_time.strftime("%H:%M:%S")%>
+Event Location: <%=@event.address%>
+Reason for Cancellation: <%=@reason%>
+
+Best Regards,
+CrowdGoal Team.

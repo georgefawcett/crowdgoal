@@ -12,15 +12,10 @@ class EventsController < ApplicationController
   end
 
   def create
-
-
     event = Event.new(event_params)
     event.user_id = session[:user_id]
-
-
-
     if event.save
- # Add the organizer as a participant in their own event
+    # Add the organizer as a participant in their own event
     addplayer = EventsUser.new({
       event_id: event.id,
       user_id: event.user_id
@@ -35,17 +30,13 @@ class EventsController < ApplicationController
 
 
   def update
-        @event = Event.find(params[:id]).update(event_update_params)
-
-
-
-    # @event = Event.update(params[:event_id], start_date: params[:event_start_date], start_time: Time.parse(params[:event_start_time]), location: params[:event_location]);
+    @event = Event.find(params[:id]).update(event_update_params)
     if (@event)
       render status:200, json:{
-        message: "saved."
+        message: "Saved."
       }
     else
-    render status: 500, json: {
+      render status: 500, json: {
         message: "Internal Server Error.",
       }.to_json
     end
@@ -64,7 +55,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    puts params[:reason]
+    # puts params[:reason]
     @event = Event.find(params[:id]);
     @players = @event.events_users
     @email_ids = Array.new

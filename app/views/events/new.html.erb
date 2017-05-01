@@ -124,6 +124,9 @@ function showPosition(position) {
 
  <label for="start_time">Time</label>
 </div>
+    <div>
+      <a id="new-check-weather-button" class="btn no-uppercase transparent black-text" style="margin-top: 25px;padding:0 5px 0 5px;font-size: 12px;">check weather</a>
+    </div>
 
 
 </div>
@@ -249,14 +252,6 @@ function showPosition(position) {
  function fillInAddress() {
 
         var place = autocomplete.getPlace();
-
-
-
-
-
-
-
-
             document.getElementById('event_address').value = place.formatted_address;
             document.getElementById('event_loc_lng').value = place.geometry.location.lng();
             document.getElementById('event_loc_lat').value = place.geometry.location.lat();
@@ -285,5 +280,85 @@ function showPosition(position) {
         async defer></script>
 
 
+<div id="new-check-weather-modal" class="modal small">
+  <div class="modal-content" style="padding-bottom:0;">
+  <button class="close-new-check-weather-modal btn-flat grey-text" style="position:absolute;top:0;right:1em;padding:0;"><i class="material-icons small">close</i></button>
+    <center>Weather Forecast - <span id="check-weather-model-date"></span> | <span id="check-weather-modal-time"></span> </center>
+    <table>
+      <tr>
+        <td>
+          <center>
+            <h6 id="edit_weather_summary"></h6>
+            <canvas id="edit_weather_image" width="50" height="50"></canvas>
+          </center>
+        </td>
+        <td>
+          <table>
+            <tr><td width="50%" aligh="right">During Event -</td><td width="50%"><span id="edit_hour_temp"></span><span>&#8451;</span></td></tr>
+            <tr><td width="50%" align="right">Min - </td><td width="50%"><span id="edit_min_temp"></span><span>&#8451;</span></td></tr>
+            <tr><td width="50%">Max - </td><td width="50%"><span id="edit_max_temp"> </span><span>&#8451;</span></td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect btn-flat no-uppercase">Close</a>
+  </div>
+</div>
+
+<style type="text/css">
+  #new-check-weather-modal{
+    width: 500px;
+    height: 180px;
+  }
+  th, td, tr{
+    padding:0;
+    padding-top: 0;
+  }
+</style>
+
+<script type="text/javascript">
+  function getWeather(summary_field, hour_field, min_field, max_field, image_field, event_date, event_time, loc_lat, loc_lng){
+    var colors={
+      "clear-day": "Orange",
+      "clear-night": "Black",
+      "rain":"DeepSkyBlue",
+      "snow": "Aqua",
+      "sleet": "Aqua",
+      "wind": "SlateGray",
+      "fog":"LightSteelBlue",
+      "cloudy":"Gray",
+      "partly-cloudy-day":"DarkOrange",
+      "partly-cloudy-night": "LightSlateGray "
+    }
+
+    console.log(event_date);
+    var index = event_time.toString().substring(0,2) < 10 ? event_time.toString().substring(0,2).replace(0,'') : event_time.toString().substring(0,2)
+    console.log(index)
+    console.log("https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts");
+    $.ajax({
+      url: "https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts",
+      method: "GET",
+      dataType: "jsonp",
+      success: function(response){
+        console.log(response.hourly.data[index]);
+        $(summary_field).text(response.hourly.data[index].summary)
+        var hr_temp = Math.round((5/9) * (response.hourly.data[index].apparentTemperature-32),0)
+        var min = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMin-32),0)
+        var max = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMax-32),0)
+        $(hour_field).text(hr_temp);
+        $(min_field).text(min);
+        $(max_field).text(max);
+        var skycons = new Skycons({"color": colors[response.hourly.data[index].icon]});
+        skycons.add(image_field, response.hourly.data[index].icon);
+        skycons.play();
+      },
+      error: function(error){
+        console.log("error");
+      }
+    })
+  }
+  </script>
 
 

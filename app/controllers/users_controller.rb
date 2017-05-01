@@ -8,18 +8,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    # @user.password = user_params["password"]
-    # if password_matches? then
       if (@user.save)
         session[:user_id] = @user.id
         redirect_to '/events'
       else
         render :new
       end
-    # else
-    #   @user.errors.add(:password, "Password did not match!")
-    #   render :new
-    # end
+  end
+
+  def edit
+
   end
 
   def show
@@ -29,6 +27,7 @@ class UsersController < ApplicationController
 
     @joined = "SELECT count(*) FROM events_users
                      WHERE  user_id = #{@user.id}"
+
 
 
     activity_sql = "select events.id, events.title, events.user_id, events.sport_id, sports.icon, events.created_at as \"jointime\"
@@ -48,18 +47,13 @@ class UsersController < ApplicationController
 
 
 
+
     following_ids = "SELECT followed_id FROM relationships
                      WHERE  follower_id = #{@user.id}"
     @following = User.where("id IN (#{following_ids})")
-
     follower_ids = "SELECT follower_id FROM relationships
                      WHERE  followed_id = #{@user.id}"
     @followers = User.where("id IN (#{follower_ids})")
-
-
-
-
-
   end
 
 

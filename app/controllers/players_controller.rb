@@ -9,9 +9,18 @@ include ApplicationHelper
       })
     if @events_user.save
       @event = Event.find(params[:event_id])
+      @players = @event.events_users
+      joined_count = @players.length
+      @email_ids = Array.new
+      @players.each do |player|
+        @email_ids.push(User.find(player.user_id).email)
+      end
       render status: 200, json: {
-        joined_count: EventsUser.where(event_id: params[:event_id]).count
+        joined_count: joined_count
       }.to_json
+      if @event.min_people == joined_count then
+        UserMailer.confirmation_email(@event, @email_ids).deliver
+      end
     else
       render status: 500, json: {
         error: @events_user.errors.full_messages,
