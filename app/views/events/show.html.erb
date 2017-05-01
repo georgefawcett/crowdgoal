@@ -4,20 +4,7 @@
 <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
 <% @host = User.find(event.user_id) %>
 
-<%
-playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
-
-%>
-
-
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-<meta property="og:url" content="https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>">
-<meta property="og:type" content="webpage">
-<meta property="og:title" content="<%=event.title%>">
-<meta property="og:description" content="<%=event.details%>">
-<meta property="fb:app_id" content="1303393716414144">
-<meta property="og:image" content="http://science-all.com/images/images/images-23.jpg">
-<meta property="og:site_name" content="CrowdGoal">
+<%playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]}) %>
 
 <style type="text/css">
   .time_circles div h4 {
@@ -35,6 +22,10 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
 </style>
 
 <script type="text/javascript">
+
+  $("meta[property='og\\:title']").attr("content", "<%= event.title %>");
+  $("meta[property='og\\:description']").attr("content", "<%=event.details%>");
+
   function getWeather(summary_field, hour_field, min_field, max_field, image_field, event_date, event_time, loc_lat, loc_lng){
     var colors={
       "clear-day": "Orange",
@@ -222,7 +213,7 @@ playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]})
                 </div>
               </td>
               <td width="10%">
-                <button class="share-button" data-link = "https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>">Share</button>
+                <button class="share-button" data-link = "https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>" data-title="<%=event.title%>" data-description="<%=event.details%>" >Share</button>
               </td>
             </tr>
           </table>

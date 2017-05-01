@@ -281,9 +281,17 @@ function onLoad(){
     $("#new-check-weather-modal").modal('open');
   });
 
+  // function changeMetaContent(link, callback){
+  //   $("meta[property='og\\:title']").attr("content", "Test Title");
+  //   $("meta[property='og\\:type']").attr("content", "website");
+  //   $("meta[property='og\\:description']").attr("content", "test description");
+  //   callback(link);
+  // }
+
   $(".share-button").click(function(){
-    // $(this).preventDefault();
-    alert($(this).attr("data-link"))
+    // $("meta[property='og\\:title']").attr("content", $(this).attr("data-title"));
+    // $("meta[property='og\\:description']").attr("content", $(this).attr("data-description"));
+    console.log($(this).attr("data-link"))
     FB.ui({
       method: 'share',
       href: $(this).attr("data-link"),
