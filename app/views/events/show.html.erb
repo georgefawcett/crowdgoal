@@ -241,8 +241,8 @@
  <div class="row">
     <div class="col s12">
       <ul class="tabs tabs-fixed-width">
-        <li class="tab col s2" class="active"><a href="#location">Location</a></li>
-        <li class="tab col s2"><a href="#details">Details</a></li>
+        <li class="tab col s2" class="active"><a href="#locationtab">Location</a></li>
+        <li class="tab col s2"><a href="#detailstab">Details</a></li>
         <li class="tab col s2"><a href="#players">Players (<%= @players.length %>)</a></li>
 
         <% if playing.length > 0 %>
@@ -256,11 +256,11 @@
       </ul>
     </div>
 
-    <div id="location" class="col s12">
+    <div id="locationtab" class="col s12">
       <%= render 'location' %>
     </div>
 
-    <div id="details" class="col s12">
+    <div id="detailstab" class="col s12">
       <ul class="collection">
         <li class="collection-item">
           <%= @event.details %>

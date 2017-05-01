@@ -1,7 +1,8 @@
+
 <ul class="collection">
   <li class="collection-item avatar">
 
-      <%= form_for(:message, :url => messages_path, remote: true) do |f| %>
+      <%= form_for(:message, :url => messages_path) do |f| %>
 
         <div class="row">
 
@@ -11,7 +12,7 @@
           </div>
 
           <div class="input-field col s2">
-            <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light green addmessage") do %><i class="material-icons">add</i><% end %>
+            <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light green addmessage", :style => "padding: 0px") do %><i class="material-icons">add</i><% end %>
           </div>
 
         </div>
@@ -20,45 +21,7 @@
 
   </li>
 
-
-  <% @messages.each do |message| %>
-
-    <% @author = User.find(message.user_id) %>
-
-    <li class="collection-item avatar">
-
-      <%= image_tag @author.picture.url(:thumb), class: 'circle thumbprofile' %>
-
-
-
-    <p>
-      <%= message.message %>
-    </p>
-    <p>
-      <font class="messagedate">
-        Posted by <a href="/users/<%= @author.id %>"><%= @author.name %></a> on <%= message.created_at.strftime("%A, %B %-d at %l:%M %p") %>
-      </font>
-    </p>
-
-
-    <!-- If message author is logged in, allow delete option -->
-
-    <% if current_user && current_user.id == message.user_id %>
-
-      <%= link_to message_path(message), method: :delete, data: { confirm: 'Delete message?' } do %>
-        <div class="delete secondary-content red-text">
-        <font class="deletefont">delete</font>
-        <i class="material-icons">indeterminate_check_box</i>
-        </div>
-      <% end %>
-
-    <% end %>
-
-
-
-    </li>
-
-  <% end %>
-
+<%= render 'messageslist' %>
 
 </ul>
+

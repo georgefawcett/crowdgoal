@@ -1,0 +1,37 @@
+ <%= form_for @user, url: '/login', :method => :POST do |form| %>
+
+
+
+
+
+      <% if @user.errors.any? %>
+        <ul class="error-message">
+          <% @user.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.email_field :email, class: 'validate form-field' , placeholder: ' Email'%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.password_field :password, class: 'validate form-field', placeholder: ' Password' %>
+        </div>
+      </div>
+      <center>
+      <br>
+        <%= form.submit 'Login', class: 'btn btn-medium center-align waves-effect waves-light green  no-uppercase' %>
+      </center>
+    <% end %>
+    <br>
+    <section class="divider"></section>
+    <br>
+    <div class="center-align">
+    <p>
+    No account? <a href="/register">Register</a> or
+    </p>
+      <%= link_to user_facebook_omniauth_authorize_path, class: 'btn btn-medium center-align waves-effect waves-light no-uppercase blue darken-4' do %> <i class="fa fa-facebook" aria-hidden="true"></i> &nbsp; Login with Facebook <% end %><br><br>

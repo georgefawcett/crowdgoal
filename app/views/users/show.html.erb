@@ -22,7 +22,11 @@
         </p>
         <p style="font-size: 92%">
           <br>
-          Affogato four loko meggings kombucha trust fund. Farm-to-table asymmetrical seitan ethical jean shorts tousled woke mumblecore, +1 8-bit health goth. Prism brooklyn yuccie VHS avocado kombucha.
+          <% if @user.about %>
+            <%= @user.about %>
+          <% else %>
+            This user has not provided any About Me information
+          <% end %>
         </p>
 
         <table>
@@ -68,32 +72,36 @@
 
 
         <% if @user.id == current_user.id %>
-          <li class="tab col s3" class="active"><a href="#mygames">My Games</a></li>
+          <li class="tab col s2" class="active"><a href="#mygames">My Games</a></li>
         <% else %>
-          <li class="tab col s3" class="active"><a href="#activity">Activity</a></li>
+          <li class="tab col s2" class="active"><a href="#activity">Activity</a></li>
         <% end %>
 
         <% if @user.id == current_user.id %>
-          <li class="tab col s3" class="active"><a href="#myalerts">My Alerts</a></li>
+          <li class="tab col s2"><a href="#myalerts">My Alerts</a></li>
         <% else %>
           <% if @created.length > 0 %>
-            <li class="tab col s3"><a href="#organized">Organized (<%= @created.length %>)</a></li>
+            <li class="tab col s2"><a href="#organized">Organized (<%= @created.length %>)</a></li>
           <% else %>
-            <li class="tab col s3 disabled"><a href="#organized">Organized (<%= @created.length %>)</a></li>
+            <li class="tab col s2 disabled"><a href="#organized">Organized (<%= @created.length %>)</a></li>
           <% end %>
+        <% end %>
+
+         <% if @user.id == current_user.id %>
+          <li class="tab col s2"><a href="#myphotos">My Photos</a></li>
         <% end %>
 
 
         <% if @user.followers.count > 0 %>
-          <li class="tab col s3" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
+          <li class="tab col s2" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
         <% else %>
-          <li class="tab col s3 disabled" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
+          <li class="tab col s2 disabled" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
         <% end %>
 
         <% if @user.following.count > 0 %>
-          <li class="tab col s3"><a href="#following">Following (<%= @user.following.count %>)</a></li>
+          <li class="tab col s2"><a href="#following">Following (<%= @user.following.count %>)</a></li>
         <% else %>
-          <li class="tab col s3 disabled"><a href="#following">Following (<%= @user.following.count %>)</a></li>
+          <li class="tab col s2 disabled"><a href="#following">Following (<%= @user.following.count %>)</a></li>
         <% end %>
 
 
@@ -120,6 +128,12 @@
       <div id="organized" class="col s12">
         <%= render 'organized' %>
       </div>
+    <% end %>
+
+    <% if @user.id == current_user.id %>
+      <div id="myphotos" class="col s12">
+      <%= render 'myphotos' %>
+    </div>
     <% end %>
 
     <div id="followers" class="col s12">

@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
   include ApplicationHelper
 
   def index
-    if current_user
+    # if current_user
       redirect_to '/events'
-    else
-      @user = User.new
-    end
+    # else
+    #   @user = User.new
+    # end
   end
 
   def create

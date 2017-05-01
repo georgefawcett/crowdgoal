@@ -1,8 +1,21 @@
-<div class="row">
-  <div class="col s4"></div>
-   <div class="col s4 form-block">
-      <h4 class="center-align">Register</h4>
-      <h6 class="center-align"> It's free and always will be! </h6>
+  <center>
+  <ul class="collapsible" data-collapsible="expandable" style="width: 65%">
+    <li>
+      <div class="collapsible-header active blue darken-1 white-text"><i class="material-icons">face</i>Register</div>
+      <div class="collapsible-body">
+
+        <ul class="collection">
+        <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.8)">
+
+
+
+
+ <div class="row">
+        <div class="input-field col s12">
+
+
+
+
       <%= form_for @user, url: '/register'  do |form| %>
         <% if @user.errors.any? %>
           <ul class="error-message">
@@ -39,24 +52,29 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">photo_camera</i>
-
-
-            <%= form.file_field :picture, class: 'validate' %>
+            <%= form.file_field :picture, class: 'validate  form-field', style: 'padding-top: 10px; padding-bottom: 10px'%>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">face</i>
-            <%= form.text_field :about, class: 'validate form-field' %>
+            <%= form.text_area :about, class: 'validate form-field', placeholder: 'About you', style: "height: 60px" %>
           </div>
         </div>
 
-        <center>
-          <%= form.submit 'Register', class: 'btn btn-medium center-align waves-effect waves-light green darken-2 no-uppercase' %>
+        <center><br>
+          <%= form.submit 'Register', class: 'btn btn-medium center-align waves-effect waves-light blue darken-1 no-uppercase' %>
         </center><br>
       <% end %>
     </div>
     <div class="col s4"></div>
 </div>
+
+
+
+ </li>
+        </ul>
+</center>
+        </div>
 
 
