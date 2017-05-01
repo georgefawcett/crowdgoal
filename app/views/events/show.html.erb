@@ -1,10 +1,10 @@
 <% event = @event %>
 <% min_people = event.min_people %>
 <% joined_count = event.events_users.count %>
-<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + “%” %>
+<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + '%' %>
 <% @host = User.find(event.user_id) %>
 <%playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]}) %>
-<%FacebookOpenGraph.clear_cache(“https://stormy-reef-34928.herokuapp.com/events/#{event.id}“)%>
+<%#FacebookOpenGraph.clear_cache(“https://stormy-reef-34928.herokuapp.com/events/#{event.id}“)%>
 
 <style type=“text/css”>
   .time_circles div h4 {
@@ -41,8 +41,8 @@
     }
     // var lat = “<%=@event.loc_lat%>“;
     // var lng = “<%=@event.loc_lng%>”
-    // var start_date = “<%=@event.start_date.to_date%>“;
-    // var start_time = “<%=@event.start_time.strftime(“%H:%M:%S”)%>”
+    // var start_date = “<%#=@event.start_date.to_date%>“;
+    // var start_time = “<%#=@event.start_time.strftime(“%H:%M:%S”)%>”
     // eventDate = new Date(event_date);
     // month = eventDate.getMonth()+1 < 10 ? “0” + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
     // start_date = eventDate.getFullYear() + “-” + month + “-” + eventDate.getUTCDate();
@@ -88,7 +88,7 @@
             </tr>
             <tr width=“100%“>
               <td width=“60%“>
-                <div id=“DateCountdown” data-date=“<%=@event.start_date.to_date%> <%=@event.start_time.strftime(“%H:%M:%S”)%>” style=“height:50%; width: 70%;margin: auto;“>
+                <div id=“DateCountdown” data-date=“<%=@event.start_date.to_date%> <%=@event.start_time.strftime('%H:%M:%S')%>” style=“height:50%; width: 70%;margin: auto;“>
                 </div>
               </td>
               <td width=“40%“>
@@ -106,7 +106,7 @@
                     </table>
                   </td>
                 </tr></table>
-                <script type=“text/javascript”> getWeather(“#weather-summary”, “#hour_temp”, “#min_temp”, “#max_temp”, “weather-image”, “<%=@event.start_date.to_date%>“, “<%=@event.start_time.strftime(“%H:%M:%S”)%>“, “<%=@event.loc_lat%>“, “<%=@event.loc_lng%>“);</script>
+                <script type=“text/javascript”> getWeather(“#weather-summary”, “#hour_temp”, “#min_temp”, “#max_temp”, “weather-image”, “<%=@event.start_date.to_date%>“, “<%=@event.start_time.strftime('%H:%M:%S')%>“, “<%=@event.loc_lat%>“, “<%=@event.loc_lng%>“);</script>
               </td>
             </tr>
           </table>
@@ -138,7 +138,7 @@
                     <a href=“/users/<%= @host.id %>“><%= @host.name %></a>
                   </td>
                   <td>
-                    <%= link_to image_tag(@host.picture.url(:thumb), class: ‘circle profilepic thumbprofile’) %>
+                    <%= link_to image_tag(@host.picture.url(:thumb), class: 'circle profilepic thumbprofile') %>
                   </td>
                 <% end %>
               </td>
@@ -157,10 +157,10 @@
 
             <i class=“material-icons” style=“font-size: 16px; color: #888888; vertical-align: middle”>date_range</i>
 
-              <font class=“eventfont”><%= event.start_date.strftime(“%A, %B %-d, %Y”) %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</font>
+              <font class=“eventfont”><%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</font>
 
             <i class=“material-icons” style=“font-size: 18px; color: #888888; vertical-align: middle”>access_time</i>
-            <font class=“eventfont”><%= event.start_time.strftime(“%l:%M %p”) %></font>
+            <font class=“eventfont”><%= event.start_time.strftime("%l:%M %p") %></font>
 
 
 
