@@ -5,6 +5,7 @@
 <% @host = User.find(event.user_id) %>
 
 <%playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]}) %>
+<%FacebookOpenGraph.clear_cache("https://stormy-reef-34928.herokuapp.com/events/#{event.id}")%>
 
 <style type="text/css">
   .time_circles div h4 {
