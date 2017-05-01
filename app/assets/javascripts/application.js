@@ -28,6 +28,13 @@ $(document).on('turbolinks:load', onLoad);
 
 function onLoad(){
 
+ function randomBG() {
+    var images = ['tennis.jpg', 'baseball.jpg', 'volleyball.jpg'];
+    $('body').css({'background-image': 'url(https://s3.ca-central-1.amazonaws.com/crowdgoal/static/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
+   };
+
+   randomBG();
+
 var displayMap = function(eventloc) {
   $('.modal').modal({
     ready: function(modal, trigger) { // Callback for Modal open.

@@ -35,7 +35,7 @@ order by events.start_date, events.start_time"
 
             <a href="/events/<%= game['id'] %>"><%= truncate(game['title'], length:25) %></a>
 
-            <font class="messagedate"> | <%= game['start_time'].to_time.strftime("%l:%M %p") %> at <%= game['location'] %>
+            <font class="messagedate"> | s<%= game['start_time'].to_time.strftime("%l:%M %p") %> at <%= game['location'] %>
             </font>
             <br>
             <font class="game_alert_font">
