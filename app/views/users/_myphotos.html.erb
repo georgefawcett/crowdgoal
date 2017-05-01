@@ -1,0 +1,77 @@
+<ul class="collection">
+
+<% if @galleries.length > 0 %>
+
+  <% @galleries.each do |g| %>
+
+    <% @event = Event.find(g.event_id) %>
+    <% @sport = Sport.find(@event.sport_id) %>
+    <% @photos = g.photos %>
+
+    <li class="collection-item avatar">
+
+      <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= @sport.icon %>.ico" class="circle sportsicon">
+
+    <font class="messagedate">
+      You posted <%= pluralize(@photos.length, 'photo', 'photos') %> to <a href="/events/<%= @event.id %>"><%= @event.title %></a> on <%= g.created_at.strftime("%A, %B %-d") %>:
+    </font>
+
+
+    <table>
+
+    <% i = 1 %>
+
+    <% @photos.each do |p| %>
+
+      <% if i == 1 %>
+        <tr>
+          <td width="50%" valign="middle">
+            <%= image_tag p.image.url, class: 'materialboxed', 'width': '90%' %>
+          </td>
+
+        <% i = 2 %>
+
+      <% else %>
+
+          <td width="50%" valign="middle">
+            <%= image_tag p.image.url, class: 'materialboxed', 'width': '90%' %>
+          </td>
+        </tr>
+        <% i = 1 %>
+
+      <% end %>
+
+    <% end %>
+
+</table>
+
+    <!-- If message author is logged in, allow delete option -->
+
+    <% if current_user.id == g.user_id %>
+
+      <%= link_to gallery_path(g, :refer => 'user'), method: :delete, data: { confirm: 'Delete your photo gallery?' } do %>
+        <div class="delete secondary-content red-text">
+        <font class="deletefont">delete</font>
+        <i class="material-icons">indeterminate_check_box</i>
+        </div>
+      <% end %>
+
+    <% end %>
+
+
+
+    </li>
+
+  <% end %>
+
+
+<% else %>
+
+<li class="collection-item avatar">
+<br><center>
+You haven't posted any photos yet.
+</center><br>
+</li>
+<% end %>
+
+</ul>

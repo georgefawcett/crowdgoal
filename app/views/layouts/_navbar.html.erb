@@ -43,6 +43,7 @@
   </nav>
 </div>
 
+<% if current_user %>
 <div id="user-dropdown" class="dropdown-content">
 <ul >
 
@@ -51,3 +52,4 @@
   <li><%= link_to logout_path do %>Logout<%end%></li>
 </ul>
 </div>
+<% end %>

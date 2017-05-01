@@ -6,12 +6,18 @@ class MessagesController < ApplicationController
     message = Message.new(message_params)
     message.user_id = session[:user_id]
 
-    message.save
+if message.save
+      # redirect_to(controller: 'events', anchor: 'messages', id: 28)
+      redirect_to :controller => 'events', :id => message.event_id, :anchor => 'messages', :action => 'show'
+    else
+      redirect_to '/'
+    end
+    puts message.errors.full_messages
+  end
 
-      respond_to do |format|
-  format.html { redirect_to message }
-  format.js
-end
+
+
+
 
 
       # redirect_to(controller: 'events', anchor: 'messages', id: 28)
@@ -19,8 +25,7 @@ end
     # else
     #   redirect_to '/'
     # end
-    puts message.errors.full_messages
-  end
+
 
 
   def destroy

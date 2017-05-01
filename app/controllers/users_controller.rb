@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @created = Event.where(user_id: @user.id)
-
+    @galleries = Gallery.where(user_id: @user.id).order(created_at: :desc)
 
     @joined = "SELECT count(*) FROM events_users
                      WHERE  user_id = #{@user.id}"
@@ -54,6 +54,9 @@ class UsersController < ApplicationController
     follower_ids = "SELECT follower_id FROM relationships
                      WHERE  followed_id = #{@user.id}"
     @followers = User.where("id IN (#{follower_ids})")
+
+
+
   end
 
 

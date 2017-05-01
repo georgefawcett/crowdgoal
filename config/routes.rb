@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get '/login' => 'sessions#index'
   post '/login' => 'sessions#create'
+  # patch '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
   get '/sendConfirmation' => 'mailers#sendConfirmation'

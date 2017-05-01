@@ -49,7 +49,7 @@
       <%= image_tag @author.picture.url(:thumb), class: 'circle' %>
 
     <font class="messagedate">
-      <a href="/users/<%= @user.id %>"><%= @author.name %></a> posted <%= pluralize(@photos.length, 'photo', 'photos') %> on <%= g.created_at.strftime("%A, %B %-d") %>:
+      <a href="/users/<%= @author.id %>"><%= @author.name %></a> posted <%= pluralize(@photos.length, 'photo', 'photos') %> on <%= g.created_at.strftime("%A, %B %-d") %>:
     </font>
 
 

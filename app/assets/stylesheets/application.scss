@@ -52,8 +52,9 @@ body {
   .form-field{
     border: 1px solid gray; //#1976d2;
     //padding: 0 10px;
-    border-radius: 10px;
+    border-radius: 4px;
     margin-bottom: 0;
+    padding-left: 3px;
   }
   .btn{
     padding: 0 10px;
@@ -393,7 +394,8 @@ textarea:focus {
 
 .addmessage {
   margin-left: 10px;
-  margin-top: 4px
+  margin-top: 4px;
+
 }
 
 /*Five-star rating CSS*/
@@ -803,3 +805,18 @@ span.badge.new {
 .event_details {
   font-size: 90%;
 }
+
+
+.uploadbtn {
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: #1e88e5;
+}
+
+
+.uploadbtn:hover {
+  background-color: #1e88e5;
+}
+
+
+

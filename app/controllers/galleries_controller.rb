@@ -33,8 +33,11 @@ end
 
 
       @gallery.destroy
-      redirect_to :controller => 'events', :id => @gallery.event_id, :anchor => 'photos', :action => 'show', :notice => 'Gallery deleted!'
-
+      if params[:refer] == "user"
+        redirect_to :controller => 'users', :id => @gallery.user_id, :anchor => 'myphotos', :action => 'show', :notice => 'Gallery deleted!'
+      else
+        redirect_to :controller => 'events', :id => @gallery.event_id, :anchor => 'photos', :action => 'show', :notice => 'Gallery deleted!'
+      end
   end
 
 

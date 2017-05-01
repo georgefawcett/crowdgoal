@@ -1,12 +1,12 @@
 <% event = @event %>
 <% min_people = event.min_people %>
 <% joined_count = event.events_users.count %>
-<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + '%' %>
+<% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
 <% @host = User.find(event.user_id) %>
 <%playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]}) %>
-<%#FacebookOpenGraph.clear_cache(“https://stormy-reef-34928.herokuapp.com/events/#{event.id}“)%>
+<%FacebookOpenGraph.clear_cache("https://stormy-reef-34928.herokuapp.com/events/#{event.id}")%>
 
-<style type=“text/css”>
+<style type="text/css">
   .time_circles div h4 {
     font-size: 10px !important;
     line-height: 5px !important;
@@ -21,39 +21,39 @@
   }
 </style>
 
-<script type=“text/javascript”>
+<script type="text/javascript">
 
-  // $(“meta[property=‘og\\:title’]“).attr(“content”, “<%= event.title %>“);
-  // $(“meta[property=‘og\\:description’]“).attr(“content”, “<%=event.details%>“);
+  // $("meta[property='og\\:title']").attr("content", "<%= event.title %>");
+  // $("meta[property='og\\:description']").attr("content", "<%=event.details%>");
 
   function getWeather(summary_field, hour_field, min_field, max_field, image_field, event_date, event_time, loc_lat, loc_lng){
     var colors={
-      “clear-day”: “Orange”,
-      “clear-night”: “Black”,
-      “rain”:“DeepSkyBlue”,
-      “snow”: “Aqua”,
-      “sleet”: “Aqua”,
-      “wind”: “SlateGray”,
-      “fog”:“LightSteelBlue”,
-      “cloudy”:“Gray”,
-      “partly-cloudy-day”:“DarkOrange”,
-      “partly-cloudy-night”: “LightSlateGray ”
+      "clear-day": "Orange",
+      "clear-night": "Black",
+      "rain":"DeepSkyBlue",
+      "snow": "Aqua",
+      "sleet": "Aqua",
+      "wind": "SlateGray",
+      "fog":"LightSteelBlue",
+      "cloudy":"Gray",
+      "partly-cloudy-day":"DarkOrange",
+      "partly-cloudy-night": "LightSlateGray "
     }
-    // var lat = “<%=@event.loc_lat%>“;
-    // var lng = “<%=@event.loc_lng%>”
-    // var start_date = “<%#=@event.start_date.to_date%>“;
-    // var start_time = “<%#=@event.start_time.strftime(“%H:%M:%S”)%>”
+    // var lat = "<%=@event.loc_lat%>";
+    // var lng = "<%=@event.loc_lng%>"
+    // var start_date = "<%=@event.start_date.to_date%>";
+    // var start_time = "<%=@event.start_time.strftime("%H:%M:%S")%>"
     // eventDate = new Date(event_date);
-    // month = eventDate.getMonth()+1 < 10 ? “0” + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
-    // start_date = eventDate.getFullYear() + “-” + month + “-” + eventDate.getUTCDate();
+    // month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
+    // start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
     console.log(event_date);
-    var index = event_time.toString().substring(0,2) < 10 ? event_time.toString().substring(0,2).replace(0,‘’) : event_time.toString().substring(0,2)
+    var index = event_time.toString().substring(0,2) < 10 ? event_time.toString().substring(0,2).replace(0,'') : event_time.toString().substring(0,2)
     console.log(index)
-    console.log(“https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/” + loc_lat + “,” + loc_lng + “,” + event_date + “T” + event_time + “?exclude=currently,flags,alerts”);
+    console.log("https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts");
     $.ajax({
-      url: “https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/” + loc_lat + “,” + loc_lng + “,” + event_date + “T” + event_time + “?exclude=currently,flags,alerts”,
-      method: “GET”,
-      dataType: “jsonp”,
+      url: "https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts",
+      method: "GET",
+      dataType: "jsonp",
       success: function(response){
         console.log(response.hourly.data[index]);
         $(summary_field).text(response.hourly.data[index].summary)
@@ -63,50 +63,50 @@
         $(hour_field).text(hr_temp);
         $(min_field).text(min);
         $(max_field).text(max);
-        var skycons = new Skycons({“color”: colors[response.hourly.data[index].icon]});
+        var skycons = new Skycons({"color": colors[response.hourly.data[index].icon]});
         skycons.add(image_field, response.hourly.data[index].icon);
         skycons.play();
       },
       error: function(error){
-        console.log(“error”);
+        console.log("error");
       }
     })
   }
   </script>
 
 
-<div class=“col s12 m7">
-  <div class=“card horizontal” style=“border: 1px solid #e3f2fd; margin:0;“>
-<!-- <div class=“col s12 m7”>
-  <div class=“card horizontal” style=“border: 1px solid #e3f2fd”> -->
-    <div class=“card-stacked”>
-      <div class=“card-content small” style=“padding-top: 8px; padding-bottom: 0;“>
-          <table style=“width:100%;“>
+<div class="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
+<!-- <div class="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd"> -->
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+          <table style="width:100%;">
             <tr>
               <td>Event starts in</td>
-              <td>Weather: <span id=“weather-summary”> Summary </span> </td>
+              <td>Weather: <span id="weather-summary"> Summary </span> </td>
             </tr>
-            <tr width=“100%“>
-              <td width=“60%“>
-                <div id=“DateCountdown” data-date=“<%=@event.start_date.to_date%> <%=@event.start_time.strftime('%H:%M:%S')%>” style=“height:50%; width: 70%;margin: auto;“>
+            <tr width="100%">
+              <td width="60%">
+                <div id="DateCountdown" data-date="<%=@event.start_date.to_date%> <%=@event.start_time.strftime("%H:%M:%S")%>" style="height:50%; width: 70%;margin: auto;">
                 </div>
               </td>
-              <td width=“40%“>
+              <td width="40%">
               <table>
                 <tr>
-                  <td colspan=“3”></td>
+                  <td colspan="3"></td>
                 </tr>
                 <tr>
-                  <td><center><canvas id=“weather-image” width=“50” height=“50"></canvas></center></td>
+                  <td><center><canvas id="weather-image" width="50" height="50"></canvas></center></td>
                   <td>
                     <table>
-                      <tr><td width=“50%” aligh=“right”>During Event -</td><td width=“50%“><span id=“hour_temp”></span><span>&#8451;</span></td></tr>
-                      <tr><td width=“50%” align=“right”>Min - </td><td width=“50%“><span id=“min_temp”></span><span>&#8451;</span></td></tr>
-                      <tr><td width=“50%“>Max - </td><td width=“50%“><span id=“max_temp”> </span><span>&#8451;</span></td></tr>
+                      <tr><td width="50%" aligh="right">During Event -</td><td width="50%"><span id="hour_temp"></span><span>&#8451;</span></td></tr>
+                      <tr><td width="50%" align="right">Min - </td><td width="50%"><span id="min_temp"></span><span>&#8451;</span></td></tr>
+                      <tr><td width="50%">Max - </td><td width="50%"><span id="max_temp"> </span><span>&#8451;</span></td></tr>
                     </table>
                   </td>
                 </tr></table>
-                <script type=“text/javascript”> getWeather(“#weather-summary”, “#hour_temp”, “#min_temp”, “#max_temp”, “weather-image”, “<%=@event.start_date.to_date%>“, “<%=@event.start_time.strftime('%H:%M:%S')%>“, “<%=@event.loc_lat%>“, “<%=@event.loc_lng%>“);</script>
+                <script type="text/javascript"> getWeather("#weather-summary", "#hour_temp", "#min_temp", "#max_temp", "weather-image", "<%=@event.start_date.to_date%>", "<%=@event.start_time.strftime("%H:%M:%S")%>", "<%=@event.loc_lat%>", "<%=@event.loc_lng%>");</script>
               </td>
             </tr>
           </table>
@@ -115,27 +115,27 @@
   </div>
 </div>
 
-<div class=“col s12 m7”>
-  <div class=“card horizontal” style=“border: 1px solid #e3f2fd”>
-    <div class=“card-stacked”>
-      <div class=“card-content small” style=“padding-top: 8px; padding-bottom: 0;“>
-<!-- <a class=“waves-effect waves-light btn” href=“#modal1">Modal</a> -->
+<div class="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+<!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
 
-             <div class=“organizer”>
+             <div class="organizer">
              <table>
               <tr>
                 <% if (current_user && event.user_id == current_user.id) then %>
                   <td>
-                    <a class=“btn-floating transparent” id=“edit-form-button”><i class=“material-icons blue-text”>mode_edit</i></a>
+                    <a class="btn-floating transparent" id="edit-form-button"><i class="material-icons blue-text">mode_edit</i></a>
                   </td>
                   <td>
-                    <a class=“btn-floating transparent” id=“delete-form-button” ><i class=“material-icons red-text”>delete</i></a>
+                    <a class="btn-floating transparent" id="delete-form-button" ><i class="material-icons red-text">delete</i></a>
                   </td>
                   </td>
                 <% else %>
                   <td>
                     <b>Organized by:</b><br>
-                    <a href=“/users/<%= @host.id %>“><%= @host.name %></a>
+                    <a href="/users/<%= @host.id %>"><%= @host.name %></a>
                   </td>
                   <td>
                     <%= link_to image_tag(@host.picture.url(:thumb), class: 'circle profilepic thumbprofile') %>
@@ -145,75 +145,75 @@
               </tr>
               </table>
             </div>
-            <p class = “card-header” style=“margin-bottom: 9px”>
+            <p class = "card-header" style="margin-bottom: 9px">
 
 
-            <div style=“float:left”>
+            <div style="float:left">
 
-              <img src=“https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= event.sport.icon %>.ico” class=“sportsicon”>
+              <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= event.sport.icon %>.ico" class="sportsicon">
             </div>
-            <p id=“event-title” style=“font-size: 160%“><%= event.title %></p>
+            <p id="event-title" style="font-size: 160%"><%= event.title %></p>
 
 
-            <i class=“material-icons” style=“font-size: 16px; color: #888888; vertical-align: middle”>date_range</i>
+            <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">date_range</i>
 
-              <font class=“eventfont”><%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</font>
+              <font class="eventfont"><%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</font>
 
-            <i class=“material-icons” style=“font-size: 18px; color: #888888; vertical-align: middle”>access_time</i>
-            <font class=“eventfont”><%= event.start_time.strftime("%l:%M %p") %></font>
+            <i class="material-icons" style="font-size: 18px; color: #888888; vertical-align: middle">access_time</i>
+            <font class="eventfont"><%= event.start_time.strftime("%l:%M %p") %></font>
 
 
 
         </div>
-        <div class=“card-action” style=“padding-top: 0; padding-bottom: 0">
-          <table width=“100%“>
+        <div class="card-action" style="padding-top: 0; padding-bottom: 0">
+          <table width="100%">
             <tr>
               <td>
-                <font style=“font-size: 90%“> <b id=“joined_count_<%=event.id%>“><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id=“min_people_<%=event.id%>“><%= min_people %></b> required players have joined
-                  <font style=“color: #aaaaaa”> | Expires in <%= (event.start_date.to_date - Date.today).to_i %> days </font>
+                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
+                  <font style="color: #aaaaaa"> | Expires in <%= (event.start_date.to_date - Date.today).to_i %> days </font>
                 </font>
-                <div class=“progress grey lighten-4" style=“height: 12px; border: 1px solid #888888; margin-bottom: 6px;“>
+                <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
                   <% if (joined_count < min_people) %>
-                    <div id = “progress_bar_<%=event.id%>” class=“determinate blue darken-1"></div>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate blue darken-1"></div>
                   <% elsif (joined_count >= event.max_people) %>
-                    <div id = “progress_bar_<%=event.id%>” class=“determinate red darken-1"></div>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate red darken-1"></div>
                   <% else %>
-                    <div id = “progress_bar_<%=event.id%>” class=“determinate green darken-1"></div>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate green darken-1"></div>
                   <% end %>
-                  <script type=“text/javascript”>
-                    $(“#progress_bar_<%=event.id%>“).css(“width”,” <%= width %> “);
+                  <script type="text/javascript">
+                    $("#progress_bar_<%=event.id%>").css("width"," <%= width %> ");
                   </script>
                 </div>
 
               </td>
-              <td align=“right”>
-                <div class=“card-button” style=“float: right”>
+              <td align="right">
+                <div class="card-button" style="float: right">
                   <% if current_user then %>
                     <% if (event.events_users.find_by(user_id: current_user.id))%>
-                      <button data-event-id=“<%=event.id%>” data-user-id=<%=session[:user_id]%> id=“withdraw_game_<%=event.id%>” class=“withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase” >
-                        <i class=“material-icons left” style=“vertical-align: middle;“>remove_circle_outline</i> Withdraw
+                      <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
+                        <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
                       </button>
                         <% if (event.user_id == current_user.id) then %>
-                          <script type=“text/javascript”>
-                            $(“#withdraw_game_<%=event.id%>“).addClass(“disabled”);
+                          <script type="text/javascript">
+                            $("#withdraw_game_<%=event.id%>").addClass("disabled");
                           </script>
                         <% end %>
                     <% else %>
                       <% if (joined_count >= event.max_people) then %>
-                        <button data-event-id=“<%=event.id%>” data-user-id=<%=session[:user_id]%> id=“join_game_<%=event.id%>” class=“join-game-button waves-effect waves-light btn green disabled no-uppercase”>
-                          <i class=“material-icons left”>person_add</i> Join Game
+                        <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green disabled no-uppercase">
+                          <i class="material-icons left">person_add</i> Join Game
                         </button>
                       <% else %>
-                        <button data-event-id=“<%=event.id%>” data-user-id=<%=session[:user_id]%> id=“join_game_<%=event.id%>” class=“join-game-button waves-effect waves-light btn green no-uppercase”>
-                          <i class=“material-icons left”>person_add</i>Join Game
+                        <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="join_game_<%=event.id%>" class="join-game-button waves-effect waves-light btn green no-uppercase">
+                          <i class="material-icons left">person_add</i>Join Game
                         </button>
                       <% end %>
                     <% end %>
                   <% end %>
                 </div>
               </td>
-              <td width=“5%“>
-                <span class=“share-button no-uppercase tooltipped” data-link = “https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>” data-position=“top” data-delay=“50" data-tooltip=“Share on Facebook” ><i class=“fa fa-facebook” aria-hidden=“true”></i></span>
+              <td width="5%">
+                <span class="share-button no-uppercase tooltipped" data-link = "https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>" data-position="top" data-delay="50" data-tooltip="Share on Facebook" ><i class="fa fa-facebook" aria-hidden="true"></i></span>
 
               </td>
             </tr>
@@ -223,65 +223,65 @@
   </div>
 </div>
 
-<section id=“event-edit-form” width=“col s12 m7” style=“display:none;“>
-  <div class=“card horizontal” style=“border: 1px solid #e3f2fd”>
-    <div class=“card-stacked”>
-      <div class=“card-content small” style=“padding-top: 0px; padding-bottom: 0; margin:0;“>
-        <%= render ‘event_form’, event: @event %>
+<section id="event-edit-form" width="col s12 m7" style="display:none;">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 0px; padding-bottom: 0; margin:0;">
+        <%= render 'event_form', event: @event %>
       </div>
     </div>
   </div>
 </section>
 
-<div class=“col s12 m7”>
-  <div class=“card horizontal” style=“border: 1px solid #e3f2fd”>
-    <div class=“card-stacked”>
-      <div class=“card-content small” style=“padding-top: 8px; padding-bottom: 0;“>
+<div class="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
 
- <div class=“row”>
-    <div class=“col s12">
-      <ul class=“tabs tabs-fixed-width”>
-        <li class=“tab col s2" class=“active”><a href=“#location”>Location</a></li>
-        <li class=“tab col s2”><a href=“#details”>Details</a></li>
-        <li class=“tab col s2”><a href=“#players”>Players (<%= @players.length %>)</a></li>
+ <div class="row">
+    <div class="col s12">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab col s2" class="active"><a href="#locationtab">Location</a></li>
+        <li class="tab col s2"><a href="#detailstab">Details</a></li>
+        <li class="tab col s2"><a href="#players">Players (<%= @players.length %>)</a></li>
 
         <% if playing.length > 0 %>
-          <li class=“tab col s2 messagestab”><a href=“#messages”>Messages (<%= @messages.length %>)</a></li>
+          <li class="tab col s2 messagestab"><a href="#messages">Messages (<%= @messages.length %>)</a></li>
         <% else %>
-          <li class=“tab col s2 disabled messagestab”><a href=“#messages”>Messages (<%= @messages.length %>)</a></li>
+          <li class="tab col s2 disabled messagestab"><a href="#messages">Messages (<%= @messages.length %>)</a></li>
         <% end %>
 
-        <li class=“tab col s2”><a href=“#photos”>Photos (<%= Photo.where(gallery_id: @event.galleries.ids).count %>)</a></li>
-        <li class=“tab col s2”><a href=“#reviews”>Reviews (<%= @reviews.length %>)</a></li>
+        <li class="tab col s2"><a href="#photos">Photos (<%= Photo.where(gallery_id: @event.galleries.ids).count %>)</a></li>
+        <li class="tab col s2"><a href="#reviews">Reviews (<%= @reviews.length %>)</a></li>
       </ul>
     </div>
 
-    <div id=“location” class=“col s12">
-      <%= render ‘location’ %>
+    <div id="locationtab" class="col s12">
+      <%= render 'location' %>
     </div>
 
-    <div id=“details” class=“col s12">
-      <ul class=“collection”>
-        <li class=“collection-item”>
+    <div id="detailstab" class="col s12">
+      <ul class="collection">
+        <li class="collection-item">
           <%= @event.details %>
         </li>
       </ul>
     </div>
 
-    <div id=“players” class=“col s12">
-      <%= render ‘players’ %>
+    <div id="players" class="col s12">
+      <%= render 'players' %>
     </div>
 
-    <div id=“messages” class=“col s12">
-      <%= render ‘messages’ %>
+    <div id="messages" class="col s12">
+      <%= render 'messages' %>
     </div>
 
-    <div id=“photos” class=“col s12">
-      <%= render ‘photos’ %>
+    <div id="photos" class="col s12">
+      <%= render 'photos' %>
     </div>
 
-    <div id=“reviews” class=“col s12">
-      <%= render ‘reviews’ %>
+    <div id="reviews" class="col s12">
+      <%= render 'reviews' %>
     </div>
 
   </div>
@@ -292,14 +292,14 @@
   </div>
 
 
-<div id=“delete-event-model” class=“modal”>
-  <div class=“modal-content”>
-    <button id=“delete-close-button” class=“btn-flat grey-text” style=“position:absolute;top:0;right:0;“><i class=“material-icons small”>close</i></button>
+<div id="delete-event-model" class="modal">
+  <div class="modal-content">
+    <button id="delete-close-button" class="btn-flat grey-text" style="position:absolute;top:0;right:0;"><i class="material-icons small">close</i></button>
     <h6>Reason for cancelling the event:</h6>
-    <textarea id=“cancel-event-reason” style=“width: 650px;height:150px”></textarea><br>
+    <textarea id="cancel-event-reason" style="width: 650px;height:150px"></textarea><br>
     <em>Note:  This will be sent across all the signed-up players of this event to notify the cancellation.</em>
   </div>
-    <button id=“delete-event-button” data-event-id=“<%=event.id%>” class = “right z-depth-4 waves-effect waves-light btn-flat red-text no-uppercase” style=“bottom:10px;right:10px;“> Cancel Event </button>
+    <button id="delete-event-button" data-event-id="<%=event.id%>" class = "right z-depth-4 waves-effect waves-light btn-flat red-text no-uppercase" style="bottom:10px;right:10px;"> Cancel Event </button>
 </div>
 
 
@@ -320,10 +320,10 @@
         // Create the autocomplete object, restricting the search to geographical
         // location types.
         autocomplete = new google.maps.places.Autocomplete(
-            /** @type {!HTMLInputElement} */(document.getElementById('event-location')),
-            {types: ['geocode', 'establishment']});
+            /** @type {!HTMLInputElement} */(document.getElementById("event-location")),
+            {types: ["geocode", "establishment"]});
 
- autocomplete.addListener('place_changed', fillInAddress);
+ autocomplete.addListener("place_changed", fillInAddress);
       }
 
  function fillInAddress() {
@@ -337,9 +337,9 @@
 
 
 
-            document.getElementById('event-address').value = place.formatted_address;
-            document.getElementById('event-lng').value = place.geometry.location.lng();
-            document.getElementById('event-lat').value = place.geometry.location.lat();
+            document.getElementById("event-address").value = place.formatted_address;
+            document.getElementById("event-lng").value = place.geometry.location.lng();
+            document.getElementById("event-lat").value = place.geometry.location.lat();
 
 
 }

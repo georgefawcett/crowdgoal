@@ -4,14 +4,21 @@ class EventsController < ApplicationController
 
   def index
 
-  now = Time.now
-  @events = Event.where('start_date > :end',
-    :end=> now.beginning_of_day,
-  ).order('start_date', 'start_time')
+  now = Time.now.beginning_of_day
+  @events = Event.joins("INNER JOIN events_users
+ON events_users.event_id = events.id
+where events.start_date > '#{now}'
+group by events.id
+having count(events_users.event_id) < events.max_people")
+  # @events = Event.where('start_date > :end',
+  #   :end=> now.beginning_of_day,
+  # ).order('start_date', 'start_time')
+
 
   end
 
   def create
+
     event = Event.new(event_params)
     event.user_id = session[:user_id]
     if event.save
