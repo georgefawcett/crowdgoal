@@ -5,10 +5,11 @@ class ForgotPasswordController < ApplicationController
   end
 
   def create
-    puts params.inspect
+    # puts params.inspect
     @user = User.find_by(email: params[:user_email]);
     if @user then
       @OTP = generate_OTP
+      UserMailer.send_otp(@user, @OTP).deliver
       render status:200, json:{
         OTP: @OTP,
         user_id: @user.id
@@ -21,9 +22,10 @@ class ForgotPasswordController < ApplicationController
   end
 
   def update
-    puts params.inspect
+    # puts params.inspect
     @user = User.find(params[:id])
     if @user.update(password_params) then
+      session[:user_id] = @user.id
        render status:200, json:{
         message: "Password Updated"
       }.to_json
