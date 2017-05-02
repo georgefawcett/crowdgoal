@@ -1,0 +1,88 @@
+<div class="col s12 m7">
+  <div class="card horizontal" style="border: 1px solid #e3f2fd">
+    <div class="card-stacked">
+      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+
+        <div class="row">
+          <div class="col s12">
+            <ul class="tabs">
+
+
+
+              <% if @user.id == current_user.id %>
+                <li class="tab col s2" class="active"><a href="#mygames">My Games</a></li>
+              <% else %>
+                <li class="tab col s2" class="active"><a href="#activity">Activity</a></li>
+              <% end %>
+
+              <% if @user.id == current_user.id %>
+                <li class="tab col s2"><a href="#myalerts">My Alerts</a></li>
+              <% else %>
+                <% if @created.length > 0 %>
+                  <li class="tab col s2"><a href="#organized">Organized (<%= @created.length %>)</a></li>
+                <% else %>
+                  <li class="tab col s2 disabled"><a href="#organized">Organized (<%= @created.length %>)</a></li>
+                <% end %>
+              <% end %>
+
+               <% if @user.id == current_user.id %>
+                <li class="tab col s2"><a href="#myphotos">My Photos</a></li>
+              <% end %>
+
+
+              <% if @user.followers.count > 0 %>
+                <li class="tab col s2" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
+              <% else %>
+                <li class="tab col s2 disabled" id="followers_tab"><a href="#followers">Followers (<%= @user.followers.count %>)</a></li>
+              <% end %>
+
+              <% if @user.following.count > 0 %>
+                <li class="tab col s2"><a href="#following">Following (<%= @user.following.count %>)</a></li>
+              <% else %>
+                <li class="tab col s2 disabled"><a href="#following">Following (<%= @user.following.count %>)</a></li>
+              <% end %>
+
+            </ul>
+          </div>
+
+          <% if @user.id == current_user.id %>
+            <div id="mygames" class="col s12">
+              <%= render 'mygames' %>
+            </div>
+          <% else %>
+            <div id="activity" class="col s12">
+              <%= render 'activity' %>
+            </div>
+          <% end %>
+
+          <% if @user.id == current_user.id %>
+            <div id="myalerts" class="col s12">
+              <%= render 'myalerts' %>
+            </div>
+          <% else %>
+            <div id="organized" class="col s12">
+              <%= render 'organized' %>
+            </div>
+          <% end %>
+
+          <% if @user.id == current_user.id %>
+            <div id="myphotos" class="col s12">
+            <%= render 'myphotos' %>
+          </div>
+          <% end %>
+
+          <div id="followers" class="col s12">
+            <%= render 'followers' %>
+          </div>
+
+          <div id="following" class="col s12">
+            <%= render 'following' %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

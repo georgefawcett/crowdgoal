@@ -16,9 +16,10 @@
         <ul class="right hide-on-med-and-down green-text text-darken-2 nav-options">
           <% if current_user %>
             <li>
-              <a class="dropdown-button blue-text text-darken-2" href="#!" data-activates="user-dropdown"> <%= current_user.name %>
+              <a id="profilename" class="dropdown-button blue-text text-darken-1" href="#!" data-activates="user-dropdown"> <%= current_user.name %>
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
+
             </li>
             <div id="user-dropdown" class="dropdown-content">
               <ul>

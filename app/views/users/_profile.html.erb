@@ -1,0 +1,43 @@
+ <% if current_user.id == @user.id %>
+                  <div style="float: right">
+
+                    <a data-remote="true" href="/users/editopen" class="btn-floating transparent" id="edit-user-button"><i class="material-icons blue-text">mode_edit</i></a>
+                  </div>
+                <% end %>
+
+                <p id="event-title" style="font-size: 160%"><%= @user.name %></p>
+                <p style="font-size: 80%">
+                  Joined <%= @user.created_at.strftime("%B %-d, %Y") %>
+                </p>
+                <p style="font-size: 92%">
+                  <br><b>About me: </b>
+                  <% if @user.about %>
+                    <%= @user.about %>
+                  <% else %>
+                    This user has not provided any About Me information
+                  <% end %>
+                </p>
+
+                <table>
+                  <tr>
+                    <td width="50%">
+                      <p>
+                        <span class="new badge blue darken-1" data-badge-caption="games organized"><%= @created.length %></span>
+                        <span class="new badge green" data-badge-caption="games joined"><%= @user.events_users.count %></span>
+                      </p>
+                    </td>
+
+                    <td>
+                      <% if @user.id != current_user.id %>
+                        <div id="follow_form" style="float: right">
+                          <% if current_user.following?(@user) %>
+                            <%= render 'unfollow' %>
+                          <% else %>
+                            <%= render 'follow' %>
+                          <% end %>
+                        </div>
+                      <% end %>
+
+                    </td>
+                  </tr>
+                </table>

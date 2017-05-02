@@ -329,11 +329,19 @@ function onLoad(){
     }, function(response){console.log(response)});
   });
 
-  $("#change-password-button").click(function(){
+  $(document).on("click", "#change-password-button", function(){
     $("#change-password-form").toggleClass("hide");
   })
 
-  $("#save-password-button").click(function(){
+  $(document).on("click", "#change-picture-button", function(){
+    $("#change-picture-form").toggleClass("hide");
+  })
+
+  $(document).on("click", "#change-info-button", function(){
+    $("#change-info-form").toggleClass("hide");
+  })
+
+  $(document).on("click", "#save-password-button", function(){
     if ($("#old-password").val() == "" || $("#new-password").val() == "" || $("#confirm-password").val() == "" ){
       Materialize.toast("Password field cannot be empty",2000,"red");
       return false;
@@ -364,14 +372,14 @@ function onLoad(){
     })
   })
 
-  $("#update-user-info-button").click(function(){
+  $(document).on("click", "#update-user-info-button", function(){
     user_id = $(this).attr('data-user-id');
     $.ajax({
       url:'/users/'+user_id,
       method: 'PATCH',
       dataType: "json",
       data:{
-        user_info:{
+        user:{
           name:$("#edit-name").val(),
           about:$("#edit-description").val()
         }
@@ -386,6 +394,30 @@ function onLoad(){
       }
     });
   });
+
+  // $("#update-picture-button").click(function(){
+  //   user_id = $(this).attr('data-user-id');
+  //   $.ajax({
+  //     url:'/users/'+user_id,
+  //     method: 'PATCH',
+  //     dataType: "json",
+  //     data:{
+  //       user_info:{
+  //         name: "George",
+  //         about: "I'm George",
+  //         picture:$("#edit-picture").val()
+  //       }
+  //     },
+  //     success: function(response){
+  //       Materialize.toast(response.message,2000,"blue");
+  //     },
+  //     error: function(response){
+  //       response.responseJSON.message.forEach(function(error){
+  //         Materialize.toast(error, 2000, "red");
+  //       });
+  //     }
+  //   });
+  // });
 
   $("#forgot-password-email-submit").click(function(){
     if ($("#forgot-password-email").val() == ''){

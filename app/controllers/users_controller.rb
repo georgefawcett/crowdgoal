@@ -17,15 +17,38 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user;
+    @user = current_user
+  end
+
+  def editopen
+    @user = current_user
+    respond_to do |format|
+    format.js
+    end
+  end
+
+  def editclose
+    @user = current_user
+    @created = Event.where(user_id: @user.id)
+    @joined = "SELECT count(*) FROM events_users
+                     WHERE  user_id = #{@user.id}"
+    respond_to do |format|
+    format.js
+    end
   end
 
   def update
     @user = current_user
     if @user.update(update_params)
-      render status:200, json:{
+
+      if update_params[:picture]
+        redirect_to :controller => 'users', :id => @user.id, :action => 'show'
+      else
+        render status:200, json:{
           message: "Info updated."
         }
+      end
+
     else
       errors = Array.new
         @user.errors.full_messages.each do |error|
@@ -36,7 +59,14 @@ class UsersController < ApplicationController
           message: errors
         }
     end
-  end
+
+    end
+
+
+
+
+
+
 
   def show
     @user = User.find(params[:id])
@@ -78,7 +108,7 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user_info).permit(:name, :about)
+    params.require(:user).permit(:name, :about, :picture)
   end
 
 end

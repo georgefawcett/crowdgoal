@@ -7,7 +7,8 @@ class EventsController < ApplicationController
     ON events_users.event_id = events.id
     where events.start_date > '#{now}'
     group by events.id
-    having count(events_users.event_id) < events.max_people")
+    having count(events_users.event_id) < events.max_people
+    order by start_date, start_time")
   # @events = Event.where('start_date > :end',
   #   :end=> now.beginning_of_day,
   # ).order('start_date', 'start_time')
@@ -15,22 +16,26 @@ class EventsController < ApplicationController
 
   end
 
+ def new
+    @event = Event.new
+  end
+
   def create
 
-    event = Event.new(event_params)
-    event.user_id = session[:user_id]
-    if event.save
+    @event = Event.new(event_params)
+    @event.user_id = session[:user_id]
+    if @event.save
     # Add the organizer as a participant in their own event
     addplayer = EventsUser.new({
-      event_id: event.id,
-      user_id: event.user_id
+      event_id: @event.id,
+      user_id: @event.user_id
       })
     addplayer.save
-      redirect_to :controller => 'events', :id => event.id, :action => 'show'
+      redirect_to :controller => 'events', :id => @event.id, :action => 'show'
     else
-      redirect_to '/'
+      render :new
     end
-    puts event.errors.full_messages
+    puts @event.errors.full_messages
   end
 
 

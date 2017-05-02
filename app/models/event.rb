@@ -11,7 +11,7 @@ class Event < ApplicationRecord
 
   has_many :galleries
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 100 }
   validates :sport_id, presence: true
   validates :start_date, presence: true
   validates :start_time, presence: true

@@ -16,7 +16,7 @@ order by events.start_date, events.start_time"
 
 
 
-        <% games.take(3).each do |game| %>
+        <% games.each do |game| %>
  <% start_date = game['start_date'].to_datetime %>
           <li class="collection-item avatar game-alert" style="background: rgba(255, 255, 255, 0.6)">
 
