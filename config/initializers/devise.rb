@@ -275,7 +275,7 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  config.omniauth :facebook, "<%=ENV['FACEBOOK_APP_ID']%>", "<%=ENV['FACEBOOK_SECRET']%>", callback_url: "https://stormy-reef-34928.herokuapp.com/users/auth/facebook/callback"
+  config.omniauth :facebook, "1781136752201370", "df28499e3bf3aedaadc1518976adb48e", callback_url: "https://stormy-reef-34928.herokuapp.com/users/auth/facebook/callback"
 
 
 
