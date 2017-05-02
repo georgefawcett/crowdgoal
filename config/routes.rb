@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   resources :messages
   resources :reviews
-  resources :users , only: [:new, :create] do
+  resources :users , only: [:update] do
     member do
       get :following, :followers
     end
