@@ -121,6 +121,14 @@ body {
     float: right;
   }
 
+  #edit-form-button, #delete-form-button{
+    opacity: 0.5;
+    &:hover{
+      opacity: 1;
+      -webkit-transform: scale(1.2);
+    }
+  }
+
 }
 
 

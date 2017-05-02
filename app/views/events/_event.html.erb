@@ -9,12 +9,6 @@ enc_address = URI.escape(address)
   <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
   <% @user = User.find(event.user_id) %>
 
-
-
-
-
-
-
 <% puts @details %>
   <div class="col s12 m7" style="width: 100%">
     <div class="card horizontal" style="border: 1px solid #e3f2fd">
@@ -61,8 +55,6 @@ enc_address = URI.escape(address)
                 </span>
 
               </div>
-
-
         </div>
         <div class="card-action" style="padding-top: 0; padding-bottom: 0">
           <table width="100%">
@@ -73,7 +65,7 @@ enc_address = URI.escape(address)
                 </font>
                 <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
                   <% if (joined_count < min_people) %>
-                    <div id = "progress_bar_<%=event.id%>" class="determinate blue darken-1"></div>
+                    <div id = "progress_bar_<%=event.id%>" class="determinate blue darken-2"></div>
                   <% elsif (joined_count >= event.max_people) %>
                     <div id = "progress_bar_<%=event.id%>" class="determinate red darken-1"></div>
                   <% else %>

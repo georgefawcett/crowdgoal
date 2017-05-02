@@ -39,17 +39,10 @@
       "partly-cloudy-day":"DarkOrange",
       "partly-cloudy-night": "LightSlateGray "
     }
-    // var lat = "<%=@event.loc_lat%>";
-    // var lng = "<%=@event.loc_lng%>"
-    // var start_date = "<%=@event.start_date.to_date%>";
-    // var start_time = "<%=@event.start_time.strftime("%H:%M:%S")%>"
-    // eventDate = new Date(event_date);
-    // month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
-    // start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
-    console.log(event_date);
+    // console.log(event_date);
     var index = event_time.toString().substring(0,2) < 10 ? event_time.toString().substring(0,2).replace(0,'') : event_time.toString().substring(0,2)
-    console.log(index)
-    console.log("https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts");
+    // console.log(index)
+    // console.log("https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts");
     $.ajax({
       url: "https://api.darksky.net/forecast/74e2f7b006bd88620fd7e3d79e35049b/" + loc_lat + "," + loc_lng + "," + event_date + "T" + event_time + "?exclude=currently,flags,alerts",
       method: "GET",
@@ -77,8 +70,6 @@
 
 <div class="col s12 m7">
   <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
-<!-- <div class="col s12 m7">
-  <div class="card horizontal" style="border: 1px solid #e3f2fd"> -->
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
           <table style="width:100%;">
@@ -126,10 +117,11 @@
               <tr>
                 <% if (current_user && event.user_id == current_user.id) then %>
                   <td>
-                    <a class="btn-floating transparent" id="edit-form-button"><i class="material-icons blue-text">mode_edit</i></a>
+                    <a class="btn-floating transparent" id="edit-form-button"><!-- <i class="fa fa-pencil blue-text" aria-hidden="true"></i> --><i class="material-icons blue-text">mode_edit</i></a>&nbsp;&nbsp;
                   </td>
+
                   <td>
-                    <a class="btn-floating transparent" id="delete-form-button" ><i class="material-icons red-text">delete</i></a>
+                    <a class="btn-floating transparent" id="delete-form-button" ><i class="fa fa-trash-o red-text" aria-hidden="true"></i></a>
                   </td>
                   </td>
                 <% else %>
@@ -227,7 +219,7 @@
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 0px; padding-bottom: 0; margin:0;">
-        <%= render 'event_form', event: @event %>
+        <%= render 'event_edit_form', event: @event %>
       </div>
     </div>
   </div>
@@ -292,7 +284,7 @@
   </div>
 
 
-<div id="delete-event-model" class="modal">
+<div id="delete-event-model" class="modal" style="width: 700px; height: 300px;">
   <div class="modal-content">
     <button id="delete-close-button" class="btn-flat grey-text" style="position:absolute;top:0;right:0;"><i class="material-icons small">close</i></button>
     <h6>Reason for cancelling the event:</h6>
