@@ -11,7 +11,11 @@
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <div class='hide-on-med-and-down' style="float:right">
         <% if current_user %>
-          <%= link_to image_tag(current_user.picture.url(:thumb), class: 'circle navbarpic thumbprofile') %>
+          <% if current_user.uid %>
+            <%= link_to image_tag(current_user.image), class: 'circle navbarpic thumbprofile') %>
+          <% else %>
+            <%= link_to image_tag(current_user.picture.url(:thumb), class: 'circle navbarpic thumbprofile') %>
+          <% end %>
         <% end %>
         <ul class="right hide-on-med-and-down green-text text-darken-2 nav-options">
           <% if current_user %>
