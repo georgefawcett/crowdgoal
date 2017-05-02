@@ -1,95 +1,97 @@
- <div style="float: right">
+<div style="float: right">
+  <a data-remote="true" href="editclose" class="btn-floating transparent" id="edit-user-button"><i class="material-icons green-text">check</i></a>
+</div>
 
-                    <a data-remote="true" href="editclose" class="btn-floating transparent" id="edit-user-button"><i class="material-icons green-text">check</i></a>
-                  </div>
+<div style="width: 75%; margin-top: 25px">
 
+ <ul class="collapsible" data-collapsible="accordion">
+  <li>
+      <div class="collapsible-header blue darken-1 white-text" style="cursor: default">
+        <i class="material-icons">mode_edit</i>Edit Profile
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header" id="change-info-button"><i class="material-icons">face</i>Update Personal Info</div>
+      <div id="change-info-form" class="collapsible-profile-body hide">
 
-
-
-
-              <div class="row">
-                <div class="input-field col s8">
-<span style="padding-left: 8px; font-weight: bold">Profile Settings:</span>
-<br>
-
-<button id="change-info-button" class="btn transparent black-text no-uppercase" style="margin:10px;">Update Personal Info</button>
-
-  <div id="change-info-form" class="hide">
-
-   <div class="row">
-                <div class="input-field col s8">
-                  <input value="<%=@user.name%>" id="edit-name" type="text" class="validate">
-                  <label class="active" for="Name">Full Name</label>
-                </div>
-              </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input value="<%=@user.name%>" id="edit-name" type="text" class="validate">
+            <label class="active" for="Name">Full Name</label>
+          </div>
+        </div>
 
 
-              <div class="row">
-                <div class="input-field col s8">
-                  <input id="edit-description" type="text" class="active" value="<%=@user.about%>">
-                  <label class="active" for="About You">About You</label>
-                </div>
-              </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="edit-description" type="text" class="active" value="<%=@user.about%>">
+            <label class="active" for="About You">About You</label>
+          </div>
+        </div>
 
-
-
-              <div class="row">
-                <div class="input-field col s8">
-                  <button id="update-user-info-button" data-user-id="<%=current_user.id%>" class="btn green no-uppercase right-align"> Update Info</button>
-                </div>
-              </div>
-              <br>
-            </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <button id="update-user-info-button" data-user-id="<%=current_user.id%>" class="btn green no-uppercase right-align"> Update Info</button>
+          </div>
+        </div>
 
 
 
 
+    </li>
+    <li>
+      <div class="collapsible-header" id="change-picture-button"><i class="material-icons">photo_camera</i>Update Profile Picture</div>
+      <div class="collapsible-profile-body hide" id="change-picture-form">
+        <div class="row">
+          <div class="input-field col s12">
+            <%= form_for @user, :method => :PATCH, :html => { :multipart => true } do |form| %>
+              <%= form.hidden_field :name, value: @user.name %>
+              <%= form.hidden_field :about, value: @user.about %>
+              <%= form.file_field :picture, style: 'border: 1px solid black; border-radius: 4px; padding: 8px; margin-bottom: 5px' %>
+              <%= form.submit "Upload", class: "btn green no-uppercase" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div id="change-password-button" class="collapsible-header"><i class="material-icons">lock_outline</i>Update Password</div>
+      <div id="change-password-form" class="collapsible-profile-body hide">
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="old-password" type="password" class="validate active">
+            <label class="active" for="password">Old Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="new-password" type="password" class="validate active">
+            <label class="active" for="new password">New Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="confirm-password" type="password" class="validate active">
+            <label class="active" for="confirm password">Confirm Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <button id="save-password-button" class="btn green no-uppercase right-align"> Save Password</button>
+            <br><br>
+          </div>
+        </div>
+
+      </div>
+    </li>
+  </ul>
 
 
+</div>
 
-<button id="change-picture-button" class="btn transparent black-text no-uppercase" style="margin:10px;">Update Profile Picture</button>
-
-  <div id="change-picture-form" class="hide">
-    <div class="row">
-
-<%= form_for @user, :method => :PATCH, :html => { :multipart => true } do |form| %>
-  <%= form.hidden_field :name, value: @user.name %>
-  <%= form.hidden_field :about, value: @user.about %>
-  <%= form.file_field :picture, style: 'border: 1px solid black; border-radius: 4px; padding: 8px; margin-bottom: 5px' %>
-  <%= form.submit "Upload", class: "btn green no-uppercase" %>
-<% end %>
-
-    </div>
-  </div>
-
-<button id="change-password-button" class="btn transparent black-text no-uppercase" style="margin:10px;">Update Password</button>
-
-<div id="change-password-form" class="hide">
-                <div class="row">
-                  <div class="input-field col s8">
-                    <input id="old-password" type="password" class="validate active">
-                    <label class="active" for="password">Old Password</label>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="input-field col s8">
-                    <input id="new-password" type="password" class="validate active">
-                    <label class="active" for="new password">New Password</label>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="input-field col s8">
-                    <input id="confirm-password" type="password" class="validate active">
-                    <label class="active" for="confirm password">Confirm Password</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s8">
-                    <button id="save-password-button" class="btn green no-uppercase right-align"> Save Password</button>
-                  </div>
-                </div>
-              </div>
 
 
