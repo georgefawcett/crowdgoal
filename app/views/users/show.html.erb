@@ -9,7 +9,7 @@
             <td width="29%" valign="top" style="padding-right: 15px; vertical-align: top">
 
 
-              <% if @user.uid && !@user.picture %>
+              <% if @user.uid && !@user.picture_file_name %>
                 <%= link_to image_tag(@user.image, class: 'circle profilepic') %>
               <% else %>
                 <%= link_to image_tag(@user.picture.url(:profile), class: 'circle profilepic') %>

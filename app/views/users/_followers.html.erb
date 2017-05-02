@@ -7,7 +7,7 @@
 
     <li class="collection-item avatar">
 
-              <% if follower.uid && !follower.picture %>
+              <% if follower.uid && !follower.picture_file_name %>
                 <%= link_to image_tag(follower.image, class: 'circle thumbprofile') %>
               <% else %>
                 <%= link_to image_tag(follower.picture.url(:thumb), class: 'circle thumbprofile') %>
