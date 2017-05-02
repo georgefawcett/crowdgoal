@@ -4,10 +4,11 @@ class EventsController < ApplicationController
 
   now = Time.now.beginning_of_day
   @events = Event.joins("INNER JOIN events_users
-ON events_users.event_id = events.id
-where events.start_date > '#{now}'
-group by events.id
-having count(events_users.event_id) < events.max_people")
+    ON events_users.event_id = events.id
+    where events.start_date > '#{now}'
+    group by events.id
+    having count(events_users.event_id) < events.max_people
+    order by start_date, start_time")
   # @events = Event.where('start_date > :end',
   #   :end=> now.beginning_of_day,
   # ).order('start_date', 'start_time')

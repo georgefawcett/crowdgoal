@@ -25,6 +25,7 @@ body {
 
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
 
   .body-content{
     padding: 20px;
@@ -119,6 +120,14 @@ body {
 
   .right-align{
     float: right;
+  }
+
+  #edit-form-button, #delete-form-button{
+    opacity: 0.5;
+    &:hover{
+      opacity: 1;
+      -webkit-transform: scale(1.2);
+    }
   }
 
 }
@@ -316,6 +325,8 @@ body {
   color: #388e3c;
   opacity: 0.7;
   padding: 0 12px;
+  text-transform: none;
+ font-size: 105%
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {

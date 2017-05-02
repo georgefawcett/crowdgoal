@@ -2,6 +2,12 @@
  <nav>
     <div class="nav-wrapper white">
       <a href="/" class="brand-logo green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
+      <ul class="hide-on-med-and-down green-text text-darken-2 nav-options" style="padding-left: 20%;">
+        <li>
+          <li><strong><%= link_to events_path, class: 'green-text text-darken-2' do %> <i class="fa fa-home" aria-hidden="true"></i> Home <%end%></strong></li>
+        </li>
+        <li><strong><%= link_to '/events/new', class: 'green-text text-darken-2' do %> <i class="fa fa-plus" aria-hidden="true"></i> Create Event <%end%></strong></li>
+      </ul>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <div class='hide-on-med-and-down' style="float:right">
         <% if current_user %>
@@ -13,14 +19,15 @@
               <a id="profilename" class="dropdown-button blue-text text-darken-1" href="#!" data-activates="user-dropdown"> <%= current_user.name %>
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
-              <div id="user-dropdown" class="dropdown-content">
-                <ul>
-                  <li><a href="/users/<%=current_user.id%>" class="green-text">My Profile</a></li>
-                  <li><a href="/users/<%=current_user.id%>/edit" class="green-text">Settings</a></li>
-                  <li><%= link_to logout_path, class: 'green-text' do %>Logout<%end%></li>
-                </ul>
-              </div>
+
             </li>
+            <div id="user-dropdown" class="dropdown-content">
+              <ul>
+                <li><a class="blue-text text-darken-2" href="/users/<%=current_user.id%>">My Profile</a></li>
+                <li><a class="blue-text text-darken-2" href="/users/<%=current_user.id%>/edit">Settings</a></li>
+                <li><%= link_to logout_path, class: 'blue-text text-darken-2' do %>Logout<%end%></li>
+              </ul>
+            </div>
           <% else %>
             <li><strong><%= link_to register_path, class: 'green-text text-darken-2' do %> Register <%end%></strong></li>
             <li><strong><%= link_to login_path, class: 'green-text text-darken-2' do %> Login <%end%></strong></li>

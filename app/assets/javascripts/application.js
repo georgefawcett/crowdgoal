@@ -21,61 +21,55 @@
 
 // $(document).ready(onLoad);
 
-
-
-
-
 $(document).on('turbolinks:load', onLoad);
 
 function onLoad(){
-
- function randomBG() {
+  function randomBG() {
     var images = ['tennis.jpg', 'baseball.jpg', 'volleyball.jpg', 'soccer.jpg'];
     $('body').css({'background-image': 'url(https://s3.ca-central-1.amazonaws.com/crowdgoal/static/background/' + images[Math.floor(Math.random() * images.length)] + ')'});
-   };
+  };
+  randomBG();
 
-   randomBG();
+  var displayMap = function(eventloc) {
+    $('.modal').modal({
+      ready: function(modal, trigger) { // Callback for Modal open.
+          $( "div.modalmap" ).html(function() {
+            return '<iframe width="635" height="350" frameborder="0" style="border:0" src="' + eventloc + '" allowfullscreen></iframe>';
+          });
+        }
+    });
+  }
 
-var displayMap = function(eventloc) {
-  $('.modal').modal({
-    ready: function(modal, trigger) { // Callback for Modal open.
-        $( "div.modalmap" ).html(function() {
-          return '<iframe width="635" height="350" frameborder="0" style="border:0" src="' + eventloc + '" allowfullscreen></iframe>';
-        });
-      }
+  $(".maplink").on("click",function(event){
+    var eventloc = $(this).attr("data-eventloc");
+    displayMap(eventloc);
   });
-}
-
-$(".maplink").on("click",function(event){
-  var eventloc = $(this).attr("data-eventloc");
-  displayMap(eventloc);
-});
 
 
-var displayDetails = function(event_details) {
-  $('.modal').modal({
-    ready: function(modal, trigger) { // Callback for Modal open.
-        // function findDetails(event) {
-        //   return event.id === event_id;
-        // }
-        // console.log(details_array.find(findDetails));
-        $( "div.event_details" ).html(function() {
-          return '<h5>Event Details</h5><p>' + event_details + '</p>';
-        });
-      }
+  var displayDetails = function(event_details) {
+    $('.modal').modal({
+      ready: function(modal, trigger) { // Callback for Modal open.
+          // function findDetails(event) {
+          //   return event.id === event_id;
+          // }
+          // console.log(details_array.find(findDetails));
+          $( "div.event_details" ).html(function() {
+            return '<h5>Event Details</h5><p>' + event_details + '</p>';
+          });
+        }
+    });
+  }
+
+  $(".detailslink").on("click",function(){
+    var event_details = $(this).attr("data-event-details");
+    displayDetails(event_details);
   });
-}
-
-$(".detailslink").on("click",function(){
-  var event_details = $(this).attr("data-event-details");
-  displayDetails(event_details);
-});
 
   $(".dropdown-button").dropdown();
-$('.modal').modal();
+  $('.modal').modal();
   $('select').material_select();
   $('.materialboxed').materialbox();
- $('.datepicker').pickadate({
+  $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 2, // Creates a dropdown of 15 years to control year
     min: new Date(),
@@ -217,7 +211,7 @@ $('.modal').modal();
 
   $("#delete-event-button").click(function(){
     if($("#cancel-event-reason").val() == ''){
-      Materialize.toast("Reason can not be empty.", 2000, "red");
+      Materialize.toast("Reason can not be empty.", 3000, "red");
       return false;
     }
     alert($("#cancel-event-reason").val());
@@ -229,11 +223,11 @@ $('.modal').modal();
       dataType: 'json',
       success: function(){
         $("#delete-event-model").modal('close');
-        Materialize.toast("Event deleted.",2000,"blue");
+        Materialize.toast("Event deleted.",3000,"blue");
         document.location.href="/events";
       },
       error: function(){
-        Materialize.toast("Internal Server Error",2000,"red");
+        Materialize.toast("Internal Server Error",3000,"red");
       }
     })
   });

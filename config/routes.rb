@@ -5,9 +5,12 @@ Rails.application.routes.draw do
   # devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root to: 'sessions#index'
+  root to: 'events#index'
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, skip: [:sessions,:registrations,:passwords], :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+  get '/register' => 'users#new'
+  post '/register' => 'users#create'
 
   get '/login' => 'sessions#index'
   post '/login' => 'sessions#create'
@@ -18,16 +21,20 @@ Rails.application.routes.draw do
   resources :forgot_password, only: [:index, :create, :update]
 
 
-  get '/sendConfirmation' => 'mailers#sendConfirmation'
+  # get '/sendConfirmation' => 'mailers#sendConfirmation'
 
   resources :filters, only: [:show]
 
   resources :messages
   resources :reviews
+
   resources :users do
     collection do
       get :editopen, :editclose
     end
+  end
+
+  resources :users , only: [:new, :create, :update] do
     member do
       get :following, :followers
     end
@@ -43,9 +50,6 @@ Rails.application.routes.draw do
     resources :players, only: [:create, :destroy]
   end
 
-
-  get '/register' => 'users#new'
-  post '/register' => 'users#create'
 
 
 

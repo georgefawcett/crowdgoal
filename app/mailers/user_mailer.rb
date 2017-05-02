@@ -12,4 +12,10 @@ class UserMailer < ApplicationMailer
     mail(to:email_ids, subject:'Event Confirmation: ' + @event.title)
   end
 
+  def send_otp(user, otp)
+    @user = user;
+    @otp = otp;
+    mail(to: @user.email, subject: 'CrowdGoal - One Time Password')
+  end
+
 end

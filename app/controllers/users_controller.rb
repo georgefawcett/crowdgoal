@@ -94,9 +94,6 @@ class UsersController < ApplicationController
     follower_ids = "SELECT follower_id FROM relationships
                      WHERE  followed_id = #{@user.id}"
     @followers = User.where("id IN (#{follower_ids})")
-
-
-
   end
 
 
