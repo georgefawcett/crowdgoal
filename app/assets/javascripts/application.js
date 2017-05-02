@@ -339,6 +339,14 @@ $('.modal').modal();
     $("#change-password-form").toggleClass("hide");
   })
 
+   $("#change-picture-button").click(function(){
+    $("#change-picture-form").toggleClass("hide");
+  })
+
+   $("#change-info-button").click(function(){
+    $("#change-info-form").toggleClass("hide");
+  })
+
   $("#save-password-button").click(function(){
     if ($("#old-password").val() == "" || $("#new-password").val() == "" || $("#confirm-password").val() == "" ){
       Materialize.toast("Password field cannot be empty",2000,"red");
@@ -377,9 +385,33 @@ $('.modal').modal();
       method: 'PATCH',
       dataType: "json",
       data:{
-        user_info:{
+        user:{
           name:$("#edit-name").val(),
           about:$("#edit-description").val()
+        }
+      },
+      success: function(response){
+        Materialize.toast(response.message,2000,"blue");
+      },
+      error: function(response){
+        response.responseJSON.message.forEach(function(error){
+          Materialize.toast(error, 2000, "red");
+        });
+      }
+    });
+  });
+
+  $("#update-picture-button").click(function(){
+    user_id = $(this).attr('data-user-id');
+    $.ajax({
+      url:'/users/'+user_id,
+      method: 'PATCH',
+      dataType: "json",
+      data:{
+        user_info:{
+          name: "George",
+          about: "I'm George",
+          picture:$("#edit-picture").val()
         }
       },
       success: function(response){

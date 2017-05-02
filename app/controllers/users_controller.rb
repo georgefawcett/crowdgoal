@@ -23,9 +23,15 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(update_params)
-      render status:200, json:{
+
+      if update_params[:picture]
+        redirect_to :controller => 'users', :id => @user.id, :action => 'edit'
+      else
+        render status:200, json:{
           message: "Info updated."
         }
+      end
+
     else
       errors = Array.new
         @user.errors.full_messages.each do |error|
@@ -36,7 +42,14 @@ class UsersController < ApplicationController
           message: errors
         }
     end
-  end
+
+    end
+
+
+
+
+
+
 
   def show
     @user = User.find(params[:id])
@@ -81,7 +94,7 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user_info).permit(:name, :about)
+    params.require(:user).permit(:name, :about, :picture)
   end
 
 end
