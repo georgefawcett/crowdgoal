@@ -73,9 +73,9 @@
     </div>
   </div>
 
-<button id="change-password-button" class="btn transparent black-text no-uppercase" style="margin:10px;">Update Password</button>
+<button id="change-password-button" class="btn transparent black-text no-uppercase header" style="margin:10px;">Update Password</button>
 
-<div id="change-password-form" class="hide">
+<div id="" class="hide">
                 <div class="row">
                   <div class="input-field col s8">
                     <input id="old-password" type="password" class="validate active">
@@ -119,6 +119,19 @@
     </div>
   </div>
 </div>
-
+ <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">face</i>Update Personal Info</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">photo_camera</i>Update Profile Picture</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header" id="change-password-button"><i class="material-icons">lock_outline</i>Update Password</div>
+      <div class="collapsible-body" id="change-password-form"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+  </ul>
 
 <%= render 'edit_form' %>
