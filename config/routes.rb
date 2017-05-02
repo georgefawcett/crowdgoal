@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   resources :messages
   resources :reviews
   resources :users do
+    collection do
+      get :editopen, :editclose
+    end
     member do
       get :following, :followers
     end

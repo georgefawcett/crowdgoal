@@ -15,22 +15,26 @@ having count(events_users.event_id) < events.max_people")
 
   end
 
+ def new
+    @event = Event.new
+  end
+
   def create
 
-    event = Event.new(event_params)
-    event.user_id = session[:user_id]
-    if event.save
+    @event = Event.new(event_params)
+    @event.user_id = session[:user_id]
+    if @event.save
     # Add the organizer as a participant in their own event
     addplayer = EventsUser.new({
-      event_id: event.id,
-      user_id: event.user_id
+      event_id: @event.id,
+      user_id: @event.user_id
       })
     addplayer.save
-      redirect_to :controller => 'events', :id => event.id, :action => 'show'
+      redirect_to :controller => 'events', :id => @event.id, :action => 'show'
     else
-      redirect_to '/'
+      render :new
     end
-    puts event.errors.full_messages
+    puts @event.errors.full_messages
   end
 
 

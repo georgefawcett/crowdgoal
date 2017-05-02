@@ -17,7 +17,24 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user;
+    @user = current_user
+  end
+
+  def editopen
+    @user = current_user
+    respond_to do |format|
+    format.js
+    end
+  end
+
+  def editclose
+    @user = current_user
+    @created = Event.where(user_id: @user.id)
+    @joined = "SELECT count(*) FROM events_users
+                     WHERE  user_id = #{@user.id}"
+    respond_to do |format|
+    format.js
+    end
   end
 
   def update
@@ -25,7 +42,7 @@ class UsersController < ApplicationController
     if @user.update(update_params)
 
       if update_params[:picture]
-        redirect_to :controller => 'users', :id => @user.id, :action => 'edit'
+        redirect_to :controller => 'users', :id => @user.id, :action => 'show'
       else
         render status:200, json:{
           message: "Info updated."

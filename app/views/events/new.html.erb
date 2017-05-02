@@ -30,6 +30,16 @@ function showPosition(position) {
         <hr class="blue"/>
 <br>
 <%= form_for :event, :url => events_path do |f| %>
+   <% if @event.errors.any? %>
+          <ul class="error-message">
+            <% @event.errors.full_messages.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+
+
 
 <div class="row">
 
