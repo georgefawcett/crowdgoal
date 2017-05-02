@@ -329,7 +329,7 @@ function onLoad(){
     }, function(response){console.log(response)});
   });
 
-  $(document).on("click", "#change-password-button", function(){
+  $("#profileholder").on("click", "#change-password-button", function(){
     $("#change-password-form").toggleClass("hide");
   })
 
