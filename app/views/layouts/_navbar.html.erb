@@ -12,7 +12,7 @@
       <div class='hide-on-med-and-down' style="float:right">
         <% if current_user %>
           <% if current_user.uid %>
-            <%= link_to image_tag(current_user.image), class: 'circle navbarpic thumbprofile') %>
+            <%= link_to image_tag(current_user.image, class: 'circle navbarpic thumbprofile') %>
           <% else %>
             <%= link_to image_tag(current_user.picture.url(:thumb), class: 'circle navbarpic thumbprofile') %>
           <% end %>

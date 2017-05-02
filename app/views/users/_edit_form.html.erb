@@ -16,8 +16,13 @@
 
         <div class="row">
           <div class="input-field col s12">
-            <input value="<%=@user.name%>" id="edit-name" type="text" class="validate">
-            <label class="active" for="Name">Full Name</label>
+            <% if @user.uid %>
+              <input value="<%=@user.name%>" id="edit-name" type="text" readonly style="background-color: #eee; color: #aaa">
+              <label class="active" for="Name">Full Name (must be updated on Facebook)</label>
+            <% else %>
+              <input value="<%=@user.name%>" id="edit-name" type="text" class="validate">
+              <label class="active" for="Name">Full Name</label>
+            <% end %>
           </div>
         </div>
 

@@ -7,11 +7,11 @@
 
     <li class="collection-item avatar">
 
-      <% if follower.image %>
-        <img src="images/yuna.jpg" alt="" class="circle">
-      <% else %>
-        <i class="material-icons circle">face</i>
-      <%end %>
+              <% if follower.uid && !follower.picture %>
+                <%= link_to image_tag(follower.image, class: 'circle thumbprofile') %>
+              <% else %>
+                <%= link_to image_tag(follower.picture.url(:thumb), class: 'circle thumbprofile') %>
+              <% end %>
 
     <p>
       <a href="/users/<%= follower.id %>"><%= follower.name %></a>
