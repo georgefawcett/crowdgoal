@@ -19,7 +19,7 @@ limit 4"
 
 
         <% games.take(3).each do |game| %>
- <% start_date = game['start_date'].to_datetime %>
+          <% start_date = game['start_date'].to_datetime %>
           <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
           <div>
 
@@ -37,7 +37,7 @@ limit 4"
             <br>
             <%= game['count'] %> / <%= game['min_people'] %> players
             <% if game['user_id'] == current_user.id %>
-              &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px">&nbsp;organizer&nbsp;</font>
+              &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px;">&nbsp;organizer&nbsp;</font>
             <% end %>
             </font>
               <div class="progress grey lighten-4" style="height: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 0; width: 72%">
@@ -60,7 +60,7 @@ limit 4"
 
 
 
-</div>
+          </div>
           </li>
 
 

@@ -52,8 +52,8 @@
             <%= form_for @user, :method => :PATCH, :html => { :multipart => true } do |form| %>
               <%= form.hidden_field :name, value: @user.name %>
               <%= form.hidden_field :about, value: @user.about %>
-              <%= form.file_field :picture, style: 'border: 1px solid black; border-radius: 4px; padding: 8px; margin-bottom: 5px' %>
-              <%= form.submit "Upload", class: "btn green no-uppercase" %>
+              <%= form.file_field :picture, style: 'border: 1px solid #ccc; border-radius: 4px; padding-top: 8px; padding-bottom: 8px; padding-right: 17px; padding-left: 17px; margin-bottom: 5px' %>
+              <%= form.submit "Upload", class: "btn green no-uppercase right-align" %>
             <% end %>
           </div>
         </div>
