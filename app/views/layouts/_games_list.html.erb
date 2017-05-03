@@ -3,7 +3,7 @@
         <ul class="collection">
 
         <%
-        game_sql = "select events.id, events.start_date, events.start_time, events.title, events.min_people, events.user_id, count(distinct events_users.user_id)
+        game_sql = "select events.id, events.start_date, events.start_time, events.title, events.min_people, events.max_people, events.user_id, count(distinct events_users.user_id)
 from (events_users
 inner join events ON events.id = events_users.event_id)
 where
@@ -19,6 +19,7 @@ limit 4"
 
 
         <% games.take(3).each do |game| %>
+        <% puts game %>
           <% start_date = game['start_date'].to_datetime %>
           <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
           <div>
