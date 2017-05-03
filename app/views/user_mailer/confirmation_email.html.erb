@@ -11,7 +11,7 @@
   <body>
     <p> Hey there, </p>
     <p> This is to notify that the required number of players for the event "<%=@event.title%>" you signed-up in CrowdGoal have joined.</p>
-    <p>Please visit the <a href="http://localhost:3000/events/<%=@event.id%>"> Event Page</a> and make use of the discussion forum to exchange ideas and it also has other features exclusively for this event that lets you upload images, give ratings, write reviews etc..</p>
+    <p>Please visit the <a href="https://stormy-reef-34928.herokuapp.com/events/<%=@event.id%>"> Event Page</a> and make use of the discussion forum to exchange ideas and it also has other features exclusively for this event that lets you upload images, give ratings, write reviews etc..</p>
 
     <h4> Event Details </h4>
     <p><b>Event Date & Time:</b> <%=@event.start_date.to_date.strftime("%A, %B %-d, %Y")%> | <%=@event.start_time.strftime("%H:%M:%S")%></p>
