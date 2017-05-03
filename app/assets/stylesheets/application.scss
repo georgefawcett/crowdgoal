@@ -934,5 +934,11 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 .photoupload {
   border: 1 px solid #ccc;
   border-radius: 5px;
+}
 
+.gamelistheader {
+  padding: 5px;
+  background-color: #eee;
+  color: #aaa;
+  border-bottom: 1px solid #dddddd
 }
