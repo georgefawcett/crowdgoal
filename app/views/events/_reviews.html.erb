@@ -2,21 +2,15 @@
   <li class="collection-item avatar">
 
 
-
-
     <div class="row">
-
-
 
       <div class="input-field col s12">
 
 
-
-<%
-# Check to make sure that the event has already passed before allowing reviews
-if Time.now < @event.start_date
-%>
-
+        <%
+        # Check to make sure that the event has already passed before allowing reviews
+        if Time.now < @event.start_date
+        %>
 
 
         <div class="ratingaverage">

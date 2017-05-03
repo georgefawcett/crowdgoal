@@ -19,7 +19,12 @@
 @import "materialize";
 @import "font-awesome";
 
+@media only screen and (max-width: 999px) {
+    .sideNav {
+        display: none;
+    }
 
+}
 
 body {
 
@@ -32,6 +37,14 @@ body {
     color: black;
     width: 70%
   }
+
+  @media only screen and (max-width: 999px) {
+    .body-content {
+        width: 100%;
+    }
+    }
+
+
   .nav-options{
     font-size: small;
 
@@ -666,11 +679,7 @@ span.badge.new {
     bottom: 0px;
     width: 24%;
     }
-@media only screen and (max-width: 999px) {
-    .sideNav {
-        display: none
-    }
-}
+
 
 .sidebar {
   background: rgba(255, 255, 255, 0.2);
@@ -885,4 +894,10 @@ span.badge.new {
 
 textarea.materialize-textarea:focus:not([readonly]) + label {
   color: green;
+}
+
+.photoupload {
+  border: 1 px solid #ccc;
+  border-radius: 5px;
+
 }

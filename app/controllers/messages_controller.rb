@@ -18,16 +18,6 @@ if message.save
 
 
 
-
-
-      # redirect_to(controller: 'events', anchor: 'messages', id: 28)
-    #   redirect_to :controller => 'events', :id => message.event_id, :anchor => 'messages', :action => 'show'
-    # else
-    #   redirect_to '/'
-    # end
-
-
-
   def destroy
     @message = Message.find params[:id]
 

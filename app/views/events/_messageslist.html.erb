@@ -4,14 +4,11 @@
 
     <li class="collection-item avatar">
 
-              <% if @author.uid && !@author.picture_file_name %>
-                <%= link_to image_tag(@author.image, class: 'circle thumbprofile') %>
-              <% else %>
-                <%= link_to image_tag(@author.picture.url(:thumb), class: 'circle thumbprofile') %>
-              <% end %>
-
-
-
+      <% if @author.uid && !@author.picture_file_name %>
+        <%= link_to image_tag(@author.image, class: 'circle thumbprofile') %>
+      <% else %>
+        <%= link_to image_tag(@author.picture.url(:thumb), class: 'circle thumbprofile') %>
+      <% end %>
 
     <p>
       <%= message.message %>
@@ -35,7 +32,6 @@
       <% end %>
 
     <% end %>
-
 
 
     </li>

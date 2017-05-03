@@ -6,11 +6,11 @@
 
     <li class="collection-item avatar">
 
-              <% if @playerinfo.uid && !@playerinfo.picture_file_name %>
-                <%= link_to image_tag(@playerinfo.image, class: 'circle thumbprofile') %>
-              <% else %>
-                <%= link_to image_tag(@playerinfo.picture.url(:thumb), class: 'circle thumbprofile') %>
-              <% end %>
+        <% if @playerinfo.uid && !@playerinfo.picture_file_name %>
+          <%= link_to image_tag(@playerinfo.image, class: 'circle thumbprofile') %>
+        <% else %>
+          <%= link_to image_tag(@playerinfo.picture.url(:thumb), class: 'circle thumbprofile') %>
+        <% end %>
 
       <span class="title" style="float: left"><a href="/users/<%= @playerinfo.id %>"><%= @playerinfo.name %></a></span>
 

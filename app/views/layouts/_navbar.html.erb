@@ -1,4 +1,9 @@
-<div class="navbar-fixed">
+
+
+
+
+
+
  <nav>
     <div class="nav-wrapper white">
       <a href="/" class="brand-logo green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
@@ -9,12 +14,21 @@
         <li><strong><%= link_to '/events/new', class: 'green-text text-darken-2' do %> <i class="fa fa-plus" aria-hidden="true"></i> Create Event <%end%></strong></li>
       </ul>
       <a href="#" data-activates="mobile-demo" class="button-collapse green-text"><i class="material-icons">menu</i></a>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
-      </ul>
 
+  <ul class="side-nav" id="mobile-demo">
+
+        <li><a href="/">Home</a></li>
+
+        <% if current_user %>
+        <li><a href="/events/new">Create Event</a></li>
+        <li><a href="/users/<%= current_user.id %>">My Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <% else %>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/users/auth/facebook">Login with Facebook</a></li>
+        <% end %>
+      </ul>
 
       <div class='hide-on-med-and-down' style="float:right">
         <% if current_user %>
@@ -44,7 +58,11 @@
             <li><strong><%= link_to login_path, class: 'green-text text-darken-2' do %> Login <%end%></strong></li>
           <% end %>
         </ul>
+
+
+
+
       </div>
     </div>
   </nav>
-</div>
+

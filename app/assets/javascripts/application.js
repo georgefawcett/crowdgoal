@@ -64,7 +64,7 @@ function onLoad(){
   $(".dropdown-button").dropdown();
   $('.modal').modal();
   $('select').material_select();
-
+$(".button-collapse").sideNav();
   $('.materialboxed').materialbox();
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month

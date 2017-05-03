@@ -64,11 +64,7 @@ class UsersController < ApplicationController
 
 
 
-
-
-
-
-  def show
+def show
     @user = User.find(params[:id])
     @created = Event.where(user_id: @user.id)
     @galleries = Gallery.where(user_id: @user.id).order(created_at: :desc)

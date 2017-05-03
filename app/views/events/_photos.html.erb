@@ -7,29 +7,17 @@
 
           <div class="input-field col s8">
 
-            <!-- <div class="file-field input-field"> -->
-
-              <!-- <div class="btn blue darken-1">
-                <span>File</span> -->
-                <%#=f.file_field "images[]", type: :file, multiple: true %>
                 <%= f.hidden_field :event_id, value: @event.id %>
-              <!-- </div> -->
 
-              <!-- <div class="file-path-wrapper"> -->
-                <%= file_field_tag "images[]", type: :file, multiple: true %>
-              <!-- </div> -->
-
-            <!-- </div> -->
+                <%= file_field_tag "images[]", type: :file, multiple: true, style: "border: 1px solid #ccc; border-radius: 5px; padding-top: 20px; padding-bottom: 25px; padding-left: 50px; padding-right: 85px; margin-bottom: 10px" %>
 
           </div>
 
           <div class="input-field col s2">
-            <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light green addmessage") do %>
+            <%= button_tag( :class => "btn-floating btn-large waves-effect waves-light green addmessage", :style => "padding: 0px") do %>
               <i class="material-icons">add</i>
             <% end %>
           </div>
-
-
 
         </div>
 

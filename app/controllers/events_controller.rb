@@ -9,10 +9,6 @@ class EventsController < ApplicationController
     group by events.id
     having count(events_users.event_id) < events.max_people
     order by start_date, start_time")
-  # @events = Event.where('start_date > :end',
-  #   :end=> now.beginning_of_day,
-  # ).order('start_date', 'start_time')
-
 
   end
 
@@ -84,6 +80,14 @@ class EventsController < ApplicationController
       }.to_json
     end
   end
+
+
+  def refreshgames
+    respond_to do |format|
+    format.js
+    end
+  end
+
 
   private
 

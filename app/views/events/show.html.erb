@@ -307,8 +307,28 @@
        var placeSearch, autocomplete;
 
 
-
       function initAutocomplete() {
+
+
+         // var fenway = {lat: 42.345573, lng: -71.098326};
+           var fenway = {lng: <%= @event.loc_lng.to_f.round(6) %>, lat: <%= @event.loc_lat.to_f.round(6) %>};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: fenway,
+              zoom: 14
+            });
+            var panorama = new google.maps.StreetViewPanorama(
+                document.getElementById('pano'), {
+                  position: fenway,
+                  pov: {
+                    // heading: 34,
+                    pitch: 0
+                  }
+                });
+            map.setStreetView(panorama);
+
+
+
         // Create the autocomplete object, restricting the search to geographical
         // location types.
         autocomplete = new google.maps.places.Autocomplete(
@@ -321,12 +341,6 @@
  function fillInAddress() {
 
         var place = autocomplete.getPlace();
-
-
-
-
-
-
 
 
             document.getElementById("event-address").value = place.formatted_address;
