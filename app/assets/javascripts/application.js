@@ -110,6 +110,7 @@ $(".button-collapse").sideNav();
     }
   }
   $(".card-button").on("click",".join-game-button",function(){
+
     var event_id = $(this).attr("data-event-id");
     var user_id = $(this).attr("data-user-id");
     var min_people = Number($('#min_people_' + event_id).text());

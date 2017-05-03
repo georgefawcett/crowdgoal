@@ -41,9 +41,9 @@ limit 4"
             <% end %>
             </font>
               <div class="progress grey lighten-4" style="height: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 0; width: 72%">
-                  <% if (game['count'] < game['min_people']) %>
+                  <% if (game['count'].to_f < game['min_people']) %>
                     <div id = "progress_bar_<%= game['id'] %>-side" class="determinate blue darken-1"></div>
-                  <% elsif (game['count'] >= game['max_people']) %>
+                  <% elsif (game['count'].to_f >= game['max_people']) %>
                     <div id = "progress_bar_<%= game['id'] %>-side" class="determinate red darken-1"></div>
                   <% else %>
                     <div id = "progress_bar_<%= game['id'] %>-side" class="determinate green darken-1"></div>
