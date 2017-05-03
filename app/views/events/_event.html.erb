@@ -97,6 +97,7 @@ enc_address = URI.escape(address)
                 <% if current_user %>
 
                   <% if (event.events_users.find_by(user_id: current_user.id))%>
+
                     <a data-remote="true" href="/events/refreshgames">
                       <button data-event-id="<%=event.id%>" data-user-id=<%=session[:user_id]%> id="withdraw_game_<%=event.id%>" class="withdraw-game-button waves-effect waves-light btn red lighten-1 no-uppercase" >
                         <i class="material-icons left" style="vertical-align: middle;">remove_circle_outline</i> Withdraw
