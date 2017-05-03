@@ -236,7 +236,13 @@
     <div class="col s12">
       <ul class="tabs tabs-fixed-width">
         <li class="tab col s2" class="active"><a href="#locationtab">Location</a></li>
+
+        <% if @event.details.length > 0 %>
         <li class="tab col s2"><a href="#detailstab">Details</a></li>
+        <% else %>
+        <li class="tab col s2 disabled"><a href="#detailstab">Details</a></li>
+        <% end %>
+
         <li class="tab col s2"><a href="#players">Players (<%= @players.length %>)</a></li>
 
         <% if playing.length > 0 %>

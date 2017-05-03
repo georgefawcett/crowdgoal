@@ -9,7 +9,7 @@ enc_address = URI.escape(address)
   <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
   <% @user = User.find(event.user_id) %>
 
-<% puts @details %>
+
   <div class="col s12 m7" style="width: 100%">
     <div class="card horizontal" style="border: 1px solid #e3f2fd">
       <div class="card-stacked">
@@ -43,7 +43,10 @@ enc_address = URI.escape(address)
                 <span class="eventfont">
 
                   &nbsp;<a class="maplink modal-trigger" data-eventloc="<%= enc_address %>" href="#location">
-                  <%= truncate(event.location, length:29) %></a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                  <%= truncate(event.location, length:29) %></a>
+
+
+                  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
                 </span>
               </div>
                <div class="vertalign">
@@ -51,10 +54,15 @@ enc_address = URI.escape(address)
               map_query = event.location
               %>
                 <span class="eventfont">
+                <% if event.details.length > 0 %>
                   &nbsp;<a class="detailslink modal-trigger" data-event-details="<%= event.details %>" href="#details">Details<i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i></a>
+                  <% else %>
+                  <font style="color: #bbb">No details provided</font>
+                  <% end %>
                 </span>
 
               </div>
+
         </div>
         <div class="card-action" style="padding-top: 0; padding-bottom: 0">
           <table width="100%">

@@ -79,7 +79,7 @@ def show
                     from ((events
                     inner join events_users ON events.id = events_users.event_id)
                     inner join sports ON events.sport_id = sports.id)
-                    where events_users.user_id = #{current_user.id}
+                    where events_users.user_id = #{@user.id}
                     and events.user_id != #{@user.id}
                     order by jointime desc
                     limit 20"
