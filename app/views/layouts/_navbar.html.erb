@@ -8,7 +8,14 @@
         </li>
         <li><strong><%= link_to '/events/new', class: 'green-text text-darken-2' do %> <i class="fa fa-plus" aria-hidden="true"></i> Create Event <%end%></strong></li>
       </ul>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse green-text"><i class="material-icons">menu</i></a>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+
+
       <div class='hide-on-med-and-down' style="float:right">
         <% if current_user %>
           <% if current_user.uid && !current_user.picture_file_name %>

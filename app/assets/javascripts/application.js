@@ -49,10 +49,6 @@ function onLoad(){
   var displayDetails = function(event_details) {
     $('.modal').modal({
       ready: function(modal, trigger) { // Callback for Modal open.
-          // function findDetails(event) {
-          //   return event.id === event_id;
-          // }
-          // console.log(details_array.find(findDetails));
           $( "div.event_details" ).html(function() {
             return '<h5>Event Details</h5><p>' + event_details + '</p>';
           });
@@ -68,6 +64,7 @@ function onLoad(){
   $(".dropdown-button").dropdown();
   $('.modal').modal();
   $('select').material_select();
+
   $('.materialboxed').materialbox();
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month

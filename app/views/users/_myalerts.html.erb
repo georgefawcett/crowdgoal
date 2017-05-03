@@ -34,7 +34,7 @@ where relationships.follower_id = #{current_user.id}
 
 
 order by posted desc
-limit 5"
+limit 50"
 @alerts = ActiveRecord::Base.connection.execute(sql)
 %>
 

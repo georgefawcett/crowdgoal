@@ -142,7 +142,7 @@ where relationships.follower_id = #{current_user.id}
 
 
 order by posted desc
-limit 5"
+limit 6"
 @alerts = ActiveRecord::Base.connection.execute(sql)
 %>
 
@@ -178,10 +178,12 @@ No alerts yet!
 <% end %>
 
 
-
+<% if @alerts.count > 5 %>
 <li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6); padding-top: 0; padding-bottom: 5px">
 <div style="width: 100%; text-align: right"><a style="color: #e53935;" href="/users/<%= current_user.id %>#myalerts">View more <i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i></a></div>
 </li>
+<% end %>
+
 </ul>
 
 

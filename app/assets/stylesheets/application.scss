@@ -665,8 +665,12 @@ span.badge.new {
     top: 70px; /* same as .content top*/
     bottom: 0px;
     width: 24%;
-
     }
+@media only screen and (max-width: 999px) {
+    .sideNav {
+        display: none
+    }
+}
 
 .sidebar {
   background: rgba(255, 255, 255, 0.2);
@@ -868,4 +872,17 @@ span.badge.new {
 
 .readonly {
   background: #eee
+}
+
+
+.input-field input[type=text]:focus + label {
+     color: green;
+}
+
+.input-field input[type=text]:focus + label {
+     color: green;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: green;
 }

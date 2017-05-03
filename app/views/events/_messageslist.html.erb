@@ -18,7 +18,7 @@
     </p>
     <p>
       <font class="messagedate">
-        Posted by <a href="/users/<%= @author.id %>"><%= @author.name %></a> on <%= message.created_at.strftime("%A, %B %-d at %l:%M %p") %>
+        Posted by <a href="/users/<%= @author.id %>"><%= @author.name %></a> on <%= message.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%A, %B %-d at %l:%M %p") %>
       </font>
     </p>
 
