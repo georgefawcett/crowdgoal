@@ -1,5 +1,7 @@
 class GalleriesController < ApplicationController
+  include ApplicationHelper
   def create
+    authorize
 
      @gallery = Gallery.new(gallery_params)
      @gallery.user_id = session[:user_id]
@@ -29,9 +31,8 @@ end
 
 
   def destroy
+    authorize
     @gallery = Gallery.find params[:id]
-
-
       @gallery.destroy
       if params[:refer] == "user"
         redirect_to :controller => 'users', :id => @gallery.user_id, :anchor => 'myphotos', :action => 'show', :notice => 'Gallery deleted!'

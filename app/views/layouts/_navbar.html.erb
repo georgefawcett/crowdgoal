@@ -1,18 +1,8 @@
-
-
-
-
-
-
- <nav>
+<nav>
     <div class="nav-wrapper white">
       <a href="/" class="brand-logo green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
-      <ul class="hide-on-med-and-down green-text text-darken-2 nav-options" style="padding-left: 20%;">
-        <li>
-          <li><strong><%= link_to events_path, class: 'green-text text-darken-2' do %> <i class="fa fa-home" aria-hidden="true"></i> Home <%end%></strong></li>
-        </li>
-        <li><strong><%= link_to '/events/new', class: 'green-text text-darken-2' do %> <i class="fa fa-plus" aria-hidden="true"></i> Create Event <%end%></strong></li>
-      </ul>
+
+
       <a href="#" data-activates="mobile-demo" class="button-collapse green-text"><i class="material-icons">menu</i></a>
 
   <ul class="side-nav" id="mobile-demo">
@@ -29,6 +19,17 @@
         <li><a href="/users/auth/facebook">Login with Facebook</a></li>
         <% end %>
       </ul>
+
+
+      <% if current_user %>
+        <ul class="hide-on-med-and-down green-text text-darken-2 nav-options" style="padding-left: 20%;">
+          <li>
+            <li><strong><%= link_to events_path, class: 'green-text text-darken-2' do %> <i class="fa fa-home" aria-hidden="true"></i> Home <%end%></strong></li>
+          </li>
+          <li><strong><%= link_to '/events/new', class: 'green-text text-darken-2' do %> <i class="fa fa-plus" aria-hidden="true"></i> Create Event <%end%></strong></li>
+        </ul>
+      <% end %>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
       <div class='hide-on-med-and-down' style="float:right">
         <% if current_user %>

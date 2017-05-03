@@ -1,7 +1,11 @@
 class PhotosController < ApplicationController
 
+  include ApplicationHelper
+
+
 
  def create
+    authorize
     @photo = Photo.new(params[:photo])
 
     if @photo.save

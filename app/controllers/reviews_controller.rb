@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
-
+  include ApplicationHelper
    def create
-
+    authorize
     review = Review.new(review_params)
     review.user_id = session[:user_id]
 
@@ -16,6 +16,7 @@ class ReviewsController < ApplicationController
 
 
   def destroy
+    authorize
     @review = Review.find params[:id]
 
 

@@ -9,13 +9,13 @@
 
 
 
-              <% if @user.id == current_user.id %>
+              <% if current_user && @user.id == current_user.id %>
                 <li class="tab col s2" class="active"><a href="#mygames">My Games</a></li>
               <% else %>
                 <li class="tab col s2" class="active"><a href="#activity">Activity</a></li>
               <% end %>
 
-              <% if @user.id == current_user.id %>
+              <% if current_user && @user.id == current_user.id %>
                 <li class="tab col s2"><a href="#myalerts">My Alerts</a></li>
               <% else %>
                 <% if @created.length > 0 %>
@@ -25,7 +25,7 @@
                 <% end %>
               <% end %>
 
-               <% if @user.id == current_user.id %>
+               <% if current_user && @user.id == current_user.id %>
                 <li class="tab col s2"><a href="#myphotos">My Photos</a></li>
               <% end %>
 
@@ -45,7 +45,7 @@
             </ul>
           </div>
 
-          <% if @user.id == current_user.id %>
+          <% if current_user && @user.id == current_user.id %>
             <div id="mygames" class="col s12">
               <%= render 'mygames' %>
             </div>
@@ -55,7 +55,7 @@
             </div>
           <% end %>
 
-          <% if @user.id == current_user.id %>
+          <% if current_user && @user.id == current_user.id %>
             <div id="myalerts" class="col s12">
               <%= render 'myalerts' %>
             </div>
@@ -65,7 +65,7 @@
             </div>
           <% end %>
 
-          <% if @user.id == current_user.id %>
+          <% if current_user && @user.id == current_user.id %>
             <div id="myphotos" class="col s12">
             <%= render 'myphotos' %>
           </div>

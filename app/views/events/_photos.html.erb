@@ -76,7 +76,7 @@
 
     <!-- If message author is logged in, allow delete option -->
 
-    <% if current_user.id == g.user_id %>
+    <% if current_user && current_user.id == g.user_id %>
 
       <%= link_to gallery_path(g), method: :delete, data: { confirm: 'Delete your photo gallery?' } do %>
         <div class="delete secondary-content red-text">

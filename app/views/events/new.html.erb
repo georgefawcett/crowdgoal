@@ -15,17 +15,17 @@ function showPosition(position) {
 }
 </script>
 
-
-<div class="col s12 m7" style="width: 100%;"">
+<!-- <div width="80"> -->
+<div class="col s12 m7" style="width: 80%; margin:0 auto;">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">
     <div class="card-stacked">
       <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
 
         <span class="card-title" style="font-size: 160%; font-weight:; bold">Create Event</span>
         <hr class="blue"/>
-        <br>
-        <%= form_for :event, :url => events_path do |f| %>
-          <% if @event.errors.any? %>
+<br>
+<%= form_for :event, :url => events_path do |f| %>
+   <% if @event.errors.any? %>
           <ul class="error-message">
             <% @event.errors.full_messages.each do |error| %>
               <li><%= error %></li>
@@ -34,20 +34,36 @@ function showPosition(position) {
         <% end %>
 
 
-        <div class="row">
 
-          <div class="row">
 
-            <div class="input-field col s6">
+<div class="row">
 
-              <i class="material-icons prefix">art_track</i>
 
-              <%= f.select :sport_id, options_from_collection_for_select(Sport.all.order(:name), :id, :name), { prompt: 'Choose a Sport' } %>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="input-field col s8">
+
+
+
+      <div class="row">
+
+
+
+        <div class="input-field col s8">
+
+  <i class="material-icons prefix">art_track</i>
+
+
+
+ <%= f.select :sport_id, options_from_collection_for_select(Sport.all.order(:name), :id, :name), { prompt: 'Choose a Sport' } %>
+
+
+  </div>
+</div>
+
+
+
+
+<div class="row">
+          <div class="input-field col s8">
 
            <i class="material-icons prefix">volume_up</i>
 
@@ -59,137 +75,162 @@ function showPosition(position) {
 
 
 
-        <div class="row">
-          <div class="input-field col s4">
+<div class="row">
+<div class="input-field col s4">
 
-            <i class="material-icons prefix">today</i>
-            <%= f.text_field :start_date, class: 'datepicker' %>
-
-
-             <label for="event_start_date">Date</label>
-          </div>
-
-          <div class="input-field col s4">
-            <i class="material-icons prefix">access_time</i>
-
-            <%= f.select :start_time, options_for_select([
-            ['6:00 AM', '06:00:00'],
-            ['6:30 AM', '06:30:00'],
-            ['7:00 AM', '07:00:00'],
-            ['7:30 AM', '07:30:00'],
-            ['8:00 AM', '08:00:00'],
-            ['8:30 AM', '08:30:00'],
-            ['9:00 AM', '09:00:00'],
-            ['9:30 AM', '09:30:00'],
-            ['10:00 AM', '10:00:00'],
-            ['10:30 AM', '10:30:00'],
-            ['11:00 AM', '11:00:00'],
-            ['11:30 AM', '11:30:00'],
-            ['12:00 PM', '12:00:00'],
-            ['12:30 PM', '12:30:00'],
-            ['1:00 PM', '13:00:00'],
-            ['1:30 PM', '13:30:00'],
-            ['2:00 PM', '14:00:00'],
-            ['2:30 PM', '14:30:00'],
-            ['3:00 PM', '15:00:00'],
-            ['3:30 PM', '15:30:00'],
-            ['4:00 PM', '16:00:00'],
-            ['4:30 PM', '16:30:00'],
-            ['5:00 PM', '17:00:00'],
-            ['5:30 PM', '17:30:00'],
-            ['6:00 PM', '18:00:00'],
-            ['6:30 PM', '18:30:00'],
-            ['7:00 PM', '19:00:00'],
-            ['7:30 PM', '19:30:00'],
-            ['8:00 PM', '20:00:00'],
-            ['8:30 PM', '20:30:00'],
-            ['9:00 PM', '21:00:00'],
-            ['9:30 PM', '21:30:00'],
-            ['10:00 PM', '22:00:00'],
-            ['10:30 PM', '22:30:00'],
-            ['11:00 PM', '23:00:00']
-              ]), include_blank: true %>
+<i class="material-icons prefix">today</i>
+<%= f.text_field :start_date, class: 'datepicker' %>
 
 
-             <label for="event_start_time">Time</label>
-            </div>
+ <label for="event_start_date">Date</label>
+</div>
 
-            <div>
-              <a id="new-check-weather-button" class="btn no-uppercase transparent black-text" style="margin-top: 25px;padding:0 5px 0 5px;font-size: 12px;">check weather</a>
-            </div>
+<div class="input-field col s4">
+<i class="material-icons prefix">access_time</i>
 
-          </div>
-
-
-
-          <div class="row">
-            <div class="input-field col s10">
-          <i class="material-icons prefix">subject</i>
-
-                  <%= f.text_area :details, class: "materialize-textarea" %>
-                    <label for="event_details">Details (any information you'd like to add)</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s8">
-
-                <i class="material-icons prefix">location_on</i>
-
-            <%= f.text_field :location, placeholder: '' %>
-             <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
-            <label for="event_location">Location (Google autocomplete)</label>
-
-            <%= f.hidden_field :loc_lng %>
-            <%= f.hidden_field :loc_lat %>
-
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s8">
-            <i class="material-icons prefix"></i>
-              <%= f.text_field :address, readonly: 'true' %>
-            </div>
-          </div>
-
-          <div class="row">
-
-            <div class="input-field col s4">
-
-              <i class="material-icons prefix">group</i>
-              <%= f.text_field :min_people %>
-              <label for="event_min_people">Minimum players</label>
-
-            </div>
+<%= f.select :start_time, options_for_select([
+['6:00 AM', '06:00:00'],
+['6:30 AM', '06:30:00'],
+['7:00 AM', '07:00:00'],
+['7:30 AM', '07:30:00'],
+['8:00 AM', '08:00:00'],
+['8:30 AM', '08:30:00'],
+['9:00 AM', '09:00:00'],
+['9:30 AM', '09:30:00'],
+['10:00 AM', '10:00:00'],
+['10:30 AM', '10:30:00'],
+['11:00 AM', '11:00:00'],
+['11:30 AM', '11:30:00'],
+['12:00 PM', '12:00:00'],
+['12:30 PM', '12:30:00'],
+['1:00 PM', '13:00:00'],
+['1:30 PM', '13:30:00'],
+['2:00 PM', '14:00:00'],
+['2:30 PM', '14:30:00'],
+['3:00 PM', '15:00:00'],
+['3:30 PM', '15:30:00'],
+['4:00 PM', '16:00:00'],
+['4:30 PM', '16:30:00'],
+['5:00 PM', '17:00:00'],
+['5:30 PM', '17:30:00'],
+['6:00 PM', '18:00:00'],
+['6:30 PM', '18:30:00'],
+['7:00 PM', '19:00:00'],
+['7:30 PM', '19:30:00'],
+['8:00 PM', '20:00:00'],
+['8:30 PM', '20:30:00'],
+['9:00 PM', '21:00:00'],
+['9:30 PM', '21:30:00'],
+['10:00 PM', '22:00:00'],
+['10:30 PM', '22:30:00'],
+['11:00 PM', '23:00:00']
+  ]), include_blank: true %>
 
 
-            <div class="input-field col s4">
-              <%= f.text_field :max_people %>
-              <label for="event_max_people">Maximum players</label>
-            </div>
+ <label for="start_time">Time</label>
+</div>
 
-          </div>
+
+</div>
+
+<div class="row">
 
 
 
-          <center>
-          <br>
-          <%= button_tag( :class => "waves-effect waves-light btn green") do %>
-          Create Event <i class="material-icons left">group_add</i>
-          <% end %>
-          </center>
 
 
-          <% end %>
 
-          <br><br>
 
+
+
+
+
+
+ <div class="row">
+ <div class="input-field col s8">
+
+        <i class="material-icons prefix">location_on</i>
+
+<%= f.text_field :location, placeholder: '' %>
+     <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"></input> -->
+<label for="event_location">Location (Google autocomplete)</label>
+
+<%= f.hidden_field :loc_lng %>
+<%= f.hidden_field :loc_lat %>
+
+</div>
+
+<div>
+      <a id="new-check-weather-button" class="btn no-uppercase transparent black-text" style="margin-top: 25px;padding:0 5px 0 5px;font-size: 12px;">check weather</a>
+    </div>
+
+      </div>
+
+ <div class="row">
+ <div class="input-field col s8">
+ <i class="material-icons prefix"></i>
+      <%= f.text_field :address, readonly: 'true' %>
+</div>
+</div>
+
+<div class="row">
+<div class="input-field col s10">
+<i class="material-icons prefix">subject</i>
+
+        <%= f.text_area :details, class: "materialize-textarea" %>
+          <label for="event_details">Details (any information you'd like to add)</label>
         </div>
       </div>
 
-    </div>
-  </div>
+
+<div class="row">
+
+          <div class="input-field col s4">
+
+<i class="material-icons prefix">group</i>
+
+           <%= f.text_field :min_people %>
+
+<label for="event_min_people">Minimum players</label>
+
+
+
+          </div>
+
+          <div class="input-field col s4">
+
+
+
+           <%= f.text_field :max_people %>
+
+
+<label for="event_max_people">Maximum players</label>
+
+
+          </div>
+        </div>
+
+
+
+<br>
+<%= button_tag( :class => "waves-effect waves-light btn green right", :style => "margin-bottom: 20px;") do %>
+  Create Event <i class="material-icons left">group_add</i>
+<% end %>
+
+
+    <% end %>
+
+<br><br>
+
+</div>
+</div>
+
+
+
+
+</div>
+</div>
+<!-- </div> -->
 
 
 
@@ -309,7 +350,7 @@ function showPosition(position) {
       method: "GET",
       dataType: "jsonp",
       success: function(response){
-        console.log(response.hourly.data[index]);
+        console.log(response.hourly.data);
         $(summary_field).text(response.hourly.data[index].summary)
         var hr_temp = Math.round((5/9) * (response.hourly.data[index].apparentTemperature-32),0)
         var min = Math.round((5/9) * (response.daily.data[0].apparentTemperatureMin-32),0)

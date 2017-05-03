@@ -1,18 +1,15 @@
 <div class="sideNav">
-
-
-
   <% if current_user %>
-
       <ul class="collapsible" data-collapsible="expandable">
     <li>
       <div class="collapsible-header active green white-text"><i class="material-icons">timer</i>My Games</div>
 
- <div class="collapsible-body" id="gameslist">
 
-      <%= render 'layouts/games_list' %>
+        <div class="collapsible-body" id="gameslist">
 
-</div>
+          <%= render 'layouts/games_list' %>
+
+        </div>
     </li>
     <li>
       <div class="collapsible-header active red-text text-darken-2"><i class="material-icons">notifications_active</i>Alerts</div>
@@ -115,7 +112,7 @@ No alerts yet!
 
      <ul class="collapsible" data-collapsible="expandable">
     <li>
-      <div class="collapsible-header active green white-text"><i class="material-icons">person</i>Login</div>
+      <div class="collapsible-header active green white-text" style="font-size: 26px;font-weight: 300;"><i class="material-icons">person</i>Login</div>
       <div class="collapsible-body">
 
         <ul class="collection">

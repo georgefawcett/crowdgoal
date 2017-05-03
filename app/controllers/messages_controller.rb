@@ -1,8 +1,8 @@
 class MessagesController < ApplicationController
-
+  include ApplicationHelper
 
   def create
-
+    authorize
     message = Message.new(message_params)
     message.user_id = session[:user_id]
 
@@ -19,6 +19,7 @@ if message.save
 
 
   def destroy
+    authorize
     @message = Message.find params[:id]
 
 

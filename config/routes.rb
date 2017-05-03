@@ -28,7 +28,8 @@ Rails.application.routes.draw do
   resources :messages
   resources :reviews
 
-  resources :users , only: [:update, :show] do
+
+  resources :users  do
     collection do
       get :editopen, :editclose
     end

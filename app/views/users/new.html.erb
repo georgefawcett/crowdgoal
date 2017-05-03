@@ -1,7 +1,7 @@
   <center>
   <ul class="collapsible" data-collapsible="expandable" style="width: 65%">
     <li>
-      <div class="collapsible-header active blue darken-1 white-text"><i class="material-icons">face</i>Register</div>
+      <div class="collapsible-header active white-text left-align green" style="font-size: 26px; font-weight: 300;"><i class="material-icons">face</i>Register</div>
       <div class="collapsible-body">
 
         <ul class="collection">
@@ -12,10 +12,6 @@
 
  <div class="row">
         <div class="input-field col s12">
-
-
-
-
       <%= form_for @user, url: '/register'  do |form| %>
         <% if @user.errors.any? %>
           <ul class="error-message">
@@ -63,7 +59,7 @@
         </div>
 
         <center><br>
-          <%= form.submit 'Register', class: 'btn btn-medium center-align waves-effect waves-light blue darken-1 no-uppercase' %>
+          <%= form.submit 'Register', class: 'btn btn-medium center-align waves-effect waves-light green darken-1 no-uppercase' %>
         </center><br>
       <% end %>
     </div>

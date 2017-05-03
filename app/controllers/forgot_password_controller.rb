@@ -4,6 +4,7 @@ class ForgotPasswordController < ApplicationController
     @user = User.new
   end
 
+  #validates the email and sends back OTP
   def create
     # puts params.inspect
     @user = User.find_by(email: params[:user_email]);

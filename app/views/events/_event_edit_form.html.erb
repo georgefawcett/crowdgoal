@@ -82,8 +82,24 @@
         </script>
         <!-- <label for="event_start_time" style="margin-bottom: 25px;">Time</label> -->
       </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s8">
+        <i class="material-icons prefix">location_on</i>
+        <input type="text" id="event-location" value="<%= event.location %>"/>
+        <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"> -->
+        <label for "event-location" class="active">Location (Google autocomplete)</label>
+        <input type="hidden" name="loc_lng" id="event-lng" value="<%=event.loc_lng%>">
+        <input type="hidden" name="loc_lat" id="event-lat" value="<%=event.loc_lat%>">
+      </div>
       <div>
           <button id="check-weather-button" class="btn no-uppercase transparent black-text" style="margin-top: 25px;padding:0 5px 0 5px;font-size: 12px;">check weather</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s8" style="margin-top:0;">
+        <i class="material-icons prefix"></i>
+        <input type="text" name="address" disabled="true" id="event-address" value="<%=event.address%>">
       </div>
     </div>
     <div class="row">
@@ -92,22 +108,6 @@
           <i class="material-icons prefix">subject</i>
           <textarea class="materialize-textarea" id="event-details"><%=event.details%></textarea>
           <label for="event_details" class="active" style="padding-bottom: 10px;">Details (any information you'd like to add)</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s8">
-          <i class="material-icons prefix">location_on</i>
-          <input type="text" id="event-location" value="<%= event.location %>"/>
-          <!-- <input id="autocomplete" placeholder="Enter address or place name" type="text"> -->
-          <label for "event-location" class="active">Location (Google autocomplete)</label>
-          <input type="hidden" name="loc_lng" id="event-lng" value="<%=event.loc_lng%>">
-          <input type="hidden" name="loc_lat" id="event-lat" value="<%=event.loc_lat%>">
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s8" style="margin-top:0;">
-          <i class="material-icons prefix"></i>
-          <input type="text" name="address" readonly="true" id="event-address" value="<%=event.address%>">
         </div>
       </div>
 
@@ -127,7 +127,6 @@
       <button id="save-event-form" data-event-id="<%=event.id%>" class = "right waves-effect waves-light btn-flat green white-text no-uppercase" >
         <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Save
       </button>
-
     </div>
   <br>
 </div>
