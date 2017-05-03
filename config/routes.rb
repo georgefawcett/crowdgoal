@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/register' => 'users#new'
   post '/register' => 'users#create'
 
+  get '/login/mobile' => 'sessions#mobile'
   get '/login' => 'sessions#index'
   post '/login' => 'sessions#create'
   # patch '/login' => 'sessions#create'

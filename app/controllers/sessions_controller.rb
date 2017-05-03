@@ -7,16 +7,24 @@ class SessionsController < ApplicationController
       redirect_to '/events'
   end
 
+  def mobile
+    @user = User.new
+  end
+
   def create
     @user = User.find_by(email: user_params["email"])
     if @user && @user.valid_password?(user_params["password"])
       session[:user_id] = @user.id
       redirect_to '/events'
     else
-      puts "==============#{@user.errors.full_messages}===========In Server"
+      puts params
       flash.now[:alert] = ["Invalid Username or Password"]
-      @events = Event.all
-      render template: "events/index"
+      if params[:source]
+        render :mobile
+      else
+        @events = Event.all
+        render template: "events/index"
+      end
       # render Rails.application.routes.recognize_path(request.referer)[:action]
     end
   end
