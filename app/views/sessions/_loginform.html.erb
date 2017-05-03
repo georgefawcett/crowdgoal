@@ -1,12 +1,8 @@
  <%= form_for @user, url: '/login', :method => :POST do |form| %>
 
-
-
-
-
-      <% if @user.errors.any? %>
-        <ul class="error-message">
-          <% @user.errors.full_messages.each do |error| %>
+      <% if flash.now[:alert] %>
+        <ul class="error-message center-align">
+          <% flash.now[:alert].each do |error| %>
             <li><%= error %></li>
           <% end %>
         </ul>
@@ -34,4 +30,4 @@
     <p>
     No account? <a href="/register">Register</a> or
     </p>
-      <%= link_to user_facebook_omniauth_authorize_path, class: 'btn btn-medium center-align waves-effect waves-light no-uppercase blue darken-4' do %> <i class="fa fa-facebook" aria-hidden="true"></i> &nbsp; Login with Facebook <% end %><br><br>
+      <%= link_to user_facebook_omniauth_authorize_path, class: 'btn btn-medium center-align waves-effect waves-light no-uppercase', style: "background-color: #3b5998" do %> <i class="fa fa-facebook" aria-hidden="true"></i> &nbsp; Login with facebook <% end %><br><br>

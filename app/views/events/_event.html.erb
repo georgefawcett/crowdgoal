@@ -60,10 +60,16 @@ enc_address = URI.escape(address)
           <table width="100%">
             <tr>
               <td>
-                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
-                  <font style="color: #aaaaaa"> | Expires in <%= (event.start_date.to_date - Date.today).to_i %> days </font>
+                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined |
+                <% days = (event.start_date.to_date - Date.today).to_i %>
+                <% if days > 1 then %>
+                  <font style="color: #aaaaaa"> Expires in <%= days %> days
+                <% else %>
+                  <font class="red-text text-lighten-2"> Expires today!
+                <% end %>
+                  </font>
                 </font>
-                <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
+                <div class="progress grey lighten-4" style="height: 12px; width: 85%; border: 1px solid #888888; margin-bottom: 6px;">
                   <% if (joined_count < min_people) %>
                     <div id = "progress_bar_<%=event.id%>" class="determinate blue darken-2"></div>
                   <% elsif (joined_count >= event.max_people) %>
@@ -77,7 +83,7 @@ enc_address = URI.escape(address)
                 </div>
 
               </td>
-              <td align="right" width="17%">
+              <td align="right" width="20%">
                 <div class="card-button" style="float: right">
 
                 <% if current_user %>
@@ -113,17 +119,6 @@ enc_address = URI.escape(address)
                 #end if logged in
                 end %>
                 </div>
-
-
-                <%
-
-
-
-%>
-
-
-
-
                 <!-- Location Modal-->
                 <div id="location" class="modal">
                   <div class="modal-content" style="width: 645px; height: 400px">
@@ -133,22 +128,20 @@ enc_address = URI.escape(address)
                 </div>
 
                  <!-- Details Modal-->
-                <div id="details" class="modal">
-                  <div class="modal-content" style="width: 645px; height: 400px">
-                    <div class="event_details">
-                    </div>
-                  </div>
-                </div>
-
-
-
-
-
               </td>
             </tr>
           </table>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="details" class="modal">
+  <div class="modal-content" style="width: 645px; height: 400px; text-align: justify;">
+    <!-- <button id="event-details-close-button" class="btn-flat grey-text" style="position:absolute;top:0;right:0em;"><i class="material-icons small">close</i></button> -->
+    <div class="event_details">
+
     </div>
   </div>
 </div>

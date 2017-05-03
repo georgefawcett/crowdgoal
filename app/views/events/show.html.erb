@@ -145,8 +145,6 @@
               <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= event.sport.icon %>.ico" class="sportsicon">
             </div>
             <p id="event-title" style="font-size: 160%"><%= event.title %></p>
-
-
             <i class="material-icons" style="font-size: 16px; color: #888888; vertical-align: middle">date_range</i>
 
               <font class="eventfont"><%= event.start_date.strftime("%A, %B %-d, %Y") %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</font>
@@ -154,17 +152,21 @@
             <i class="material-icons" style="font-size: 18px; color: #888888; vertical-align: middle">access_time</i>
             <font class="eventfont"><%= event.start_time.strftime("%l:%M %p") %></font>
 
-
-
         </div>
         <div class="card-action" style="padding-top: 0; padding-bottom: 0">
           <table width="100%">
             <tr>
               <td>
-                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
-                  <font style="color: #aaaaaa"> | Expires in <%= (event.start_date.to_date - Date.today).to_i %> days </font>
+                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined |
+                <% days = (event.start_date.to_date - Date.today).to_i %>
+                <% if days > 1 then %>
+                  <font style="color: #aaaaaa"> Expires in <%= days %> days
+                <% else %>
+                  <font class="red-text text-lighten-2"> Expires today!
+                <% end %>
+                  </font>
                 </font>
-                <div class="progress grey lighten-4" style="height: 12px; border: 1px solid #888888; margin-bottom: 6px;">
+                <div class="progress grey lighten-4" style="height: 12px; width: 90%; border: 1px solid #888888; margin-bottom: 6px;">
                   <% if (joined_count < min_people) %>
                     <div id = "progress_bar_<%=event.id%>" class="determinate blue darken-1"></div>
                   <% elsif (joined_count >= event.max_people) %>
@@ -178,7 +180,7 @@
                 </div>
 
               </td>
-              <td align="right">
+              <td align="right" width="17%">
                 <div class="card-button" style="float: right">
                   <% if current_user then %>
                     <% if (event.events_users.find_by(user_id: current_user.id))%>
@@ -204,8 +206,8 @@
                   <% end %>
                 </div>
               </td>
-              <td width="5%">
-                <span class="share-button no-uppercase tooltipped" data-link = "https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>" data-position="top" data-delay="50" data-tooltip="Share on Facebook" ><i class="fa fa-facebook" aria-hidden="true"></i></span>
+              <td width="12%">
+                <button class="btn share-button no-uppercase"  data-link = "https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;Share </button>
 
               </td>
             </tr>

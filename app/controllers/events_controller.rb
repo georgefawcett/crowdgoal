@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
+  include ApplicationHelper
 
   def index
-
+  @user = User.new
   now = Time.now.beginning_of_day
   @events = Event.joins("INNER JOIN events_users
     ON events_users.event_id = events.id
@@ -17,11 +18,12 @@ class EventsController < ApplicationController
   end
 
  def new
+    authorize
     @event = Event.new
   end
 
   def create
-
+    authorize
     @event = Event.new(event_params)
     @event.user_id = session[:user_id]
     if @event.save
@@ -40,6 +42,7 @@ class EventsController < ApplicationController
 
 
   def update
+    authorize
     @event = Event.find(params[:id]).update(event_update_params)
     if (@event)
       render status:200, json:{
@@ -60,11 +63,10 @@ class EventsController < ApplicationController
     @messages = @event.messages.order(created_at: :desc)
     @reviews = @event.reviews.order(created_at: :desc)
     @galleries = @event.galleries.order(created_at: :desc)
-
-
   end
 
   def destroy
+    authorize
     # puts params[:reason]
     @event = Event.find(params[:id]);
     @players = @event.events_users

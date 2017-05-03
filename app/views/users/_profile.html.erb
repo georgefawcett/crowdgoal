@@ -1,4 +1,4 @@
- <% if current_user.id == @user.id %>
+ <% if current_user && current_user.id == @user.id %>
                   <div style="float: right">
 
                     <a data-remote="true" href="/users/editopen" class="btn-floating transparent" id="edit-user-button"><i class="material-icons blue-text">mode_edit</i></a>

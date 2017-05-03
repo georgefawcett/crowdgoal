@@ -1,9 +1,5 @@
 <div class="sideNav">
-
-
-
   <% if current_user %>
-
       <ul class="collapsible" data-collapsible="expandable">
     <li>
       <div class="collapsible-header active green white-text"><i class="material-icons">timer</i>My Games</div>
@@ -13,13 +9,13 @@
 
         <%
         game_sql = "select events.id, events.start_date, events.start_time, events.title, events.min_people, events.user_id, count(distinct events_users.user_id)
-from (events_users
-inner join events ON events.id = events_users.event_id)
-where
-events_users.user_id = #{current_user.id} and events.start_date >= CURRENT_DATE
-group by events.id
-order by events.start_date, events.start_time
-limit 4"
+          from (events_users
+          inner join events ON events.id = events_users.event_id)
+          where
+          events_users.user_id = #{current_user.id} and events.start_date >= CURRENT_DATE
+          group by events.id
+          order by events.start_date, events.start_time
+          limit 4"
         games = ActiveRecord::Base.connection.execute(game_sql)
 %>
 
@@ -201,7 +197,7 @@ No alerts yet!
 
      <ul class="collapsible" data-collapsible="expandable">
     <li>
-      <div class="collapsible-header active green white-text"><i class="material-icons">person</i>Login</div>
+      <div class="collapsible-header active green white-text" style="font-size: 26px;font-weight: 300;"><i class="material-icons">person</i>Login</div>
       <div class="collapsible-body">
 
         <ul class="collection">

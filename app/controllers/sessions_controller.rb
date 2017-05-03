@@ -3,11 +3,8 @@ class SessionsController < ApplicationController
   include ApplicationHelper
 
   def index
-    # if current_user
+      @user = User.new
       redirect_to '/events'
-    # else
-    #   @user = User.new
-    # end
   end
 
   def create
@@ -16,11 +13,16 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/events'
     else
-      render :index
+      puts "==============#{@user.errors.full_messages}===========In Server"
+      flash.now[:alert] = ["Invalid Username or Password"]
+      @events = Event.all
+      render template: "events/index"
+      # render Rails.application.routes.recognize_path(request.referer)[:action]
     end
   end
 
   def destroy
+    authorize
     session[:user_id] = nil
     redirect_to '/'
   end

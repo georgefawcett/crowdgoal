@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-
+  include ApplicationHelper
  # #Index action, photos gets listed in the order at which they were created
  # def index
  #  @photos = Photo.order('created_at')
@@ -13,6 +13,7 @@ class PhotosController < ApplicationController
 
 
  def create
+    authorize
     @photo = Photo.new(params[:photo])
 
     if @photo.save

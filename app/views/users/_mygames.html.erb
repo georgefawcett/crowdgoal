@@ -40,7 +40,7 @@ order by events.start_date, events.start_time"
             <br>
             <font class="game_alert_font">
             <%= game['min_people'] %> minimum players | <%= pluralize(game['count'], 'has', 'have') %> joined
-            <% if game['user_id'] == current_user.id %>
+            <% if current_user && game['user_id'] == current_user.id %>
               &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px">&nbsp;organizer&nbsp;</font>
             <% end %>
             </font>

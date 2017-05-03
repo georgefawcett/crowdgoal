@@ -74,7 +74,10 @@ function onLoad(){
     selectYears: 2, // Creates a dropdown of 15 years to control year
     min: new Date(),
     max: new Date(2018,12,30),
-    format: "ddd dd mmm, yyyy"
+    format: "ddd dd mmm, yyyy",
+    disable: [
+      new Date(),
+    ]
   });
   $('.collapsible').collapsible();
   $('.dropdown-button').dropdown({
@@ -286,7 +289,8 @@ function onLoad(){
     $("#check-weather-modal-time").text($("#event-start-time").val())
     eventDate = new Date($("#event-start-date").val());
     month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
-    start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
+    day = eventDate.getUTCDate() < 10 ? "0" + eventDate.getUTCDate() : eventDate.getUTCDate()
+    start_date = eventDate.getFullYear() + "-" + month + "-" + day;
     getWeather("#edit_weather_summary", "#edit_hour_temp", "#edit_min_temp", "#edit_max_temp", "edit_weather_image",
       start_date, $("#event-start-time").val(), $("#event-lat").val(), $("#event-lng").val());
     $("#check-weather-modal").modal('open');
@@ -315,8 +319,9 @@ function onLoad(){
     eventDate = new Date($("#event_start_date").val());
     // console.log(eventDate);
     month = eventDate.getMonth()+1 < 10 ? "0" + (eventDate.getMonth()+1) : (eventDate.getMonth()+1)
+    day = eventDate.getUTCDate() < 10 ? "0" + eventDate.getUTCDate() : eventDate.getUTCDate()
     // console.log(month)
-    start_date = eventDate.getFullYear() + "-" + month + "-" + eventDate.getUTCDate();
+    start_date = eventDate.getFullYear() + "-" + month + "-" + day;
     getWeather("#edit_weather_summary", "#edit_hour_temp", "#edit_min_temp", "#edit_max_temp", "edit_weather_image",
       start_date, $("#event_start_time").val(), $("#event_loc_lat").val(), $("#event_loc_lng").val());
     $("#new-check-weather-modal").modal('open');
@@ -475,6 +480,12 @@ function onLoad(){
       }
     });
   });
+
+  $("#event-details-close-button").click(function(){
+    $('#details').modal('close');
+  });
+
+
 }
 
 

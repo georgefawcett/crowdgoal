@@ -2,12 +2,17 @@
 
 <ul id='sports' class='dropdown-content'>
   <li> <%= link_to 'All', events_path %> </li>
-  <% Sport.all.each do |sport| %>
+  <% Sport.all.order(:name).each do |sport| %>
     <li> <%= link_to sport.name, filter_path(sport) %> </li>
   <% end %>
 </ul>
 <div>
-  <%= render @events %>
+  <% if @events.length > 0%>
+    <%= render @events %>
+  <% else %>
+    <br><br>
+    <center><h5 class="black-text"> No events to display! </h5></center>
+  <% end %>
 </div>
 
 

@@ -58,8 +58,9 @@ body {
     padding-left: 3px;
   }
   .btn{
-    padding: 0 10px;
+    padding: 0 13px;
     font-size: 14px;
+    text-transform: none;
   }
 
   .no-uppercase{
@@ -109,13 +110,21 @@ body {
     margin-left: 10px;
     color: white;
     background-color: #3b5998;
-    height: 30px;
-    width: 25px;
-    padding: 8px;
-    box-shadow: 1px 2px 1px #888888;
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 16px;
+    &:hover{
+      background-color: #3b5998;
+    }
+    &:not(.waves-light) {
+      background-color: #3b5998;
+      color: white;
+    }
+
+    // height: 30px;
+    // width: 25px;
+    // padding: 8px;
+    // box-shadow: 1px 2px 1px #888888;
+    // border-radius: 2px;
+    // cursor: pointer;
+    // font-size: 16px;
   }
 
   .right-align{
@@ -132,6 +141,32 @@ body {
 
 }
 
+.picker__box{
+  background-color: white;
+}
+.picker__date-display {
+  background-color: #fafafa !important;
+  color: #0089ec !important;
+}
+.picker__weekday-display {
+  background-color: #0089ec !important;
+  color: white !important;
+}
+.picker__year-display {
+  color: rgba(0, 137, 236, 0.47) !important;
+}
+.picker__day.picker__day--today {
+    color: #0089ec !important;
+}
+.btn-flat.picker__clear, .btn-flat.picker__close{
+  color: #0089ec !important;
+}
+.btn-flat.picker__today{
+  display: none
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+  background-color: #0089ec !important;
+}
 
 
 
