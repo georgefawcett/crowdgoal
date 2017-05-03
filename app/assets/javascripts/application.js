@@ -214,7 +214,7 @@ $(".button-collapse").sideNav();
       Materialize.toast("Reason can not be empty.", 3000, "red");
       return false;
     }
-    alert($("#cancel-event-reason").val());
+    //alert($("#cancel-event-reason").val());
     var event_id = $(this).attr("data-event-id");
     $.ajax({
       url:'/events/'+event_id,
