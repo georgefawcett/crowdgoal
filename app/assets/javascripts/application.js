@@ -90,7 +90,7 @@ $(".button-collapse").sideNav();
   var updateProgressBar = function(event_id, min_people, max_people, joined_count){
     var remaining_count = Number(max_people - joined_count)
     if (remaining_count == 0){
-      remaining_count = "No";
+      $('#remaining_count_' + event_id).text("No more spots");
       $('#join_game_' + event_id).addClass("disabled");
       $('#progress_bar_' + event_id).removeClass("green blue red");
       $('#progress_bar_' + event_id).addClass("red");
