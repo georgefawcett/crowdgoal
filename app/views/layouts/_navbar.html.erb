@@ -1,6 +1,6 @@
 <nav>
     <div class="nav-wrapper white">
-      <a href="/" class="brand-logo green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
+      <a href="/" class="green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
 
 
       <a href="#" data-activates="mobile-demo" class="button-collapse green-text"><i class="material-icons">menu</i></a>
@@ -22,7 +22,7 @@
 
 
       <% if current_user %>
-        <ul class="hide-on-med-and-down green-text text-darken-2 nav-options" style="padding-left: 20%;">
+        <ul class="green-text text-darken-2 nav-options" style="padding-left: 20%;">
           <li>
             <li><strong><%= link_to events_path, class: 'green-text text-darken-2' do %> <i class="fa fa-home" aria-hidden="true"></i> Home <%end%></strong></li>
           </li>
@@ -31,7 +31,7 @@
       <% end %>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
-      <div class='hide-on-med-and-down' style="float:right">
+      <div style="float:right">
         <% if current_user %>
           <% if current_user.uid && !current_user.picture_file_name %>
             <%= link_to image_tag(current_user.image, class: 'circle navbarpic thumbprofile') %>
@@ -39,7 +39,7 @@
             <%= link_to image_tag(current_user.picture.url(:thumb), class: 'circle navbarpic thumbprofile') %>
           <% end %>
         <% end %>
-        <ul class="right hide-on-med-and-down green-text text-darken-2 nav-options">
+        <ul class="green-text text-darken-2 nav-options">
           <% if current_user %>
             <li>
               <a id="profilename" class="dropdown-button blue-text text-darken-1" href="#!" data-activates="user-dropdown"> <%= current_user.name %>
@@ -57,6 +57,9 @@
           <% else %>
             <li><strong><%= link_to register_path, class: 'green-text text-darken-2' do %> Register <%end%></strong></li>
             <li><strong><%= link_to login_path, class: 'green-text text-darken-2' do %> Login <%end%></strong></li>
+            <li><strong><%= link_to user_facebook_omniauth_authorize_path, class: 'white-text', style: 'background-color: #3b5998' do %> <i class="fa fa-facebook" aria-hidden="true"></i> &nbsp; Login <%end%></strong></li>
+
+
           <% end %>
         </ul>
 
