@@ -179,6 +179,7 @@
                 </div>
 
               </td>
+              <% if @event.start_date >= DateTime.now.beginning_of_day then %>
               <td align="right" width="17%">
                 <div class="card-button" style="float: right">
                   <% if current_user then %>
@@ -209,6 +210,9 @@
                 <button class="btn share-button no-uppercase"  data-link = "https://stormy-reef-34928.herokuapp.com/events/<%=event.id%>" title="CrowdGoal" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;Share </button>
 
               </td>
+              <% else %>
+                <button class="btn no-uppercase black-text disabled"> Game Over! </button>
+              <% end %>
             </tr>
           </table>
 </div>
