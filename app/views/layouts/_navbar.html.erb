@@ -1,6 +1,6 @@
 <nav>
     <div class="nav-wrapper white">
-      <a href="/" class="green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
+      <a href="/" class="brand-logo green-text text-darken-2" style="font-family: 'Mada', sans-serif; font-size: 250%; ">&nbsp;&nbsp;<b>CrowdGOAL</b></a>
 
 
       <a href="#" data-activates="mobile-demo" class="button-collapse green-text"><i class="material-icons">menu</i></a>
@@ -22,7 +22,7 @@
 
 
       <% if current_user %>
-        <ul class="green-text text-darken-2 nav-options" style="padding-left: 20%;">
+        <ul class="hide-on-med-and-down green-text text-darken-2 nav-options" style="padding-left: 20%;">
           <li>
             <li><strong><%= link_to events_path, class: 'green-text text-darken-2' do %> <i class="fa fa-home" aria-hidden="true"></i> Home <%end%></strong></li>
           </li>
@@ -32,34 +32,34 @@
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
       <div style="float:right">
+
         <% if current_user %>
           <% if current_user.uid && !current_user.picture_file_name %>
-            <%= link_to image_tag(current_user.image, class: 'circle navbarpic thumbprofile') %>
+            <%= link_to image_tag(current_user.image, class: 'circle navbarpic thumbprofile hide-on-med-and-down') %>
           <% else %>
-            <%= link_to image_tag(current_user.picture.url(:thumb), class: 'circle navbarpic thumbprofile') %>
+            <%= link_to image_tag(current_user.picture.url(:thumb), class: 'circle navbarpic thumbprofile hide-on-med-and-down') %>
           <% end %>
         <% end %>
-        <ul class="green-text text-darken-2 nav-options">
+        <ul class="right green-text text-darken-2 nav-options">
           <% if current_user %>
-            <li>
+            <li class="hide-on-med-and-down">
               <a id="profilename" class="dropdown-button blue-text text-darken-1" href="#!" data-activates="user-dropdown"> <%= current_user.name %>
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
 
             </li>
+
             <div id="user-dropdown" class="dropdown-content">
               <ul>
                 <li><a class="blue-text text-darken-2" href="/users/<%=current_user.id%>">My Profile</a></li>
-                <!-- <li><a class="blue-text text-darken-2" href="/users/<%=current_user.id%>/edit">Settings</a></li> -->
+                <li><a class="blue-text text-darken-2" href="/users/<%=current_user.id%>/edit">Settings</a></li>
                 <li><%= link_to logout_path, class: 'blue-text text-darken-2' do %>Logout<%end%></li>
               </ul>
             </div>
           <% else %>
-            <li><strong><%= link_to register_path, class: 'green-text text-darken-2' do %> Register <%end%></strong></li>
-            <li><strong><%= link_to login_path, class: 'green-text text-darken-2' do %> Login <%end%></strong></li>
+            <li><strong><%= link_to register_path, class: 'green-text text-darken-2 hide-on-med-and-down' do %> Register <%end%></strong></li>
+            <li><strong><%= link_to login_path, class: 'green-text text-darken-2 hide-on-med-and-down' do %> Login <%end%></strong></li>
             <li><strong><%= link_to user_facebook_omniauth_authorize_path, class: 'white-text', style: 'background-color: #3b5998' do %> <i class="fa fa-facebook" aria-hidden="true"></i> &nbsp; Login <%end%></strong></li>
-
-
           <% end %>
         </ul>
 

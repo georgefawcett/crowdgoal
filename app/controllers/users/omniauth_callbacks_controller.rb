@@ -6,7 +6,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session[:user_id] = User.find_by(email: @user.email).id
     end
 
-    puts "!!!!!!!!!!!!!!!!!!!!!!!!!!#{request.env['omniauth.origin']}"
+
 
     if @user.persisted?
         redirect_to request.env['omniauth.origin']
