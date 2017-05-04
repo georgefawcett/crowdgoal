@@ -9,13 +9,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     puts "!!!!!!!!!!!!!!!!!!!!!!!!!!#{request.env['omniauth.origin']}"
 
     if @user.persisted?
-        redirect_to events_path
+        redirect_to request.env['omniauth.origin']
 
       # sign_in_and_redirect @user, :event => :authentication
       # set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
     else
 
-        redirect_to events_path
+        redirect_to request.env['omniauth.origin']
       # redirect_to 'events#index'
     end
   end
