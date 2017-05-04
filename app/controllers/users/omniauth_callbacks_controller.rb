@@ -6,11 +6,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if @user.persisted?
-      redirect_to events_path
+      if @event.id
+        redirect_to :controller => 'events', :id => @event.id
+      else
+        redirect_to events_path
+      end
       # sign_in_and_redirect @user, :event => :authentication
       # set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
     else
-      redirect_to events_path
+      if @event.id
+        redirect_to :controller => 'events', :id => @event.id
+      else
+        redirect_to events_path
+      end
       # redirect_to 'events#index'
     end
   end
