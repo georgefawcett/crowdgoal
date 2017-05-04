@@ -20,7 +20,7 @@ inner join sports on sports.id = events.sport_id)
 group by events.id, events_users.event_id, events.user_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
  having (events_users.event_id in (select e.id from events
 e, users u, events_users eu where e.id = eu.event_id and u.id = #{current_user.id} and u.id = eu.user_id and events.start_date < CURRENT_DATE and count(events_users.user_id) >= events.min_people))
-order by events.start_date, events.start_time"
+order by events.start_date desc, events.start_time desc"
         pastgames = ActiveRecord::Base.connection.execute(pastgame_sql)
 %>
 
