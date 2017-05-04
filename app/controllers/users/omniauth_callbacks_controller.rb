@@ -1,11 +1,11 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    @event = Event.find(params[:id])
+
     @user = User.from_omniauth(request.env["omniauth.auth"])
     if !session[:user_id]
       session[:user_id] = User.find_by(email: @user.email).id
     end
-    puts "The event is #{@event}"
+
     if @user.persisted?
         redirect_to events_path
 
