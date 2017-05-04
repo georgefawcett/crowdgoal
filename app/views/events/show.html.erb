@@ -67,44 +67,45 @@
   }
   </script>
 
-
-<div class="col s12 m7">
-  <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
-    <div class="card-stacked">
-      <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
-          <table style="width:100%;">
-            <tr>
-              <td>Event starts in</td>
-              <td>Weather: <span id="weather-summary"> Summary </span> </td>
-            </tr>
-            <tr width="100%">
-              <td width="60%">
-                <div id="DateCountdown" data-date="<%=@event.start_date.to_date%> <%=@event.start_time.strftime("%H:%M:%S")%>" style="height:50%; width: 70%;margin: auto;">
-                </div>
-              </td>
-              <td width="40%">
-              <table>
-                <tr>
-                  <td colspan="3"></td>
-                </tr>
-                <tr>
-                  <td><center><canvas id="weather-image" width="50" height="50"></canvas></center></td>
-                  <td>
-                    <table>
-                      <tr><td width="50%" aligh="right">During Event -</td><td width="50%"><span id="hour_temp"></span><span>&#8451;</span></td></tr>
-                      <tr><td width="50%" align="right">Min - </td><td width="50%"><span id="min_temp"></span><span>&#8451;</span></td></tr>
-                      <tr><td width="50%">Max - </td><td width="50%"><span id="max_temp"> </span><span>&#8451;</span></td></tr>
-                    </table>
-                  </td>
-                </tr></table>
-                <script type="text/javascript"> getWeather("#weather-summary", "#hour_temp", "#min_temp", "#max_temp", "weather-image", "<%=@event.start_date.to_date%>", "<%=@event.start_time.strftime("%H:%M:%S")%>", "<%=@event.loc_lat%>", "<%=@event.loc_lng%>");</script>
-              </td>
-            </tr>
-          </table>
+<% if @event.start_date >= DateTime.now.beginning_of_day then %>
+  <div class="col s12 m7">
+    <div class="card horizontal" style="border: 1px solid #e3f2fd; margin:0;">
+      <div class="card-stacked">
+        <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
+            <table style="width:100%;">
+              <tr>
+                <td>Event starts in</td>
+                <td>Weather: <span id="weather-summary"> Summary </span> </td>
+              </tr>
+              <tr width="100%">
+                <td width="60%">
+                  <div id="DateCountdown" data-date="<%=@event.start_date.to_date%> <%=@event.start_time.strftime("%H:%M:%S")%>" style="height:50%; width: 70%;margin: auto;">
+                  </div>
+                </td>
+                <td width="40%">
+                <table>
+                  <tr>
+                    <td colspan="3"></td>
+                  </tr>
+                  <tr>
+                    <td><center><canvas id="weather-image" width="50" height="50"></canvas></center></td>
+                    <td>
+                      <table>
+                        <tr><td width="50%" aligh="right">During Event -</td><td width="50%"><span id="hour_temp"></span><span>&#8451;</span></td></tr>
+                        <tr><td width="50%" align="right">Min - </td><td width="50%"><span id="min_temp"></span><span>&#8451;</span></td></tr>
+                        <tr><td width="50%">Max - </td><td width="50%"><span id="max_temp"> </span><span>&#8451;</span></td></tr>
+                      </table>
+                    </td>
+                  </tr></table>
+                  <script type="text/javascript"> getWeather("#weather-summary", "#hour_temp", "#min_temp", "#max_temp", "weather-image", "<%=@event.start_date.to_date%>", "<%=@event.start_time.strftime("%H:%M:%S")%>", "<%=@event.loc_lat%>", "<%=@event.loc_lng%>");</script>
+                </td>
+              </tr>
+            </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <div class="col s12 m7">
   <div class="card horizontal" style="border: 1px solid #e3f2fd">

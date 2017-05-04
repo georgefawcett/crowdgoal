@@ -94,8 +94,11 @@ $(".button-collapse").sideNav();
       $('#join_game_' + event_id).addClass("disabled");
       $('#progress_bar_' + event_id).removeClass("green blue red");
       $('#progress_bar_' + event_id).addClass("red");
+    } else if (remaining_count == 1){
+      $('#remaining_count_' + event_id).text('' + remaining_count + " more spot");
+    } else {
+      $('#remaining_count_' + event_id).text('' + remaining_count + " more spots");
     }
-    $('#remaining_count_' + event_id).text('' + remaining_count);
     if (joined_count <= min_people){
       $('#joined_count_' + event_id).text('' + joined_count);
       var width = ((joined_count / min_people) * 100).toString() + "%";

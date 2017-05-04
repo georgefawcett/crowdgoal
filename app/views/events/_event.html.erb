@@ -23,7 +23,7 @@ enc_address = URI.escape(address)
             <% end %>
             </a>
             </div>
-            <p class = "card-header" style="margin-bottom: 9px"><span id="host_name_<%=event.id%>" data-host-id="<%=@user.id%>"><a href="/users/<%= @user.id %>" style="color: #888888"><%=@user.name %></a></span> needs at least <%=min_people%></span> players for <%= event.sport.name %> | <b> <span data-max-people="<%=event.max_people%>" id="remaining_count_<%=event.id%>"> <%=event.max_people - joined_count %> </span> more spots </b> open!</p>
+            <p class = "card-header" style="margin-bottom: 9px"><span id="host_name_<%=event.id%>" data-host-id="<%=@user.id%>"><a href="/users/<%= @user.id %>" style="color: #888888"><%=@user.name %></a></span> needs at least <%=min_people%></span> players for <%= event.sport.name %> | <b> <span data-max-people="<%=event.max_people%>" id="remaining_count_<%=event.id%>"> <%= pluralize(event.max_people - joined_count, 'more spot', 'more spots') %> </span> </b> open!</p>
             <div style="float:left">
               <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= event.sport.icon %>.ico" class="sportsicon">
             </div>
