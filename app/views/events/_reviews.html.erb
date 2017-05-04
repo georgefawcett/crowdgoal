@@ -1,10 +1,8 @@
 <ul class="collection">
   <li class="collection-item avatar">
 
-<%= form_for :review, :url => reviews_path do |f| %>
-    <div class="row">
 
-      <div class="input-field col s12">
+
 
 
       <%
@@ -13,7 +11,7 @@
       %>
 
 
-        <div class="ratingaverage">
+        <div class="ratingaverage" style="float:right">
         <% if rating_avg = Review.where(event_id: @event.id).average(:rating) %>
           Average event rating:
           <p>
@@ -79,8 +77,11 @@
           Review this event:
         </p>
 
+        <%= form_for :review, :url => reviews_path do |f| %>
 
+<div class="row" style="float:left">
 
+      <div class="input-field col s12">
           <font class="ratingfont">Rating:</font>
 
             <div class="rating">
