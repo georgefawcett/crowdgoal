@@ -130,7 +130,12 @@
                     <a href="/users/<%= @host.id %>"><%= @host.name %></a>
                   </td>
                   <td>
-                    <%= link_to image_tag(@host.picture.url(:thumb), class: 'circle profilepic thumbprofile') %>
+                  <% if @host.uid && !@host.picture_file_name %>
+                    <%= link_to image_tag(@host.image, class: 'circle thumbprofile') %>
+                  <% else %>
+                    <%= link_to image_tag(@host.picture.url(:thumb), class: 'circle thumbprofile') %>
+                  <% end %>
+
                   </td>
                 <% end %>
               </td>

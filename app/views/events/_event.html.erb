@@ -16,7 +16,11 @@ enc_address = URI.escape(address)
         <div class="card-content small" style="padding-top: 8px; padding-bottom: 0;">
            <div style="float:right">
            <a href="/users/<%= @user.id %>">
-              <%= image_tag @user.picture.url(:thumb), class: 'circle thumbprofile' %>
+              <% if @user.uid && !@user.picture_file_name %>
+              <%= link_to image_tag(@user.image, class: 'circle thumbprofile') %>
+            <% else %>
+              <%= link_to image_tag(@user.picture.url(:thumb), class: 'circle thumbprofile') %>
+            <% end %>
             </a>
             </div>
             <p class = "card-header" style="margin-bottom: 9px"><span id="host_name_<%=event.id%>" data-host-id="<%=@user.id%>"><a href="/users/<%= @user.id %>" style="color: #888888"><%=@user.name %></a></span> needs at least <%=min_people%></span> players for <%= event.sport.name %> | <b> <span data-max-people="<%=event.max_people%>" id="remaining_count_<%=event.id%>"> <%=event.max_people - joined_count %> </span> more spots </b> open!</p>
