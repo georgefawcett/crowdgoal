@@ -1,24 +1,26 @@
+
+
+
+
 <ul class="collection">
 
 <%
-        futuregame_sql = "select events.id, events.start_date, events.start_time, events.title, events.min_people, events.location, events.user_id, events.sport_id, sports.icon, count(distinct events_users.user_id)
-from ((events_users
-inner join events ON events.id = events_users.event_id)
-inner join sports ON sports.id = events.sport_id)
-where
-events_users.user_id = #{current_user.id} and events.start_date >= CURRENT_DATE
-group by events.id, sports.icon
+        futuregame_sql = "select events_users.event_id, events.id, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon, events.min_people, events.max_people, count(events_users.user_id) as joined_count from ((events_users
+inner join events on events.id = events_users.event_id)
+inner join sports on sports.id = events.sport_id)
+group by events.id, events_users.event_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
+ having (events_users.event_id in (select e.id from events
+e, users u, events_users eu where e.id = eu.event_id and u.id = #{current_user.id} and u.id = eu.user_id and events.start_date >= CURRENT_DATE))
 order by events.start_date, events.start_time"
         futuregames = ActiveRecord::Base.connection.execute(futuregame_sql)
 
-         pastgame_sql = "select events.id, events.start_date, events.start_time, events.title, events.min_people, events.location, events.user_id, events.sport_id, sports.icon, count(distinct events_users.user_id)
-from ((events_users
-inner join events ON events.id = events_users.event_id)
-inner join sports ON sports.id = events.sport_id)
-where
-events_users.user_id = #{current_user.id} and events.start_date < CURRENT_DATE
-group by events.id, sports.icon
-order by events.start_date desc, events.start_time desc"
+         pastgame_sql = "select events_users.event_id, events.id, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon, events.min_people, events.max_people, count(events_users.user_id) as joined_count from ((events_users
+inner join events on events.id = events_users.event_id)
+inner join sports on sports.id = events.sport_id)
+group by events.id, events_users.event_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
+ having (events_users.event_id in (select e.id from events
+e, users u, events_users eu where e.id = eu.event_id and u.id = #{current_user.id} and u.id = eu.user_id and events.start_date < CURRENT_DATE and count(events_users.user_id) >= events.min_people))
+order by events.start_date, events.start_time"
         pastgames = ActiveRecord::Base.connection.execute(pastgame_sql)
 %>
 
@@ -29,8 +31,10 @@ order by events.start_date desc, events.start_time desc"
 
 
         <% futuregames.each do |game| %>
+        <% puts "Count: #{game['joined_count']}, Min: #{game['min_people']}" %>
  <% start_date = game['start_date'].to_datetime %>
           <li class="collection-item avatar game-alert">
+
 
 
       <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= game['icon'] %>.ico" class="circle sportsicon">
@@ -47,26 +51,27 @@ order by events.start_date desc, events.start_time desc"
 
             <a href="/events/<%= game['id'] %>"><%= truncate(game['title'], length:25) %></a>
 
-            <font class="messagedate"> | s<%= game['start_time'].to_time.strftime("%l:%M %p") %> at <%= game['location'] %>
+            <font class="messagedate"> | <%= game['start_time'].to_time.strftime("%l:%M %p") %> at <%= game['location'] %>
             </font>
             <br>
             <font class="game_alert_font">
-            <%= game['min_people'] %> minimum players | <%= pluralize(game['count'], 'has', 'have') %> joined
+            <%= game['min_people'] %> minimum players | <%= pluralize(game['joined_count'], 'has', 'have') %> joined
             <% if current_user && game['user_id'] == current_user.id %>
               &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px">&nbsp;organizer&nbsp;</font>
             <% end %>
             </font>
               <div class="progress grey lighten-4" style="height: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 0; width: 72%">
-                  <% if (game['count'] < game['min_people']) %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate blue darken-1"></div>
-                  <% elsif (game['count'] >= game['max_people']) %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate red darken-1"></div>
+
+              <% if (game['joined_count'].to_f < game['min_people'].to_f) %>
+                    <div id = "progress_bar_<%= game['id'] %>" class="determinate blue darken-1"></div>
+                  <% elsif (game['joined_count'].to_f >= game['max_people'].to_f) %>
+                    <div id = "progress_bar_<%= game['id'] %>" class="determinate red darken-1"></div>
                   <% else %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate green darken-1"></div>
+                    <div id = "progress_bar_<%= game['id'] %>" class="determinate green darken-1"></div>
                   <% end %>
-                   <% width = ((game['count'].to_f/game['min_people'].to_f)*100).to_s + "%" %>
+                   <% width = ((game['joined_count'].to_f/game['min_people'].to_f)*100).to_s + "%" %>
                      <script type="text/javascript">
-                    $("#progress_bar_<%= game['id'] %>-side").css("width"," <%= width %> ");
+                    $("#progress_bar_<%= game['id'] %>").css("width"," <%= width %> ");
                   </script>
 
                 </div>
@@ -104,12 +109,16 @@ order by events.start_date desc, events.start_time desc"
 <li class="gamelistheader">
   PAST GAMES
 </li>
+
+
 <% if pastgames.count > 0 %>
 
 
         <% pastgames.each do |game| %>
- <% start_date = game['start_date'].to_datetime %>
+        <% puts "Count: #{game['joined_count']}, Min: #{game['min_people']}" %>
+        <% start_date = game['start_date'].to_datetime %>
           <li class="collection-item avatar game-alert">
+
 
 
       <img src="https://s3.ca-central-1.amazonaws.com/crowdgoal/static/icons/<%= game['icon'] %>.ico" class="circle sportsicon">
@@ -126,26 +135,27 @@ order by events.start_date desc, events.start_time desc"
 
             <a href="/events/<%= game['id'] %>"><%= truncate(game['title'], length:25) %></a>
 
-            <font class="messagedate"> | s<%= game['start_time'].to_time.strftime("%l:%M %p") %> at <%= game['location'] %>
+            <font class="messagedate"> | <%= game['start_time'].to_time.strftime("%l:%M %p") %> at <%= game['location'] %>
             </font>
             <br>
             <font class="game_alert_font">
-            <%= game['min_people'] %> minimum players | <%= pluralize(game['count'], 'has', 'have') %> joined
+            <%= game['min_people'] %> minimum players | <%= game['joined_count'] %> joined
             <% if current_user && game['user_id'] == current_user.id %>
               &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px">&nbsp;organizer&nbsp;</font>
             <% end %>
             </font>
               <div class="progress grey lighten-4" style="height: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 0; width: 72%">
-                  <% if (game['count'] < game['min_people']) %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate blue darken-1"></div>
-                  <% elsif (game['count'] >= game['max_people']) %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate red darken-1"></div>
+
+              <% if (game['joined_count'].to_f < game['min_people'].to_f) %>
+                    <div id = "progress_bar_<%= game['id'] %>-past" class="determinate grey lighten-2"></div>
+                  <% elsif (game['joined_count'].to_f >= game['max_people'].to_f) %>
+                    <div id = "progress_bar_<%= game['id'] %>-past" class="determinate grey lighten-2"></div>
                   <% else %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate green darken-1"></div>
+                    <div id = "progress_bar_<%= game['id'] %>-past" class="determinate grey lighten-2"></div>
                   <% end %>
-                   <% width = ((game['count'].to_f/game['min_people'].to_f)*100).to_s + "%" %>
+                   <% width = ((game['joined_count'].to_f/game['min_people'].to_f)*100).to_s + "%" %>
                      <script type="text/javascript">
-                    $("#progress_bar_<%= game['id'] %>-side").css("width"," <%= width %> ");
+                    $("#progress_bar_<%= game['id'] %>-past").css("width"," <%= width %> ");
                   </script>
 
                 </div>
@@ -166,16 +176,16 @@ order by events.start_date desc, events.start_time desc"
 
 
 <% else %>
-  <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
+<li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
 
-    <p align="center">
+<p align="center">
 
-       None.
+  None.
 
-    </p>
+</p>
 
 
-  </li>
+</li>
 
 <% end %>
 
