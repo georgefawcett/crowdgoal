@@ -1,16 +1,16 @@
 <ul class="collection">
   <li class="collection-item avatar">
 
-
+<%= form_for :review, :url => reviews_path do |f| %>
     <div class="row">
 
       <div class="input-field col s12">
 
 
-        <%
-        # Check to make sure that the event has already passed before allowing reviews
-        if Time.now > @event.start_date
-        %>
+      <%
+      # Check to make sure that the event has already passed before allowing reviews
+      if Time.now > @event.start_date
+      %>
 
 
         <div class="ratingaverage">
@@ -43,9 +43,9 @@
             %>
           </p>
 
-          <% else %>
+        <% else %>
             No reviews yet!
-          <% end %>
+        <% end %>
 
         </div>
 
@@ -60,17 +60,17 @@
         if current_user && @event.user_id == current_user.id
         %>
 
-        Your event has received <%= pluralize(@reviews.length, 'review', 'reviews') %> so far.
+          Your event has received <%= pluralize(@reviews.length, 'review', 'reviews') %> so far.
 
 
         <% elsif user_review.length > 0 %>
-        <br>
-        You have reviewed this event.
+          <br>
+          You have reviewed this event.
 
         <% elsif @playing.length == 0 %>
 
-        <br>
-        Only registered players may review this event.
+          <br>
+          Only registered players may review this event.
 
         <% else %>
 
@@ -79,7 +79,7 @@
           Review this event:
         </p>
 
-        <%= form_for :review, :url => reviews_path do |f| %>
+
 
           <font class="ratingfont">Rating:</font>
 
