@@ -3,24 +3,24 @@
         <ul class="collection">
 
         <%
-        game_sql = "select events.id, events.start_date, events.start_time, events.title, events.min_people, events.max_people, events.user_id, count(distinct events_users.user_id)
-from (events_users
-inner join events ON events.id = events_users.event_id)
-where
-events_users.user_id = #{current_user.id} and events.start_date >= CURRENT_DATE
-group by events.id
+        sidegame_sql = "select events_users.event_id, events.id, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon, events.min_people, events.max_people, count(events_users.user_id) as joined_count from ((events_users
+inner join events on events.id = events_users.event_id)
+inner join sports on sports.id = events.sport_id)
+group by events.id, events_users.event_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
+ having (events_users.event_id in (select e.id from events
+e, users u, events_users eu where e.id = eu.event_id and u.id = #{current_user.id} and events.start_date >= CURRENT_DATE))
 order by events.start_date, events.start_time
 limit 4"
-        games = ActiveRecord::Base.connection.execute(game_sql)
+        sidegames = ActiveRecord::Base.connection.execute(sidegame_sql)
 %>
 
-<% if games.count > 0 %>
+<% if sidegames.count > 0 %>
 
 
 
-        <% games.take(3).each do |game| %>
-        <% puts game %>
-          <% start_date = game['start_date'].to_datetime %>
+        <% sidegames.take(3).each do |sidegame| %>
+        <% puts sidegame %>
+          <% start_date = sidegame['start_date'].to_datetime %>
           <li class="collection-item game-alert" style="background: rgba(255, 255, 255, 0.6)">
           <div>
 
@@ -32,26 +32,26 @@ limit 4"
 
           <div class="game_alert_div">
 
-            <a href="/events/<%= game['id'] %>"><%= truncate(game['title'], length:25) %></a>
+            <a href="/events/<%= sidegame['id'] %>"><%= truncate(sidegame['title'], length:25) %></a>
 
             <font class="game_alert_font">
             <br>
-            <%= game['count'] %> / <%= game['min_people'] %> players
-            <% if game['user_id'] == current_user.id %>
+            <%= sidegame['joined_count'] %> / <%= sidegame['min_people'] %> players
+            <% if sidegame['user_id'] == current_user.id %>
               &nbsp;&nbsp;&nbsp;<font style="background-color: #4caf50; color: white; padding: 1px; border-radius: 2px;">&nbsp;organizer&nbsp;</font>
             <% end %>
             </font>
               <div class="progress grey lighten-4" style="height: 8px; border-radius: 4px; border: 1px solid #ccc; margin-top: 0; width: 72%">
-                  <% if (game['count'].to_f < game['min_people']) %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate blue darken-1"></div>
-                  <% elsif (game['count'].to_f >= game['max_people']) %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate red darken-1"></div>
+                  <% if (sidegame['joined_count'].to_f < sidegame['min_people'].to_f) %>
+                    <div id = "progress_bar_<%= sidegame['id'] %>-side" class="determinate blue darken-1"></div>
+                  <% elsif (sidegame['joined_count'].to_f >= sidegame['max_people'].to_f) %>
+                    <div id = "progress_bar_<%= sidegame['id'] %>-side" class="determinate red darken-1"></div>
                   <% else %>
-                    <div id = "progress_bar_<%= game['id'] %>-side" class="determinate green darken-1"></div>
+                    <div id = "progress_bar_<%= sidegame['id'] %>-side" class="determinate green darken-1"></div>
                   <% end %>
-                   <% width = ((game['count'].to_f/game['min_people'].to_f)*100).to_s + "%" %>
+                   <% sidewidth = ((sidegame['joined_count'].to_f/sidegame['min_people'].to_f)*100).to_i %>
                      <script type="text/javascript">
-                    $("#progress_bar_<%= game['id'] %>-side").css("width"," <%= width %> ");
+                    $("#progress_bar_<%= sidegame['id'] %>-side").css("width","<%= sidewidth %>%");
                   </script>
 
                 </div>
@@ -67,7 +67,7 @@ limit 4"
 
         <% end %>
 
-<% if games.count > 3 %>
+<% if sidegames.count > 3 %>
 <li class="collection-item side-alert" style="background: rgba(255, 255, 255, 0.6); padding-top: 0; padding-bottom: 5px">
 <div style="width: 100%; text-align: right"><a href="/users/<%= current_user.id %>#mygames">View all <i class="material-icons md-18 vertalign" style="font-size: 85%">play_arrow</i></a></div>
 </li>

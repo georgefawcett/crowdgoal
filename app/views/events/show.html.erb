@@ -3,7 +3,7 @@
 <% joined_count = event.events_users.count %>
 <% width = ((joined_count.to_f/min_people.to_f)*100).to_s + "%" %>
 <% @host = User.find(event.user_id) %>
-<%playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]}) %>
+<% @playing = EventsUser.where({event_id: @event.id, user_id: session[:user_id]}) %>
 <%FacebookOpenGraph.clear_cache("https://stormy-reef-34928.herokuapp.com/events/#{event.id}")%>
 
 <style type="text/css">
@@ -157,14 +157,7 @@
           <table width="100%">
             <tr>
               <td>
-                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined |
-                <% days = (event.start_date.to_date - Date.today).to_i %>
-                <% if days > 1 then %>
-                  <font style="color: #aaaaaa"> Expires in <%= days %> days
-                <% else %>
-                  <font class="red-text text-lighten-2"> Expires today!
-                <% end %>
-                  </font>
+                <font style="font-size: 90%"> <b id="joined_count_<%=event.id%>"><%= joined_count >= min_people ? min_people : joined_count %></b> out of <b id="min_people_<%=event.id%>"><%= min_people %></b> required players have joined
                 </font>
                 <div class="progress grey lighten-4" style="height: 12px; width: 90%; border: 1px solid #888888; margin-bottom: 6px;">
                   <% if (joined_count < min_people) %>
@@ -243,15 +236,24 @@
         <li class="tab col s2 disabled"><a href="#detailstab">Details</a></li>
         <% end %>
 
-        <li class="tab col s2"><a href="#players">Players (<%= @players.length %>)</a></li>
+        <% if @playing.length > 0 %>
+          <li class="tab col s2"><a href="#players">Players (<%= @players.length %>)</a></li>
+        <% else %>
+          <li class="tab col s2 disabled"><a href="#players">Players (<%= @players.length %>)</a></li>
+        <% end %>
 
-        <% if playing.length > 0 %>
+        <% if @playing.length > 0 %>
           <li class="tab col s2 messagestab"><a href="#messages">Messages (<%= @messages.length %>)</a></li>
         <% else %>
           <li class="tab col s2 disabled messagestab"><a href="#messages">Messages (<%= @messages.length %>)</a></li>
         <% end %>
 
-        <li class="tab col s2"><a href="#photos">Photos (<%= Photo.where(gallery_id: @event.galleries.ids).count %>)</a></li>
+        <% if @playing.length > 0 %>
+          <li class="tab col s2"><a href="#photos">Photos (<%= Photo.where(gallery_id: @event.galleries.ids).count %>)</a></li>
+        <% else %>
+           <li class="tab col s2 disabled"><a href="#photos">Photos (<%= Photo.where(gallery_id: @event.galleries.ids).count %>)</a></li>
+        <% end %>
+
         <li class="tab col s2"><a href="#reviews">Reviews (<%= @reviews.length %>)</a></li>
       </ul>
     </div>
