@@ -7,6 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       if params[:id]
+        puts "ID IS #{params[:id]}"
         redirect_to events_path, :id => params[:id]
       else
         redirect_to events_path
