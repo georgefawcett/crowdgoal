@@ -5,19 +5,19 @@
 <ul class="collection">
 
 <%
-        futuregame_sql = "select events_users.event_id, events.id, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon, events.min_people, events.max_people, count(events_users.user_id) as joined_count from ((events_users
+        futuregame_sql = "select events_users.event_id, events.id, events.user_id, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon, events.min_people, events.max_people, count(events_users.user_id) as joined_count from ((events_users
 inner join events on events.id = events_users.event_id)
 inner join sports on sports.id = events.sport_id)
-group by events.id, events_users.event_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
+group by events.id, events_users.event_id, events.user_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
  having (events_users.event_id in (select e.id from events
 e, users u, events_users eu where e.id = eu.event_id and u.id = #{current_user.id} and u.id = eu.user_id and events.start_date >= CURRENT_DATE))
 order by events.start_date, events.start_time"
         futuregames = ActiveRecord::Base.connection.execute(futuregame_sql)
 
-         pastgame_sql = "select events_users.event_id, events.id, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon, events.min_people, events.max_people, count(events_users.user_id) as joined_count from ((events_users
+         pastgame_sql = "select events_users.event_id, events.id, events.user_id, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon, events.min_people, events.max_people, count(events_users.user_id) as joined_count from ((events_users
 inner join events on events.id = events_users.event_id)
 inner join sports on sports.id = events.sport_id)
-group by events.id, events_users.event_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
+group by events.id, events_users.event_id, events.user_id, events.min_people, events.max_people, events.start_date, events.start_time, events.title, events.location, events.sport_id, sports.icon
  having (events_users.event_id in (select e.id from events
 e, users u, events_users eu where e.id = eu.event_id and u.id = #{current_user.id} and u.id = eu.user_id and events.start_date < CURRENT_DATE and count(events_users.user_id) >= events.min_people))
 order by events.start_date, events.start_time"

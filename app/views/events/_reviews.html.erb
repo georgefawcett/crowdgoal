@@ -57,7 +57,7 @@
         # or if logged-in user has already reviewed event.
         # If not, display the review form.
 
-        if @event.user_id == current_user.id
+        if current_user && @event.user_id == current_user.id
         %>
 
         Your event has received <%= pluralize(@reviews.length, 'review', 'reviews') %> so far.
