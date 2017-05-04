@@ -339,11 +339,11 @@ $(".button-collapse").sideNav();
     $("#change-password-form").toggleClass("hide");
   })
 
-  $(document).on("click", "#change-picture-button", function(){
+ $("#profileholder").on("click", "#change-picture-button", function(){
     $("#change-picture-form").toggleClass("hide");
   })
 
-  $(document).on("click", "#change-info-button", function(){
+  $("#profileholder").on("click", "#change-info-button", function(){
     $("#change-info-form").toggleClass("hide");
   })
 
