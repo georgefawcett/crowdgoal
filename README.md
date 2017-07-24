@@ -1,25 +1,5 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An application to connect people for pick-up sports games, featuring dynamically updating event cards, roster pages, player profiles, message boards, photo galleries, reviews/ratings, maps, weather forecasts, and more.
 
-Things you may want to cover:
-
-* Ruby version
-  2.3.3
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Built with Ruby on Rails, Javascript, jQuery, Ajax, PostgreSQL, Heroku, Google Maps API, DarkSky API, Materialize.
